@@ -26,7 +26,7 @@ body{
   padding:20px;
 }
 
-/* animations */
+/* animation */
 .fade-in{animation:fade 1s ease both}
 @keyframes fade{
   from{opacity:0;transform:translateY(14px)}
@@ -38,7 +38,7 @@ header{text-align:center;padding:20px}
 h1{color:var(--bright-purple);margin:0}
 .lead{opacity:.9}
 
-/* VIDEO HERO */
+/* HERO VIDEO */
 .video-hero{
   position:relative;
   height:85vh;
@@ -232,10 +232,11 @@ footer{text-align:center;margin-top:20px;opacity:.85}
     <p class="tagline">✂ Sit back • Relax • Leave Sharp</p>
 
     <div class="btns">
-      <button class="primary" onclick="scrollToBooking()">Book Now</button>
+      <button class="primary" onclick="scrollToBooking(this)">Book Now</button>
       <button class="secondary" onclick="bookNow()">Book via WhatsApp</button>
       <a class="secondary email-btn"
-         href="mailto:Joseph207jj@gmail.com?subject=Haircut Booking - Semie’s Cuts">
+         href="mailto:Joseph207jj@gmail.com?subject=Haircut Booking - Semie’s Cuts&body=Hi Semie,%0D%0AI would like to book a home service haircut.%0D%0AStyle:%0D%0ADate:%0D%0ATime:%0D%0AThank you."
+         target="_blank">
          Book via Email
       </a>
     </div>
@@ -312,8 +313,9 @@ function type(){
 }
 type();
 
-function scrollToBooking(){
+function scrollToBooking(btn){
   document.getElementById("pick-style").scrollIntoView({behavior:"smooth"});
+  btn.innerText="Scroll down ↓";
 }
 
 function bookNow(){
@@ -329,7 +331,13 @@ function bookNow(){
   const day=new Date(date).toLocaleDateString("en-US",{weekday:"long"});
   const phone="2348157238574";
   const msg=Hi Semie! I want a ${style} on ${day}, ${date} at ${time}. Home service please.;
-  window.open(https://wa.me/${phone}?text=${encodeURIComponent(msg)});
+
+  const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const url=isMobile
+    ? whatsapp://send?phone=${phone}&text=${encodeURIComponent(msg)}
+    : https://wa.me/${phone}?text=${encodeURIComponent(msg)};
+
+  window.location.href=url;
 }
 </script>
 
