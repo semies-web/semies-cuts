@@ -1,229 +1,337 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Semie's Cuts 💈</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semie’s Cuts 💈</title>
 
 <style>
-:root {
-    --deep-purple: #1b0528;
-    --glow-purple: #7a2cff;
-    --bright-purple: #c77dff;
-    --white: #ffffff;
+:root{
+  --deep-purple:#2b0a3d;
+  --bright-purple:#bb5cff;
 }
 
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Segoe UI,Roboto,Arial;
+  background:linear-gradient(135deg,#2b0a3d,#3a0f55);
+  color:#fff;
 }
 
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at top, #2a073d, var(--deep-purple));
-    color: var(--white);
-    overflow-x: hidden;
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
 }
 
-/* ================= ANIMATIONS ================= */
-
-@keyframes fadeUpFast {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+/* animations */
+.fade-in{animation:fade 1s ease both}
+@keyframes fade{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:none}
 }
 
-@keyframes fadeUpSlow {
-    from { opacity: 0; transform: translateY(60px); }
-    to { opacity: 1; transform: translateY(0); }
+/* header */
+header{text-align:center;padding:20px}
+h1{color:var(--bright-purple);margin:0}
+.lead{opacity:.9}
+
+/* VIDEO HERO */
+.video-hero{
+  position:relative;
+  height:85vh;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 12px 45px rgba(0,0,0,.45);
 }
 
-.fade-fast {
-    animation: fadeUpFast 0.7s ease-out forwards;
+.video-hero video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:blur(3px) brightness(.6);
 }
 
-.fade-slow {
-    opacity: 0;
-    animation: fadeUpSlow 1.6s ease forwards;
-    animation-delay: 0.6s;
+.video-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(43,10,61,.85),
+    rgba(43,10,61,.45),
+    rgba(43,10,61,1)
+  );
 }
 
-/* ================= HERO VIDEO ================= */
-
-.hero {
-    position: relative;
-    height: 90vh;
-    overflow: hidden;
+.video-content{
+  position:relative;
+  z-index:2;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
 }
 
-.hero video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.video-content h2{color:var(--bright-purple)}
+
+.cursor{
+  width:2px;
+  height:1em;
+  background:#fff;
+  display:inline-block;
+  margin-left:6px;
+  animation:blink 1s infinite;
+}
+@keyframes blink{50%{opacity:0}}
+
+.tagline{font-weight:700;margin-top:12px}
+
+/* buttons */
+.btns{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-top:20px;
 }
 
-.hero::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 35%;
-    background: linear-gradient(to bottom, transparent, var(--deep-purple));
+button,.email-btn{
+  padding:14px 22px;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s;
+  text-decoration:none;
 }
 
-.hero-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 2;
+.primary{
+  background:var(--bright-purple);
+  color:#000;
+  border:none;
 }
 
-.hero-text h1 {
-    color: white;
-    font-size: 3em;
+.secondary{
+  background:transparent;
+  color:#fff;
+  border:2px solid var(--bright-purple);
 }
 
-.hero-text p {
-    color: var(--bright-purple);
-    font-size: 1.2em;
+button:hover,.email-btn:hover{transform:translateY(-3px)}
+button:active,.email-btn:active{transform:scale(.96)}
+
+/* section */
+.section{
+  margin-top:30px;
+  padding:20px;
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  box-shadow:0 6px 20px rgba(0,0,0,.35);
 }
 
-/* ================= SECTIONS ================= */
-
-section {
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: auto;
+/* hairstyles */
+.hairstyles{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:14px;
 }
 
-h2 {
-    color: var(--bright-purple);
-    margin-bottom: 15px;
+.style-card{
+  text-align:center;
+  background:rgba(255,255,255,.05);
+  padding:10px;
+  border-radius:12px;
+  transition:transform .25s ease, box-shadow .25s ease;
 }
 
-/* ================= WELCOME NOTE ================= */
-
-.welcome-note {
-    background: rgba(255,255,255,0.05);
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 0 25px rgba(122,44,255,0.4);
+.style-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 25px rgba(187,92,255,.6);
 }
 
-/* ================= HAIRSTYLES ================= */
-
-.hairstyles {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    gap: 20px;
+.style-card:active{
+  transform:scale(.97);
+  box-shadow:
+    0 0 15px rgba(187,92,255,.9),
+    0 0 35px rgba(187,92,255,.6),
+    0 0 60px rgba(187,92,255,.35);
 }
 
-.style-card {
-    background: rgba(255,255,255,0.06);
-    padding: 10px;
-    border-radius: 15px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.style-card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:10px;
+  border:3px solid var(--bright-purple);
+  transition:box-shadow .25s ease;
 }
 
-.style-card:active {
-    box-shadow: 0 10px 30px rgba(199,125,255,0.8);
+.style-card:active img{
+  box-shadow:
+    0 0 20px rgba(187,92,255,.9),
+    0 0 40px rgba(187,92,255,.5);
 }
 
-.style-card:hover {
-    transform: translateY(-6px);
+@media(min-width:768px){
+  .style-card img{height:170px}
 }
 
-.style-card img {
-    width: 100%;
-    border-radius: 12px;
-    border: 4px solid var(--bright-purple);
+.style-card p{margin-top:8px;font-weight:700}
+
+/* form */
+label{display:block;margin-top:12px}
+select,input{
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border-radius:8px;
+  border:none;
+  background:rgba(255,255,255,.05);
+  color:#fff;
 }
 
-/* ================= CONTACT FLOAT ================= */
-
-.contact-float {
-    margin-top: 60px;
-    text-align: center;
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
 }
 
-.contact-float a {
-    display: inline-block;
-    margin: 10px;
-    padding: 14px 22px;
-    border-radius: 30px;
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    background: var(--bright-purple);
-}
-
-/* ================= FOOTER ================= */
-
-footer {
-    text-align: center;
-    padding: 20px;
-    opacity: 0.7;
-}
+footer{text-align:center;margin-top:20px;opacity:.85}
 </style>
 </head>
 
 <body>
+<div class="container">
 
-<!-- HERO VIDEO -->
-<div class="hero">
-    <video autoplay muted loop>
-        <source src="video/barber.mp4" type="video/mp4">
-    </video>
+<header class="fade-in">
+  <h1>Semie’s Cuts 💈</h1>
+  <p class="lead">Premium Home Service • Clean Cuts • Purple Excellence</p>
+</header>
 
-    <div class="hero-text fade-fast">
-        <h1>Semie's Cuts 💈</h1>
-        <p>Precision • Style • Purple Excellence</p>
+<section class="video-hero fade-in">
+  <video autoplay muted loop playsinline>
+    <source src="video/barber.mp4" type="video/mp4">
+  </video>
+
+  <div class="video-overlay"></div>
+
+  <div class="video-content">
+    <h2>Welcome to Semie’s Cuts</h2>
+    <p id="typingText"></p>
+
+    <p>Professional home-service barbering. I come to you.</p>
+    <p class="tagline">✂ Sit back • Relax • Leave Sharp</p>
+
+    <div class="btns">
+      <button class="primary" onclick="scrollToBooking()">Book Now</button>
+      <button class="secondary" onclick="bookNow()">Book via WhatsApp</button>
+      <a class="secondary email-btn"
+         href="mailto:Joseph207jj@gmail.com?subject=Haircut Booking - Semie’s Cuts">
+         Book via Email
+      </a>
     </div>
-</div>
-
-<!-- WELCOME -->
-<section class="fade-fast">
-    <div class="welcome-note">
-        <h2>Welcome 👋</h2>
-        <p>
-            At <b>Semie’s Cuts</b>, precision meets passion.  
-            We deliver clean, modern, and confidence-boosting cuts every time.
-            Reliable service, sharp finishes, and respect for your time.
-        </p>
-    </div>
+  </div>
 </section>
 
-<!-- HAIRSTYLES -->
-<section>
-<h2>Choose Your Style</h2>
+<section class="section fade-in">
+  <h2 id="pick-style" style="color:var(--bright-purple)">Choose Your Style</h2>
 
-<div class="hairstyles">
+  <div class="hairstyles">
+    <div class="style-card"><img src="images/taper-fade.jpg"><p>Taper Fade</p></div>
+    <div class="style-card"><img src="images/buzzcut.jpg"><p>Buzz Cut</p></div>
+    <div class="style-card"><img src="images/braids.jpg"><p>Braids</p></div>
+    <div class="style-card"><img src="images/drop-fade.jpg"><p>Drop Fade</p></div>
+    <div class="style-card"><img src="images/high-fade.jpg"><p>High Fade</p></div>
+    <div class="style-card"><img src="images/low-cut.jpg"><p>Low Cut</p></div>
+    <div class="style-card"><img src="images/modern-mullet.jpg"><p>Modern Mullet</p></div>
+    <div class="style-card"><img src="images/burst-fade.jpg"><p>Burst Fade</p></div>
+  </div>
 
-<div id="taper-fade" class="style-card"><img src="images/taper-fade.jpg"><p>Taper Fade</p></div>
-<div id="buzzcut" class="style-card"><img src="images/buzzcut.jpg"><p>Buzz Cut</p></div>
-<div id="braids" class="style-card"><img src="images/braids.jpg"><p>Braids</p></div>
-<div id="drop-fade" class="style-card"><img src="images/drop-fade.jpg"><p>Drop Fade</p></div>
-<div id="high-fade" class="style-card"><img src="images/high-fade.jpg"><p>High Fade</p></div>
-<div id="low-cut" class="style-card"><img src="images/low-cut.jpg"><p>Low Cut</p></div>
-<div id="modern-mullet" class="style-card"><img src="images/modern-mullet.jpg"><p>Modern Mullet</p></div>
-<div id="burst-fade" class="style-card"><img src="images/burst-fade.jpg"><p>Burst Fade</p></div>
+  <form onsubmit="event.preventDefault(); bookNow();">
+    <label>Hairstyle</label>
+    <select id="style">
+      <option>Taper Fade</option>
+      <option>Buzz Cut</option>
+      <option>Braids</option>
+      <option>Drop Fade</option>
+      <option>High Fade</option>
+      <option>Low Cut</option>
+      <option>Modern Mullet</option>
+      <option>Burst Fade</option>
+    </select>
 
-</div>
-</section>
+    <div class="form-grid">
+      <div>
+        <label>Date</label>
+        <input type="date" id="date" required>
+      </div>
+      <div>
+        <label>Time</label>
+        <input type="time" id="time" required>
+      </div>
+    </div>
 
-<!-- CONTACT -->
-<section class="contact-float fade-slow">
-<a href="https://wa.me/2348157238574">Book on WhatsApp</a>
-<a href="mailto:Joseph207jj@gmail.com">Email Me</a>
+    <button class="primary" style="margin-top:16px;width:100%">
+      Confirm Booking via WhatsApp
+    </button>
+  </form>
 </section>
 
 <footer>
-© 2025 Semie's Cuts — Built with Purple Power 💜
+© 2025 Semie’s Cuts — Home Service • Purple Excellence 💜<br>
+📧 <a href="mailto:Joseph207jj@gmail.com" style="color:#bb5cff">Joseph207jj@gmail.com</a>
 </footer>
 
-</body>
+</div>
 
+<script>
+const lines=[
+  "Sharp looks. Clean fades. Purple excellence.",
+  "Professional home-service barbering.",
+  "Relax. I come to you."
+];
+let l=0,c=0;
+const t=document.getElementById("typingText");
+
+function type(){
+  if(c<lines[l].length){
+    t.innerHTML=lines[l].slice(0,++c)+"<span class='cursor'></span>";
+    setTimeout(type,45);
+  }else{
+    setTimeout(()=>{c=0;l=(l+1)%lines.length;type()},1800);
+  }
+}
+type();
+
+function scrollToBooking(){
+  document.getElementById("pick-style").scrollIntoView({behavior:"smooth"});
+}
+
+function bookNow(){
+  const style=document.getElementById("style")?.value || "Haircut";
+  const date=document.getElementById("date")?.value;
+  const time=document.getElementById("time")?.value;
+
+  if(!date || !time){
+    alert("Please select a date and time.");
+    return;
+  }
+
+  const day=new Date(date).toLocaleDateString("en-US",{weekday:"long"});
+  const phone="2348157238574";
+  const msg=Hi Semie! I want a ${style} on ${day}, ${date} at ${time}. Home service please.;
+  window.open(https://wa.me/${phone}?text=${encodeURIComponent(msg)});
+}
+</script>
+
+</body>
 </html>
