@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Semie's Cuts 💈</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --deep-purple: #1b0528;
+    --glow-purple: #7a2cff;
+    --bright-purple: #c77dff;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #2a073d, var(--deep-purple));
+    color: var(--white);
+    overflow-x: hidden;
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes fadeUpFast {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUpSlow {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-fast {
+    animation: fadeUpFast 0.7s ease-out forwards;
+}
+
+.fade-slow {
+    opacity: 0;
+    animation: fadeUpSlow 1.6s ease forwards;
+    animation-delay: 0.6s;
+}
+
+/* ================= HERO VIDEO ================= */
+
+.hero {
+    position: relative;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.hero video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    background: linear-gradient(to bottom, transparent, var(--deep-purple));
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+}
+
+.hero-text h1 {
+    color: white;
+    font-size: 3em;
+}
+
+.hero-text p {
+    color: var(--bright-purple);
+    font-size: 1.2em;
+}
+
+/* ================= SECTIONS ================= */
+
+section {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+h2 {
+    color: var(--bright-purple);
+    margin-bottom: 15px;
+}
+
+/* ================= WELCOME NOTE ================= */
+
+.welcome-note {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(122,44,255,0.4);
+}
+
+/* ================= HAIRSTYLES ================= */
+
+.hairstyles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 20px;
+}
+
+.style-card {
+    background: rgba(255,255,255,0.06);
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.style-card:active {
+    box-shadow: 0 10px 30px rgba(199,125,255,0.8);
+}
+
+.style-card:hover {
+    transform: translateY(-6px);
+}
+
+.style-card img {
+    width: 100%;
+    border-radius: 12px;
+    border: 4px solid var(--bright-purple);
+}
+
+/* ================= CONTACT FLOAT ================= */
+
+.contact-float {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.contact-float a {
+    display: inline-block;
+    margin: 10px;
+    padding: 14px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    background: var(--bright-purple);
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO VIDEO -->
+<div class="hero">
+    <video autoplay muted loop>
+        <source src="video/barber.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-text fade-fast">
+        <h1>Semie's Cuts 💈</h1>
+        <p>Precision • Style • Purple Excellence</p>
+    </div>
+</div>
+
+<!-- WELCOME -->
+<section class="fade-fast">
+    <div class="welcome-note">
+        <h2>Welcome 👋</h2>
+        <p>
+            At <b>Semie’s Cuts</b>, precision meets passion.  
+            We deliver clean, modern, and confidence-boosting cuts every time.
+            Reliable service, sharp finishes, and respect for your time.
+        </p>
+    </div>
+</section>
+
+<!-- HAIRSTYLES -->
+<section>
+<h2>Choose Your Style</h2>
+
+<div class="hairstyles">
+
+<div id="taper-fade" class="style-card"><img src="images/taper-fade.jpg"><p>Taper Fade</p></div>
+<div id="buzzcut" class="style-card"><img src="images/buzzcut.jpg"><p>Buzz Cut</p></div>
+<div id="braids" class="style-card"><img src="images/braids.jpg"><p>Braids</p></div>
+<div id="drop-fade" class="style-card"><img src="images/drop-fade.jpg"><p>Drop Fade</p></div>
+<div id="high-fade" class="style-card"><img src="images/high-fade.jpg"><p>High Fade</p></div>
+<div id="low-cut" class="style-card"><img src="images/low-cut.jpg"><p>Low Cut</p></div>
+<div id="modern-mullet" class="style-card"><img src="images/modern-mullet.jpg"><p>Modern Mullet</p></div>
+<div id="burst-fade" class="style-card"><img src="images/burst-fade.jpg"><p>Burst Fade</p></div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-float fade-slow">
+<a href="https://wa.me/2348157238574">Book on WhatsApp</a>
+<a href="mailto:Joseph207jj@gmail.com">Email Me</a>
+</section>
+
+<footer>
+© 2025 Semie's Cuts — Built with Purple Power 💜
+</footer>
+
+</body>
+</html>
