@@ -316,29 +316,47 @@ type();
 function scrollToBooking(btn){
   document.getElementById("pick-style").scrollIntoView({behavior:"smooth"});
   btn.innerText="Scroll down ↓";
-}
+function bookNow() {
+  const date = document.getElementById("date")?.value;
+  const time = document.getElementById("time")?.value;
 
-function bookNow(){
-  const style=document.getElementById("style")?.value || "Haircut";
-  const date=document.getElementById("date")?.value;
-  const time=document.getElementById("time")?.value;
-
-  if(!date || !time){
+  if (!date || !time) {
     alert("Please select a date and time.");
     return;
   }
 
-  const day=new Date(date).toLocaleDateString("en-US",{weekday:"long"});
-  const phone="2348157238574";
-  const msg=Hi Semie! I want a ${style} on ${day}, ${date} at ${time}. Home service please.;
+  const day = new Date(date).toLocaleDateString("en-US", {
+    weekday: "long"
+  });
 
-  const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const url=isMobile
-    ? whatsapp://send?phone=${phone}&text=${encodeURIComponent(msg)}
-    : https://wa.me/${phone}?text=${encodeURIComponent(msg)};
+  const phone = "2348157238574";
 
-  window.location.href=url;
+  const msg = `Hi Semie! I want to book a haircut.
+Date: ${day}, ${date}
+Time: ${time}
+Home service please.`;
+
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+  window.open(url, "_blank");
 }
+
+
+  const day = new Date(date).toLocaleDateString("en-US", {
+    weekday: "long"
+  });
+
+  const phone = "2348157238574";
+
+  const msg = `Hi Semie! I want to book a haircut.
+Date: ${day}, ${date}
+Time: ${time}
+Home service please.`;
+
+ const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+  window.open(url, "_blank");
+}
+
+
 </script>
 
 </body>
