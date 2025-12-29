@@ -22,8 +22,22 @@ html{scroll-behavior:smooth;}
 
 body{
   background:#200033;
-  color:rgb(255, 255, 255);
+  color:white;
   overflow-x:hidden;
+}
+
+/* =========================================================
+   FADE-UP ON SCROLL (FIXED & CLEAN)
+========================================================= */
+.fade-up{
+  opacity:0;
+  transform:translateY(40px);
+}
+
+.fade-up.visible{
+  opacity:1;
+  transform:translateY(0);
+  transition:opacity 0.8s ease, transform 0.8s ease;
 }
 
 /* =========================================================
@@ -44,14 +58,13 @@ body{
   object-fit:cover;
 }
 
-/* Purple cinematic overlay */
 .hero::after{
   content:"";
   position:absolute;
   inset:0;
   background:linear-gradient(
     to bottom,
-    rgba(118, 112, 124, 0.116),
+    rgba(118,112,124,0.12),
     #200033
   );
 }
@@ -80,7 +93,7 @@ body{
   border-radius:35px;
   background:rgba(0,0,0,0.45);
   border:2px solid #a84fe4;
-  box-shadow:0 0 30px rgb(125, 4, 238);
+  box-shadow:0 0 30px rgb(125,4,238);
   max-width:680px;
   font-size:1rem;
 }
@@ -107,7 +120,7 @@ body{
   border-radius:45px;
   border:2px solid #ae44ff;
   background:transparent;
-  color:rgb(188, 72, 255);
+  color:#bc48ff;
   font-size:1.15rem;
   cursor:pointer;
   transition:.3s;
@@ -117,6 +130,17 @@ body{
   background:#7427af48;
   color:black;
 }
+.fade-on-load {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.fade-on-load.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 /* =========================================================
    SECTION BASE
@@ -180,11 +204,11 @@ section{
    BOOKING SECTION
 ========================================================= */
 .booking-frame{
-  background:rgba(19, 4, 32, 0.712);
+  background:rgba(19,4,32,.72);
   border:2px solid #2a0646;
   border-radius:36px;
   padding:40px;
-  box-shadow:0 0 50px rgb(169, 15, 230);
+  box-shadow:0 0 50px rgb(169,15,230);
 }
 
 .booking-row{
@@ -204,7 +228,7 @@ section{
   outline:none;
 }
 
-.booking-row select option{color:rgb(136, 135, 135);}
+.booking-row select option{color:#888;}
 
 .booking-frame button{
   margin-top:30px;
@@ -217,25 +241,25 @@ section{
   font-weight:700;
   cursor:pointer;
 }
-.email-btn {
-  display: block;
-  margin-top: 18px;
-  text-align: center;
-  padding: 18px;
-  border-radius: 50px;
-  border: 2px solid #6d09b9;
-  color: white;
-  text-decoration: none;
-  font-size: 1.05rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+
+.email-btn{
+  display:block;
+  margin-top:18px;
+  text-align:center;
+  padding:18px;
+  border-radius:50px;
+  border:2px solid #6d09b9;
+  color:white;
+  text-decoration:none;
+  font-size:1.05rem;
+  font-weight:600;
+  transition:.3s;
 }
 
-.email-btn:hover {
-  background: #5d0d9b;
-  color: black;
+.email-btn:hover{
+  background:#5d0d9b;
+  color:black;
 }
-
 
 /* =========================================================
    FOOTER
@@ -258,14 +282,13 @@ footer{
     <source src="video/barber.mp4" type="video/mp4">
   </video>
 
-  <div class="hero-content">
+  <div class="hero-content fade-on-load">
     <h1>Semie's Cuts 💈</h1>
-
     <div class="typing-box" id="typing"></div>
 
     <div class="verse">
-      “I can do all things through Christ who strengthens me.”  
-      <br>— Philippians 4:13
+      “I can do all things through Christ who strengthens me.”<br>
+      — Philippians 4:13
     </div>
 
     <button onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
@@ -291,7 +314,7 @@ footer{
 </section>
 
 <!-- ================= BOOKING ================= -->
-<section id="booking">
+<section id="booking" class="fade-up">
   <h2 class="section-title">Book Your Cut</h2>
 
   <div class="booking-frame">
@@ -313,19 +336,18 @@ footer{
     </div>
 
     <button onclick="book()">Book via WhatsApp</button>
-    
-   <a href="https://mail.google.com/mail/?view=cm&to=Joseph207jj@gmail.com"
-   target="_blank"
-   class="email-btn">
-  Book via Email
-</a>
 
-
+    <a href="https://mail.google.com/mail/?view=cm&to=Joseph207jj@gmail.com"
+       target="_blank"
+       class="email-btn">
+      Book via Email
+    </a>
   </div>
 </section>
 
-<footer>
-  © 2025 Semie's Cuts — Home Service •💜
+<footer class="fade-up">
+  © 2025 Semie's Cuts — Home Service • 💜
+  <p>*AVERAGE? NAH, I'M THE ALPHA*</p>
 </footer>
 
 <script>
@@ -336,8 +358,7 @@ const typing=document.getElementById("typing");
 
 (function type(){
   if(i<text.length){
-    typing.innerHTML+=text.charAt(i);
-    i++;
+    typing.innerHTML+=text.charAt(i++);
     setTimeout(type,35);
   }else{
     typing.innerHTML+=' <span class="cursor"></span>';
@@ -374,34 +395,25 @@ Time: ${time}`
 
   window.open(`https://wa.me/2348157238574?text=${msg}`,"_blank");
 }
-document.getElementById("emailBtn").addEventListener("click", function (e) {
-  e.preventDefault();
 
-  const name = document.getElementById("name").value;
-  const style = document.getElementById("style").value;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
+/* ===== FADE UP ON SCROLL (FINAL) ===== */
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:0.25});
 
-  if (!name || !style || !date || !time) {
-    alert("Please complete all booking details.");
-    return;
+document.querySelectorAll(".fade-up").forEach(el=>observer.observe(el));
+window.addEventListener("load", () => {
+  const hero = document.querySelector(".fade-on-load");
+  if (hero) {
+    setTimeout(() => {
+      hero.classList.add("visible");
+    }, 150);
   }
-
-  const subject = encodeURIComponent("Haircut Booking – Semie's Cuts");
-  const body = encodeURIComponent(
-    `Hello Semie's Cuts,
-
-My name is ${name}.
-I would like to book the following haircut:
-
-Style: ${style}
-Date: ${date}
-Time: ${time}
-
-Thank you.`
-  );
-
-  window.location.href = `mailto:Joseph207jj@gmail.com?subject=${subject}&body=${body}`;
 });
 
 </script>
