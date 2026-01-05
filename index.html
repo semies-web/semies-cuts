@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -334,6 +335,17 @@ footer{
       <input type="date" id="date">
       <input type="time" id="time">
     </div>
+    <button type="button" id="customStyleBtn" class="email-btn">
+  I’ve got a hairstyle in mind ✂️
+</button>
+
+<input
+  type="text"
+  id="customStyle"
+  placeholder="Describe your hairstyle (e.g. low taper + design)"
+  style="display:none; margin-top:15px;"
+/>
+
 
     <button onclick="book()">Book via WhatsApp</button>
 
@@ -376,11 +388,16 @@ function selectStyle(name,el){
 /* Booking */
 function book(){
   const name=document.getElementById("name").value;
-  const style=document.getElementById("style").value;
+ const selectedStyle = document.getElementById("style").value;
+const customStyle = document.getElementById("customStyle").value.trim();
+
+const style = customStyle !== "" ? customStyle : selectedStyle;
+
   const date=document.getElementById("date").value;
   const time=document.getElementById("time").value;
 
-  if(!name||!style||!date||!time){
+  if(!name || !style || !date || !time){
+
     alert("Please complete all booking details.");
     return;
   }
@@ -414,6 +431,14 @@ window.addEventListener("load", () => {
       hero.classList.add("visible");
     }, 150);
   }
+});
+/* Custom hairstyle toggle */
+const customBtn = document.getElementById("customStyleBtn");
+const customInput = document.getElementById("customStyle");
+
+customBtn.addEventListener("click", () => {
+  customInput.style.display = "block";
+  customInput.focus();
 });
 
 </script>
