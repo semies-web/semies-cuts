@@ -1,445 +1,1043 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Semie's Cuts 💈 | Purple Excellence</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
-
-/* =========================================================
-   RESET + GLOBAL BRAND STYLES
-========================================================= */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins', system-ui, sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html{scroll-behavior:smooth;}
-
-body{
-  background:#200033;
-  color:white;
-  overflow-x:hidden;
+body {
+    margin: 0;
+    font-family: 'Rajdhani', sans-serif;
+    background: linear-gradient(135deg, #0f0518 0%, #1a0126 50%, #2d1b4e 100%);
+    color: white;
+    overflow-x: hidden;
+    animation: fadeUp 1.5s ease;
+    min-height: 100vh;
 }
 
-/* =========================================================
-   FADE-UP ON SCROLL (FIXED & CLEAN)
-========================================================= */
-.fade-up{
-  opacity:0;
-  transform:translateY(40px);
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.fade-up.visible{
-  opacity:1;
-  transform:translateY(0);
-  transition:opacity 0.8s ease, transform 0.8s ease;
+/* Header Section */
+header {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
 }
 
-/* =========================================================
-   HERO / VIDEO SECTION
-========================================================= */
-.hero{
-  position:relative;
-  height:100vh;
-  width:100%;
-  overflow:hidden;
+video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    filter: brightness(0.4) contrast(1.2);
 }
 
-.hero video{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.overlay {
+    position: absolute;
+    bottom: 0;
+    height: 60%;
+    width: 100%;
+    background: linear-gradient(to top, rgba(24, 8, 32, 0.993) 0%, rgba(34, 6, 48, 0.692) 50%, transparent 100%);
+    z-index: -1;
 }
 
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to bottom,
-    rgba(118,112,124,0.12),
-    #200033
-  );
+/* Floating particles */
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
 }
 
-.hero-content{
-  position:relative;
-  z-index:2;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:20px;
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    animation: float 15s infinite;
+    box-shadow: 0 0 10px #d39aff;
 }
 
-.hero h1{
-  font-size:clamp(3rem,7vw,4.8rem);
-  font-weight:900;
-  text-shadow:0 0 40px #cf8e00;
+@keyframes float {
+    0%, 100% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(720deg);
+        opacity: 0;
+    }
 }
 
-.typing-box{
-  margin-top:25px;
-  padding:18px 26px;
-  border-radius:35px;
-  background:rgba(0,0,0,0.45);
-  border:2px solid #a84fe4;
-  box-shadow:0 0 30px rgb(125,4,238);
-  max-width:680px;
-  font-size:1rem;
+.title {
+    font-size: 80px;
+    font-weight: 900;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    text-shadow: 
+        0 0 20px rgba(189, 118, 243, 0.8),
+        0 0 40px rgba(157, 78, 221, 0.6),
+        0 0 60px rgba(123, 44, 191, 0.4);
+    animation: glow 3s ease-in-out infinite alternate;
+    position: relative;
 }
 
-.cursor{
-  display:inline-block;
-  width:2px;
-  height:18px;
-  background:#c77dff;
-  animation:blink 1s infinite;
+@keyframes glow {
+    from {
+        text-shadow: 
+            0 0 20px rgba(199, 125, 255, 0.8),
+            0 0 40px rgba(157, 78, 221, 0.6),
+            0 0 60px rgba(122, 44, 191, 0.623);
+    }
+    to {
+        text-shadow: 
+            0 0 30px rgba(199, 125, 255, 1),
+            0 0 60px rgba(157, 78, 221, 0.8),
+            0 0 90px rgba(123, 44, 191, 0.6),
+            0 0 120px rgba(199, 125, 255, 0.4);
+    }
 }
 
-@keyframes blink{50%{opacity:0}}
-
-.hero .verse{
-  margin-top:15px;
-  font-style:italic;
-  opacity:.9;
+.verse {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    opacity: 0.9;
+    font-style: italic;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(42, 10, 61, 0.5);
 }
 
-.hero button{
-  margin-top:40px;
-  padding:18px 48px;
-  border-radius:45px;
-  border:2px solid #ae44ff;
-  background:transparent;
-  color:#bc48ff;
-  font-size:1.15rem;
-  cursor:pointer;
-  transition:.3s;
+.typing {
+    font-size: 22px;
+    max-width: 800px;
+    margin: 30px auto 0;
+    border-right: 3px solid #c77dff;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: blink 0.8s infinite;
+    color: #f8f4ff;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    padding: 0 10px;
 }
 
-.hero button:hover{
-  background:#7427af48;
-  color:black;
-}
-.fade-on-load {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
+@keyframes blink {
+    0%, 100% { border-color: #c77dff; }
+    50% { border-color: transparent; }
 }
 
-.fade-on-load.visible {
-  opacity: 1;
-  transform: translateY(0);
+.scrollBtn {
+    margin-top: 50px;
+    padding: 18px 50px;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, #431f63 0%, #b75fff 100%);
+    color: rgb(247, 240, 240);
+    cursor: pointer;
+    font-size: 20px;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 
+        0 0 20px rgb(141, 51, 219),
+        0 10px 30px rgb(31, 25, 25);
 }
 
-
-/* =========================================================
-   SECTION BASE
-========================================================= */
-section{
-  padding:100px 20px;
-  max-width:1300px;
-  margin:auto;
+.scrollBtn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #210c2cad, transparent);
+    transition: left 0.5s;
 }
 
-.section-title{
-  text-align:center;
-  font-size:2.4rem;
-  color:#f4eafd;
-  margin-bottom:60px;
+.scrollBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 0 30px rgba(127, 61, 179, 0.8),
+        0 15px 40px rgba(0, 0, 0, 0.4);
+    letter-spacing: 5px;
 }
 
-/* =========================================================
-   SIGNATURE STYLES
-========================================================= */
-.styles-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:30px;
+.scrollBtn:hover::before {
+    left: 100%;
 }
 
-.style-card{
-  position:relative;
-  border-radius:24px;
-  overflow:hidden;
-  cursor:pointer;
-  border:3px solid #c77dff;
-  box-shadow:0 0 30px rgba(199,125,255,.65);
-  transition:.35s;
+/* Gallery Section */
+.gallery {
+    padding: 100px 60px;
+    text-align: center;
+    position: relative;
 }
 
-.style-card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+.gallery::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c77dff, transparent);
 }
 
-.style-card::after{
-  content:attr(data-name);
-  position:absolute;
-  bottom:0;
-  width:100%;
-  padding:15px;
-  background:rgba(0,0,0,.75);
-  text-align:center;
-  font-weight:600;
+.gallery h2 {
+    color: #c77dff;
+    text-shadow: 0 0 20px #c77dff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 48px;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
 }
 
-.style-card:hover,
-.style-card.selected{
-  transform:scale(1.07);
-  box-shadow:0 0 50px #c77dff;
+.gallery h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #c77dff, transparent);
+    border-radius: 2px;
 }
 
-/* =========================================================
-   BOOKING SECTION
-========================================================= */
-.booking-frame{
-  background:rgba(19,4,32,.72);
-  border:2px solid #2a0646;
-  border-radius:36px;
-  padding:40px;
-  box-shadow:0 0 50px rgb(169,15,230);
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.booking-row{
-  display:flex;
-  gap:18px;
-  flex-wrap:wrap;
+.card {
+    border: 2px solid rgba(157, 78, 221, 0.3);
+    padding: 15px;
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: rgba(26, 1, 38, 0.6);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
 }
 
-.booking-row input,
-.booking-row select{
-  flex:1 1 220px;
-  padding:18px;
-  border-radius:35px;
-  border:2px solid white;
-  background:transparent;
-  color:white;
-  outline:none;
+.card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.booking-row select option{color:#888;}
-
-.booking-frame button{
-  margin-top:30px;
-  width:100%;
-  padding:20px;
-  border-radius:45px;
-  border:none;
-  background:#59069c;
-  font-size:1.2rem;
-  font-weight:700;
-  cursor:pointer;
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(199, 125, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
 }
 
-.email-btn{
-  display:block;
-  margin-top:18px;
-  text-align:center;
-  padding:18px;
-  border-radius:50px;
-  border:2px solid #6d09b9;
-  color:white;
-  text-decoration:none;
-  font-size:1.05rem;
-  font-weight:600;
-  transition:.3s;
+.card:hover::before {
+    opacity: 1;
 }
 
-.email-btn:hover{
-  background:#5d0d9b;
-  color:black;
+.card:hover {
+    transform: scale(1.08) translateY(-10px);
+    border-color: #c77dff;
+    box-shadow: 
+        0 20px 40px rgba(123, 44, 191, 0.4),
+        0 0 60px rgba(199, 125, 255, 0.2);
+    background: rgba(26, 1, 38, 0.8);
 }
 
-/* =========================================================
-   FOOTER
-========================================================= */
-footer{
-  text-align:center;
-  padding:50px 20px;
-  font-size:.9rem;
-  opacity:.9;
+.card.active {
+    border-color: #e0aaff;
+    box-shadow: 
+        0 0 40px rgba(224, 170, 255, 0.6),
+        inset 0 0 20px rgba(224, 170, 255, 0.1);
+    background: rgba(26, 1, 38, 0.9);
+    transform: scale(1.05);
 }
 
+.card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.4s;
+    filter: brightness(0.9) contrast(1.1);
+}
+
+.card:hover img {
+    transform: scale(1.1);
+    filter: brightness(1) contrast(1.2);
+}
+
+.style-label {
+    margin-top: 15px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #e0aaff;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+}
+
+.card:hover .style-label,
+.card.active .style-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* "I've got a hairstyle in mind" button */
+.mindBtn {
+    margin-top: 50px;
+    padding: 20px 50px;
+    background: transparent;
+    border: 2px solid #e0aaff;
+    color: #e0aaff;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: inline-block;
+}
+
+.mindBtn::before {
+    content: '💭';
+    margin-right: 12px;
+    font-size: 20px;
+}
+
+.mindBtn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(224, 170, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.mindBtn:hover {
+    background: rgba(224, 170, 255, 0.1);
+    border-color: #c77dff;
+    color: #c77dff;
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(224, 170, 255, 0.3);
+    letter-spacing: 4px;
+}
+
+.mindBtn:hover::after {
+    left: 100%;
+}
+
+/* Custom style input section */
+.customStyleSection {
+    max-width: 600px;
+    margin: 40px auto 0;
+    padding: 30px;
+    background: rgba(26, 1, 38, 0.8);
+    border: 2px solid #c77dff;
+    border-radius: 20px;
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.customStyleSection.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.customStyleInput {
+    width: 100%;
+    padding: 20px;
+    background: rgba(15, 5, 24, 0.8);
+    border: 2px solid rgba(199, 125, 255, 0.3);
+    border-radius: 15px;
+    color: white;
+    font-size: 18px;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+}
+
+.customStyleInput:focus {
+    outline: none;
+    border-color: #c77dff;
+    box-shadow: 0 0 20px rgba(199, 125, 255, 0.3);
+}
+
+.customStyleInput::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Booking Section */
+.booking {
+    padding: 100px 60px;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(to bottom, transparent, rgba(15, 5, 24, 0.8));
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+
+.booking.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.booking::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c77dff, transparent);
+}
+
+.booking h2 {
+    color: #c77dff;
+    text-shadow: 0 0 20px #c77dff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 48px;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    margin-bottom: 50px;
+    position: relative;
+    display: inline-block;
+}
+
+.booking h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #c77dff, transparent);
+}
+
+.inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin-bottom: 50px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease 0.2s;
+}
+
+.booking.visible .inputs {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.inputs input {
+    padding: 20px 25px;
+    width: 280px;
+    border: 2px solid rgba(157, 78, 221, 0.3);
+    background: rgba(26, 1, 38, 0.6);
+    color: white;
+    font-size: 18px;
+    border-radius: 15px;
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.inputs input:focus {
+    outline: none;
+    border-color: #c77dff;
+    box-shadow: 
+        0 0 20px rgba(199, 125, 255, 0.3),
+        inset 0 0 10px rgba(199, 125, 255, 0.1);
+    background: rgba(26, 1, 38, 0.8);
+}
+
+.inputs input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.whatsappBtn {
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+    padding: 22px;
+    background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+    border: none;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    box-shadow: 
+        0 10px 30px rgba(37, 211, 102, 0.3),
+        0 0 20px rgba(37, 211, 102, 0.2);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.booking.visible .whatsappBtn {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s ease 0.4s;
+}
+
+.whatsappBtn::before {
+    content: '📱';
+    margin-right: 15px;
+    font-size: 24px;
+}
+
+.whatsappBtn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.whatsappBtn:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 20px 40px rgba(37, 211, 102, 0.4),
+        0 0 40px rgba(37, 211, 102, 0.3);
+    letter-spacing: 5px;
+}
+
+.whatsappBtn:hover::after {
+    opacity: 1;
+}
+
+.emailBtn {
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+    padding: 22px;
+    background: transparent;
+    border: 2px solid #c77dff;
+    color: #c77dff;
+    font-size: 22px;
+    cursor: pointer;
+    border-radius: 15px;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.booking.visible .emailBtn {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s ease 0.6s;
+}
+
+.emailBtn::before {
+    content: '✉️';
+    margin-right: 15px;
+    font-size: 24px;
+}
+
+.emailBtn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(199, 125, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.emailBtn:hover {
+    background: rgba(199, 125, 255, 0.1);
+    border-color: #e0aaff;
+    color: #e0aaff;
+    transform: translateY(-5px);
+    box-shadow: 
+        0 20px 40px rgba(199, 125, 255, 0.2),
+        0 0 40px rgba(199, 125, 255, 0.1);
+    letter-spacing: 5px;
+}
+
+.emailBtn:hover::after {
+    left: 100%;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 50px 30px;
+    margin-top: 80px;
+    border-top: 1px solid rgb(22, 161, 127);
+    background: linear-gradient(to top, rgb(5, 1, 8), transparent);
+    position: relative;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #ffffff, transparent);
+}
+
+footer br {
+    display: block;
+    margin: 15px 0;
+}
+
+/* Selected style indicator */
+.selected-style {
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(199, 125, 255, 0.1);
+    border: 2px solid #c77dff;
+    border-radius: 15px;
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: #e0aaff;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.4s;
+}
+
+.selected-style.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .title {
+        font-size: 48px;
+        letter-spacing: 4px;
+    }
+    
+    .typing {
+        white-space: normal;
+        border-right: none;
+        animation: none;
+        font-size: 18px;
+        padding: 0 20px;
+    }
+    
+    .gallery, .booking {
+        padding: 60px 20px;
+    }
+    
+    .gallery h2, .booking h2 {
+        font-size: 32px;
+        letter-spacing: 4px;
+    }
+    
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+    }
+    
+    .card img {
+        height: 200px;
+    }
+    
+    .inputs input {
+        width: 100%;
+    }
+    
+    .whatsappBtn, .emailBtn {
+        width: 95%;
+        font-size: 18px;
+    }
+    
+    .mindBtn {
+        font-size: 16px;
+        padding: 15px 30px;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <video autoplay muted loop playsinline preload="auto">
-    <source src="video/barber.mp4" type="video/mp4">
-  </video>
+<header>
 
-  <div class="hero-content fade-on-load">
-    <h1>Semie's Cuts 💈</h1>
-    <div class="typing-box" id="typing"></div>
+<video autoplay muted loop>
+<source src="video/barber.mp4" type="video/mp4">
+</video>
 
-    <div class="verse">
-      “I can do all things through Christ who strengthens me.”<br>
-      — Philippians 4:13
-    </div>
+<div class="overlay"></div>
 
-    <button onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">
-      Book Appointment
-    </button>
-  </div>
+<!-- Floating particles -->
+<div class="particles" id="particles"></div>
+
+<div>
+
+<div class="title">Semie's Cuts 💈</div>
+
+<div class="verse">Philippians 4:13</div>
+<div class="typing" id="typing"></div>
+
+<button class="scrollBtn" onclick="scrollToBooking()">Book Appointment</button>
+
+</div>
+
+</header>
+
+
+<section class="gallery">
+
+<h2>Signature Styles</h2>
+
+<div class="grid">
+
+<div class="card" onclick="selectStyle(this,'Taper Fade')">
+<img src="images/taper-fade.jpg" alt="Taper Fade">
+<div class="style-label">Taper Fade</div>
+</div>
+
+<div class="card" onclick="selectStyle(this,'Buzz Cut')">
+<img src="images/buzzcut.jpg" alt="Buzz Cut">
+<div class="style-label">Buzz Cut</div>
+</div>
+
+<div class="card" onclick="selectStyle(this,'Braids')">
+<img src="images/braids.jpg" alt="Braids">
+<div class="style-label">Braids</div>
+</div>
+
+<div class="card" onclick="selectStyle(this,'Drop Fade')">
+<img src="images/drop-fade.jpg" alt="Drop Fade">
+<div class="style-label">Drop Fade</div>
+</div>
+
+<div class="card" onclick="selectStyle(this,'High Fade')">
+<img src="images/high-fade.jpg" alt="High Fade">
+<div class="style-label">High Fade</div>
+</div>
+
+<div class="card" onclick="selectStyle(this,'Low Cut')">
+<img src="images/low-cut.jpg" alt="Low Cut">
+<div class="style-label">Low Cut</div>
+</div>
+
+<div class="card" onclick="selectStyle(this,'Modern Mullet')">
+<img src="images/modern-mullet.jpg" alt="Modern Mullet">
+<div class="style-label">Modern Mullet</div>
+</div>
+
+<div class="card" onclick="selectStyle(this,'Burst Fade')">
+<img src="images/burst-fade.jpg" alt="Burst Fade">
+<div class="style-label">Burst Fade</div>
+</div>
+
+</div>
+
+<!-- "I've got a hairstyle in mind" button -->
+<button class="mindBtn" onclick="toggleCustomStyle()">I've got an hairstyle in mind</button>
+
+<!-- Custom style input section -->
+<div class="customStyleSection" id="customStyleSection">
+    <input type="text" id="customStyleInput" class="customStyleInput" placeholder="Describe your hairstyle (e.g., 'Two block cut with textured top')">
+</div>
+
 </section>
 
-<!-- ================= STYLES ================= -->
-<section>
-  <h2 class="section-title">Signature Styles</h2>
 
-  <div class="styles-grid">
-    <div class="style-card" data-name="Taper Fade" onclick="selectStyle('Taper Fade',this)"><img src="images/taper-fade.jpg"></div>
-    <div class="style-card" data-name="Buzz Cut" onclick="selectStyle('Buzz Cut',this)"><img src="images/buzzcut.jpg"></div>
-    <div class="style-card" data-name="Braids" onclick="selectStyle('Braids',this)"><img src="images/braids.jpg"></div>
-    <div class="style-card" data-name="Drop Fade" onclick="selectStyle('Drop Fade',this)"><img src="images/drop-fade.jpg"></div>
-    <div class="style-card" data-name="High Fade" onclick="selectStyle('High Fade',this)"><img src="images/high-fade.jpg"></div>
-    <div class="style-card" data-name="Low Cut" onclick="selectStyle('Low Cut',this)"><img src="images/low-cut.jpg"></div>
-    <div class="style-card" data-name="Modern Mullet" onclick="selectStyle('Modern Mullet',this)"><img src="images/modern-mullet.jpg"></div>
-    <div class="style-card" data-name="Burst Fade" onclick="selectStyle('Burst Fade',this)"><img src="images/burst-fade.jpg"></div>
-  </div>
-</section>
 
-<!-- ================= BOOKING ================= -->
-<section id="booking" class="fade-up">
-  <h2 class="section-title">Book Your Cut</h2>
+<section class="booking" id="booking">
 
-  <div class="booking-frame">
-    <div class="booking-row">
-      <input type="text" id="name" placeholder="Your Name">
-      <select id="style">
-        <option value="">Select Style</option>
-        <option>Taper Fade</option>
-        <option>Buzz Cut</option>
-        <option>Braids</option>
-        <option>Drop Fade</option>
-        <option>High Fade</option>
-        <option>Low Cut</option>
-        <option>Modern Mullet</option>
-        <option>Burst Fade</option>
-      </select>
-      <input type="date" id="date">
-      <input type="time" id="time">
-    </div>
-    <button type="button" id="customStyleBtn" class="email-btn">
-  I’ve got a hairstyle in mind ✂️
+<h2>Book Your Cut</h2>
+
+<div class="selected-style" id="selectedStyleDisplay">Selected: None</div>
+
+<div class="inputs">
+
+<input id="name" placeholder="Your Name">
+
+<input id="date" type="date">
+
+<input id="time" type="time">
+
+</div>
+
+<button class="whatsappBtn" onclick="bookWhatsApp()">
+Book via WhatsApp
 </button>
 
-<input
-  type="text"
-  id="customStyle"
-  placeholder="Describe your hairstyle (e.g. low taper + design)"
-  style="display:none; margin-top:15px;"
-/>
+<button class="emailBtn" onclick="bookEmail()">
+Book via Email
+</button>
 
-
-    <button onclick="book()">Book via WhatsApp</button>
-
-    <a href="https://mail.google.com/mail/?view=cm&to=Joseph207jj@gmail.com"
-       target="_blank"
-       class="email-btn">
-      Book via Email
-    </a>
-  </div>
 </section>
 
-<footer class="fade-up">
-  © 2025 Semie's Cuts — Home Service • 💜
-  <p>*AVERAGE? NAH, I'M THE ALPHA*</p>
+
+<footer>
+
+Semie's Cuts — Home Service • <br>
+"AVRAGE? NAH I'M THE ALPHA"<br>
+🟣🍇
+
 </footer>
 
+
+<audio id="clickSound">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9dfe6d.mp3">
+</audio>
+
+
+
 <script>
-/* Typing animation */
-const text="Welcome to Semie's Cuts — premium home-service barbering crafted with precision, confidence, and purple excellence.";
-let i=0;
-const typing=document.getElementById("typing");
 
-(function type(){
-  if(i<text.length){
-    typing.innerHTML+=text.charAt(i++);
-    setTimeout(type,35);
-  }else{
-    typing.innerHTML+=' <span class="cursor"></span>';
-  }
-})();
-
-/* Style select */
-function selectStyle(name,el){
-  document.getElementById("style").value=name;
-  document.querySelectorAll(".style-card").forEach(c=>c.classList.remove("selected"));
-  el.classList.add("selected");
-  document.getElementById("booking").scrollIntoView({behavior:"smooth"});
-}
-
-/* Booking */
-function book(){
-  const name=document.getElementById("name").value;
- const selectedStyle = document.getElementById("style").value;
-const customStyle = document.getElementById("customStyle").value.trim();
-
-const style = customStyle !== "" ? customStyle : selectedStyle;
-
-  const date=document.getElementById("date").value;
-  const time=document.getElementById("time").value;
-
-  if(!name || !style || !date || !time){
-
-    alert("Please complete all booking details.");
-    return;
-  }
-
-  const msg=encodeURIComponent(
-`Hello Semie's Cuts!
-Client: ${name}
-Style: ${style}
-Date: ${date}
-Time: ${time}`
-  );
-
-  window.open(`https://wa.me/2348157238574?text=${msg}`,"_blank");
-}
-
-/* ===== FADE UP ON SCROLL (FINAL) ===== */
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
+// Create floating particles
+function createParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        container.appendChild(particle);
     }
-  });
-},{threshold:0.25});
+}
+createParticles();
 
-document.querySelectorAll(".fade-up").forEach(el=>observer.observe(el));
-window.addEventListener("load", () => {
-  const hero = document.querySelector(".fade-on-load");
-  if (hero) {
-    setTimeout(() => {
-      hero.classList.add("visible");
-    }, 150);
-  }
-});
-/* Custom hairstyle toggle */
-const customBtn = document.getElementById("customStyleBtn");
-const customInput = document.getElementById("customStyle");
+const text = "Welcome to Semie's Cuts — where precision meets style. We deliver professional home haircut services designed to keep you looking sharp. Choose Semie's Cuts for reliability, comfort, and excellence.";
 
-customBtn.addEventListener("click", () => {
-  customInput.style.display = "block";
-  customInput.focus();
+let i = 0;
+
+function type() {
+    if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, 35);
+    }
+}
+
+type()
+
+function scrollToBooking() {
+    document.getElementById("booking").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+let selectedStyle = "";
+let isCustomStyle = false;
+
+function selectStyle(el, style) {
+    document.getElementById("clickSound").play();
+
+    document.querySelectorAll(".card").forEach(card => {
+        card.classList.remove("active")
+    });
+
+    el.classList.add("active");
+
+    selectedStyle = style;
+    isCustomStyle = false;
+    
+    // Hide custom style section if open
+    document.getElementById("customStyleSection").classList.remove("show");
+    document.getElementById("customStyleInput").value = "";
+    
+    // Update display
+    const display = document.getElementById("selectedStyleDisplay");
+    display.textContent = `Selected: ${style}`;
+    display.classList.add("show");
+}
+
+function toggleCustomStyle() {
+    const section = document.getElementById("customStyleSection");
+    const input = document.getElementById("customStyleInput");
+    
+    if (section.classList.contains("show")) {
+        section.classList.remove("show");
+        isCustomStyle = false;
+        selectedStyle = "";
+    } else {
+        section.classList.add("show");
+        isCustomStyle = true;
+        selectedStyle = input.value;
+        
+        // Clear card selections
+        document.querySelectorAll(".card").forEach(card => {
+            card.classList.remove("active");
+        });
+        
+        // Focus input
+        setTimeout(() => input.focus(), 100);
+    }
+    
+    updateSelectedDisplay();
+}
+
+// Update selected style when typing in custom input
+document.getElementById("customStyleInput").addEventListener("input", function(e) {
+    if (isCustomStyle) {
+        selectedStyle = e.target.value;
+        updateSelectedDisplay();
+    }
 });
+
+function updateSelectedDisplay() {
+    const display = document.getElementById("selectedStyleDisplay");
+    if (selectedStyle && selectedStyle.trim() !== "") {
+        display.textContent = `Selected: ${selectedStyle}`;
+        display.classList.add("show");
+    } else {
+        display.textContent = "Selected: None";
+        display.classList.remove("show");
+    }
+}
+
+// Intersection Observer for scroll animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+        }
+    });
+}, observerOptions);
+
+// Observe elements
+document.addEventListener("DOMContentLoaded", function() {
+    // Observe booking section
+    const booking = document.querySelector(".booking");
+    observer.observe(booking);
+    
+    // Observe cards
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.1}s`;
+        observer.observe(card);
+    });
+});
+
+function bookWhatsApp() {
+    const name = document.getElementById("name").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    if (!name || !date || !time || !selectedStyle) {
+        alert("Please fill in all details and select a hairstyle!");
+        return;
+    }
+
+    const msg = `Hello Semie's Cuts 💈\nName: ${name}\nStyle: ${selectedStyle}\nDate: ${date}\nTime: ${time}`;
+
+    window.open(`https://wa.me/2348157238574?text=${encodeURIComponent(msg)}`);
+}
+
+function bookEmail() {
+    const name = document.getElementById("name").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    if (!name || !date || !time || !selectedStyle) {
+        alert("Please fill in all details and select a hairstyle!");
+        return;
+    }
+
+    const body = `Name: ${name}\nStyle: ${selectedStyle}\nDate: ${date}\nTime: ${time}`;
+
+    window.location.href = `mailto:joseph207jj@gmail.com?subject=Haircut Booking&body=${encodeURIComponent(body)}`;
+}
 
 </script>
 
