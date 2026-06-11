@@ -244,7 +244,12 @@
         @keyframes scroll-track { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .testimonial-card { width: 400px; flex-shrink: 0; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; backdrop-filter: blur(10px); transition: background 0.5s ease, border-color 0.5s ease; }
         .testimonial-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-        .testimonial-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--neon-purple); }
+        .testimonial-avatar { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; position: relative; box-shadow: 0 10px 18px rgba(0,0,0,0.18); border: 2px solid rgba(255,255,255,0.14); }
+        .testimonial-avatar::after { content: ''; position: absolute; top: 4px; right: 4px; width: 16px; height: 16px; border-radius: 50%; background: rgba(255,255,255,0.85); box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+        .profile-avatar--blue { background: linear-gradient(135deg, #4f46e5, #9333ea); }
+        .profile-avatar--green { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .profile-avatar--orange { background: linear-gradient(135deg, #f97316, #eab308); }
+        .profile-avatar--pink { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
         .testimonial-name { font-weight: 600; transition: color 0.5s ease; }
         .testimonial-stars { color: #ffd700; font-size: 0.9rem; }
         .testimonial-text { color: var(--text-secondary); line-height: 1.7; font-style: italic; transition: color 0.5s ease; }
@@ -520,28 +525,28 @@
         <div class="testimonials-track" id="testimonialsTrack">
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" class="testimonial-avatar" alt="Client">
+                    <div class="testimonial-avatar profile-avatar--green"><span>DO</span></div>
                     <div><div class="testimonial-name">David O.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Semie doesn't just cut hair — he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" class="testimonial-avatar" alt="Client">
+                    <div class="testimonial-avatar profile-avatar--blue"><span>MK</span></div>
                     <div><div class="testimonial-name">Michael K.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary."</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" class="testimonial-avatar" alt="Client">
+                    <div class="testimonial-avatar profile-avatar--orange"><span>JT</span></div>
                     <div><div class="testimonial-name">James T.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent."</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=face" class="testimonial-avatar" alt="Client">
+                    <div class="testimonial-avatar profile-avatar--pink"><span>ER</span></div>
                     <div><div class="testimonial-name">Emmanuel R.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"The atmosphere, the skill, the conversation — Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
@@ -549,28 +554,28 @@
             <!-- Duplicates for infinite scroll -->
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" class="testimonial-avatar" alt="Client">
+                    <div class="testimonial-avatar profile-avatar--green"><span>DO</span></div>
                     <div><div class="testimonial-name">David O.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Semie doesn't just cut hair — he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" class="testimonial-avatar" alt="Client">
+                    <div class="testimonial-avatar profile-avatar--blue"><span>MK</span></div>
                     <div><div class="testimonial-name">Michael K.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary."</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" class="testimonial-avatar" alt="Client">
+                    <div class="testimonial-avatar profile-avatar--orange"><span>JT</span></div>
                     <div><div class="testimonial-name">James T.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent."</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=face" class="testimonial-avatar" alt="Client">
+                    <div class="testimonial-avatar profile-avatar--pink"><span>ER</span></div>
                     <div><div class="testimonial-name">Emmanuel R.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"The atmosphere, the skill, the conversation — Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
@@ -1046,4 +1051,3 @@
         });
     </script>
 </body>
-</html>
