@@ -5,26 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semie's Cuts — Precision Meets Style</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://www.google.com">
+    <link rel="preload" as="image" href="images/sieme-profile.jpg">
     
     <style>
         /* ============================================
            CSS VARIABLES - DARK MODE (DEFAULT)
            ============================================ */
         :root {
-            --neon-purple: #b347d9;
-            --neon-purple-glow: #d580ff;
+            --neon-purple: #9d4ec0;
+            --neon-purple-glow: #c88fe4;
             --deep-purple: #1a0a2e;
             --darker-purple: #0d0518;
-            --glass-bg: rgba(26, 10, 46, 0.85);
-            --glass-border: rgba(179, 71, 217, 0.2);
+            --glass-bg: rgba(26, 10, 46, 0.82);
+            --glass-border: rgba(157, 78, 192, 0.18);
             --whatsapp: #25D366;
             --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --card-bg: rgba(26, 10, 46, 0.85);
-            --input-bg: rgba(255, 255, 255, 0.05);
-            --shadow-color: rgba(179, 71, 217, 0.15);
-            --gradient-hero: linear-gradient(180deg, rgba(13, 5, 24, 0.4) 0%, rgba(13, 5, 24, 0.85) 60%, var(--darker-purple) 100%);
+            --text-secondary: rgba(255, 255, 255, 0.72);
+            --card-bg: rgba(26, 10, 46, 0.8);
+            --input-bg: rgba(255, 255, 255, 0.04);
+            --shadow-color: rgba(157, 78, 192, 0.08);
+            --gradient-hero: linear-gradient(180deg, rgba(13, 5, 24, 0.45) 0%, rgba(13, 5, 24, 0.8) 60%, var(--darker-purple) 100%);
             --gradient-about: linear-gradient(180deg, var(--darker-purple) 0%, var(--deep-purple) 100%);
             --gradient-transform: linear-gradient(180deg, var(--deep-purple) 0%, var(--darker-purple) 100%);
             --gradient-testimonials: linear-gradient(180deg, var(--darker-purple) 0%, var(--deep-purple) 100%);
@@ -77,16 +81,19 @@
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             color: var(--text-primary);
-            font-size: 1.3rem;
             cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             transition: all 0.4s ease;
+            position: relative;
         }
         .theme-toggle:hover {
             border-color: var(--neon-purple);
             box-shadow: 0 0 20px var(--shadow-color);
             transform: rotate(20deg) scale(1.1);
         }
+        .theme-icon { position: absolute; width: 24px; height: 24px; }
+        .theme-icon.sun { fill: var(--text-primary); }
+        .theme-icon.moon { fill: var(--text-primary); }
 
         /* ============================================
            LOADING SCREEN
@@ -115,12 +122,12 @@
             display: flex; justify-content: space-between; align-items: center;
             z-index: 1000; transition: all 0.4s ease; background: transparent;
         }
-        .navbar.scrolled { background: var(--glass-bg); backdrop-filter: blur(20px); box-shadow: 0 4px 30px var(--shadow-color); }
-        .logo-text { font-family: 'Orbitron', monospace; font-size: 1.5rem; font-weight: 900; color: var(--text-primary); text-shadow: 0 0 20px var(--neon-purple-glow), 0 0 40px var(--neon-purple); letter-spacing: 2px; transition: color 0.5s ease; }
+        .navbar.scrolled { background: rgba(13, 5, 24, 0.7); backdrop-filter: blur(14px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); }
+        .logo-text { font-family: 'Orbitron', monospace; font-size: 1.5rem; font-weight: 900; color: var(--text-primary); letter-spacing: 2px; transition: color 0.5s ease; }
         .nav-links { display: flex; gap: 2.5rem; list-style: none; }
         .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s ease; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple-glow); transition: width 0.3s ease; }
-        .nav-links a:hover { color: var(--text-primary); text-shadow: 0 0 10px var(--neon-purple-glow); }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--neon-purple); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--text-primary); }
         .nav-links a:hover::after { width: 100%; }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
 
@@ -131,19 +138,16 @@
         .hero-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient-hero); z-index: -1; transition: background 0.5s ease; }
         .particles { position: absolute; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
-        .particle { position: absolute; width: 4px; height: 4px; background: var(--neon-purple-glow); border-radius: 50%; opacity: 0; animation: float-up 8s infinite; box-shadow: 0 0 10px var(--neon-purple); }
-        @keyframes float-up { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 0.6; } 100% { transform: translateY(-10vh) scale(1.5); opacity: 0; } }
+        .particle { position: absolute; width: 4px; height: 4px; background: var(--neon-purple-glow); border-radius: 50%; opacity: 0.18; animation: float-up 8s infinite; box-shadow: 0 0 6px rgba(179, 71, 217, 0.25); }
+        @keyframes float-up { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 10% { opacity: 0.2; } 90% { opacity: 0.3; } 100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
         .hero-content { text-align: center; z-index: 1; padding: 0 2rem; max-width: 900px; }
-        .hero-title { font-family: 'Orbitron', monospace; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; letter-spacing: 4px; margin-bottom: 0.5rem; text-shadow: 0 0 30px var(--neon-purple-glow), 0 0 60px var(--neon-purple), 0 0 90px rgba(179, 71, 217, 0.5); animation: title-glow 3s ease-in-out infinite alternate; transition: text-shadow 0.5s ease; }
-        @keyframes title-glow { from { text-shadow: 0 0 30px var(--neon-purple-glow), 0 0 60px var(--neon-purple); } to { text-shadow: 0 0 40px var(--neon-purple-glow), 0 0 80px var(--neon-purple), 0 0 120px rgba(179, 71, 217, 0.6); } }
-        .barber-pole-icon { display: inline-block; width: 30px; height: 40px; margin-left: 15px; vertical-align: middle; background: linear-gradient(180deg, #ff0000 0%, #ffffff 33%, #0000ff 66%, #ffffff 100%); background-size: 100% 200%; border-radius: 15px; border: 2px solid rgba(255,255,255,0.3); animation: pole-spin 2s linear infinite; box-shadow: 0 0 15px rgba(255,255,255,0.3); }
-        @keyframes pole-spin { 0% { background-position: 0 0; } 100% { background-position: 0 200%; } }
+        .hero-title { font-family: 'Orbitron', monospace; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; letter-spacing: 4px; margin-bottom: 0.5rem; text-shadow: none; transition: text-shadow 0.5s ease; }
         .verse { font-family: 'Inter', sans-serif; font-style: italic; color: var(--neon-purple-glow); font-size: 1rem; margin-bottom: 1rem; opacity: 0.9; letter-spacing: 2px; transition: color 0.5s ease; }
         .hero-subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2.5rem; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto; transition: color 0.5s ease; }
-        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2.5rem; background: linear-gradient(135deg, var(--neon-purple), #8b2fa8); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; border: 2px solid transparent; box-shadow: 0 0 30px rgba(179, 71, 217, 0.4), inset 0 0 20px rgba(255,255,255,0.1); transition: all 0.4s ease; cursor: pointer; position: relative; overflow: hidden; }
-        .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.6s ease; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2.5rem; background: linear-gradient(135deg, var(--neon-purple), #7e2d9e); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 22px rgba(0,0,0,0.14); transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; }
+        .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); transition: left 0.5s ease; }
         .btn-primary:hover::before { left: 100%; }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(179, 71, 217, 0.6), 0 0 60px rgba(179, 71, 217, 0.3); border-color: var(--neon-purple-glow); }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.12); }
         .btn-primary.btn-full { width: 100%; justify-content: center; }
         .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 2px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(-10px); } 60% { transform: translateX(-50%) translateY(-5px); } }
@@ -159,8 +163,8 @@
            SECTION HEADERS
            ============================================ */
         .section-header { text-align: center; margin-bottom: 4rem; }
-        .section-title { font-family: 'Orbitron', monospace; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: 3px; color: var(--text-primary); text-shadow: 0 0 20px var(--neon-purple-glow); margin-bottom: 1rem; position: relative; display: inline-block; transition: color 0.5s ease, text-shadow 0.5s ease; }
-        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, transparent, var(--neon-purple), transparent); box-shadow: 0 0 10px var(--neon-purple-glow); }
+        .section-title { font-family: 'Orbitron', monospace; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: 3px; color: var(--text-primary); text-shadow: none; margin-bottom: 1rem; position: relative; display: inline-block; transition: color 0.5s ease, text-shadow 0.5s ease; }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, transparent, var(--neon-purple), transparent); opacity: 0.9; }
         .section-subtitle { color: var(--text-secondary); font-size: 1rem; margin-top: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
 
         /* ============================================
@@ -189,17 +193,17 @@
            ============================================ */
         .styles-section { padding: 8rem 5%; background: var(--darker-purple); position: relative; transition: background 0.5s ease; }
         .styles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
-        .style-card { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid var(--glass-border); cursor: pointer; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease; background: var(--deep-purple); aspect-ratio: 3/4; }
-        .style-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .style-card:hover { transform: translateY(-10px); border-color: var(--neon-purple); box-shadow: 0 20px 60px var(--shadow-color); }
-        .style-card:hover img { transform: scale(1.1); }
-        .style-card.selected { border-color: var(--neon-purple-glow); box-shadow: 0 0 40px rgba(179, 71, 217, 0.5), inset 0 0 30px rgba(179, 71, 217, 0.1); }
-        .style-card.selected::after { content: '✓ SELECTED'; position: absolute; top: 1rem; right: 1rem; background: var(--neon-purple); color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(179, 71, 217, 0.4); }
-        .style-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.5rem 1.5rem; background: linear-gradient(to top, rgba(13, 5, 24, 0.95), transparent); }
+        .style-card { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid var(--glass-border); cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; background: var(--deep-purple); aspect-ratio: 3/4; }
+        .style-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .style-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.14); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+        .style-card:hover img { transform: scale(1.04); }
+        .style-card.selected { border-color: rgba(255,255,255,0.2); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
+        .style-card.selected::after { content: '✓ SELECTED'; position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.08); color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.12); }
+        .style-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.5rem 1.5rem; background: linear-gradient(to top, rgba(13, 5, 24, 0.9), transparent); }
         .style-name { font-family: 'Orbitron', monospace; font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; }
         .style-price { color: var(--neon-purple-glow); font-weight: 600; margin-top: 0.3rem; transition: color 0.5s ease; }
-        .custom-style-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 3rem auto 0; padding: 1rem 2rem; background: transparent; border: 2px solid var(--glass-border); color: var(--text-secondary); border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.4s ease, border-color 0.5s ease, color 0.5s ease; max-width: 300px; }
-        .custom-style-btn:hover { border-color: var(--neon-purple); color: var(--text-primary); box-shadow: 0 0 30px var(--shadow-color); }
+        .custom-style-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 3rem auto 0; padding: 1rem 2rem; background: transparent; border: 1px solid var(--glass-border); color: var(--text-secondary); border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.25s ease; max-width: 320px; }
+        .custom-style-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--text-primary); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
 
         /* ============================================
            TRANSFORMATIONS 
@@ -255,6 +259,21 @@
         .testimonial-text { color: var(--text-secondary); line-height: 1.7; font-style: italic; transition: color 0.5s ease; }
 
         /* ============================================
+           FAQ SECTION
+           ============================================ */
+        .faq-section { padding: 8rem 5%; background: var(--darker-purple); transition: background 0.5s ease; }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 16px; margin-bottom: 1.5rem; overflow: hidden; transition: all 0.4s ease, background 0.5s ease, border-color 0.5s ease; }
+        .faq-item.active { border-color: var(--neon-purple); box-shadow: 0 10px 30px var(--shadow-color); }
+        .faq-question { padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--text-primary); transition: color 0.3s ease; user-select: none; }
+        .faq-question:hover { color: var(--neon-purple-glow); }
+        .faq-toggle { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--neon-purple-glow); font-size: 1.5rem; transition: transform 0.3s ease; }
+        .faq-item.active .faq-toggle { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; color: var(--text-secondary); }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 0 1.5rem 1.5rem; }
+        .faq-answer p { line-height: 1.7; margin-bottom: 0.8rem; font-size: 0.95rem; transition: color 0.5s ease; }
+
+        /* ============================================
            BOOKING
            ============================================ */
         .booking-section { padding: 8rem 5%; background: var(--darker-purple); position: relative; transition: background 0.5s ease; }
@@ -274,6 +293,23 @@
         .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); }
         .btn-email { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; background: transparent; color: var(--text-secondary); border: 2px solid var(--glass-border); border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.4s ease, border-color 0.5s ease, color 0.5s ease; text-decoration: none; }
         .btn-email:hover { border-color: var(--neon-purple); color: var(--text-primary); box-shadow: 0 0 20px rgba(179, 71, 217, 0.2); }
+
+        /* ============================================
+           POLICY CHECKBOX & MODALS
+           ============================================ */
+        .policy-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 5000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; backdrop-filter: blur(5px); }
+        .policy-modal.active { opacity: 1; visibility: visible; }
+        .policy-modal.mandatory { z-index: 9999; background: rgba(0, 0, 0, 0.85); }
+        .policy-modal-content { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem; max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); }
+        .policy-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; transition: color 0.3s ease; }
+        .policy-close:hover { color: var(--text-primary); }
+        .policy-modal.mandatory .policy-close { display: none; }
+        .policy-accept-btn { display: block; width: 100%; margin-top: 2rem; padding: 1rem; background: linear-gradient(135deg, var(--neon-purple), #8b2fa8); color: white; border: none; border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }\n        .policy-accept-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(179, 71, 217, 0.4); }
+        .policy-modal h3 { font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--neon-purple-glow); }
+        .policy-modal p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+        .policy-modal h4 { color: var(--text-primary); font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.8rem; font-weight: 600; }
+        .policy-modal ul { color: var(--text-secondary); line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1rem; }
+        .policy-modal li { margin-bottom: 0.5rem; }
 
         /* ============================================
            PAYMENT SECTION
@@ -349,7 +385,7 @@
 
     <!-- Loading Screen -->
     <div class="loader" id="loader">
-        <div class="loader-scissors">✂️</div>
+        <div class="loader-scissors"></div>
         <div class="loader-text">SEMIE'S CUTS</div>
         <div class="loader-bar"><div class="loader-progress"></div></div>
     </div>
@@ -362,12 +398,25 @@
             <li><a href="#about">About</a></li>
             <li><a href="#styles">Styles</a></li>
             <li><a href="#transformations">Transformations</a></li>
-            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#book">Book Now</a></li>
         </ul>
         <div class="nav-actions">
             <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                <span class="theme-icon" id="themeIcon">☀️</span>
+                <svg class="theme-icon sun" id="themeIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="theme-icon moon" id="themeIconMoon" style="display: none;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
             </button>
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
         </div>
@@ -375,15 +424,15 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <video class="hero-video-bg" autoplay muted loop playsinline poster="">
+        <video class="hero-video-bg" autoplay muted loop playsinline poster="" preload="metadata">
             <source src="videos/hero-bg.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="particles" id="particles"></div>
         <div class="hero-content">
-            <h1 class="hero-title">SEMIE'S CUTS<span class="barber-pole-icon"></span></h1>
+            <h1 class="hero-title">SEMIE'S CUTS</h1>
             <p class="verse">Philippians 4:13</p>
-            <p class="hero-subtitle">Welcome to Semie's Cuts — where precision meets style. We deliver professional barbering with a personal touch, right to your door or in the chair.</p>
+            <p class="hero-subtitle">Precision barbering for clean fades, sharp lines, and a cut that fits your style. In-shop and home appointments available.</p>
             <a href="#book" class="btn-primary"><span>Book Appointment</span><span>→</span></a>
         </div>
         <div class="scroll-indicator"><span>SCROLL</span><div class="scroll-line"></div></div>
@@ -395,19 +444,19 @@
         <div class="about-grid">
             <div class="about-image-wrapper reveal">
                 <div class="about-image-glow"></div>
-                <img src="images/sieme-profile.jpg" alt="Semie - Master Barber" class="about-image" onerror="this.style.background='linear-gradient(135deg, #1a0a2e, #b347d9)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<span style=\'font-size:4rem\'>✂️</span>';">
+                <img src="images/sieme-profile.jpg" alt="Semie - Master Barber" class="about-image" loading="lazy" width="400" height="400" onerror="this.style.background='linear-gradient(135deg, #1a0a2e, #b347d9)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<span style=\'font-size:4rem\'>✂️</span>';">
                 <div class="experience-badge"><span class="years">5+</span><span class="label">Years Exp.</span></div>
             </div>
             <div class="about-content reveal">
-                <h3>The Barber Behind the Blade</h3>
-                <p>I'm Semie — a passionate barber who believes every cut tells a story. What started as a hobby in my garage has grown into a trusted brand built on precision, consistency, and genuine connection with every client who sits in my chair.</p>
-                <p>Whether you're looking for a sharp fade, intricate braids, or a complete transformation, I bring the shop experience to you. Home service or in-studio — your comfort is my priority. Every appointment is a collaboration to bring your vision to life.</p>
+                <h3>Clean cuts. Real detail.</h3>
+                <p>Semie's Cuts is built around one thing: giving every client a cut that fits their face, their style, and their routine. Every session is focused on detail, precision, and a comfortable experience from start to finish.</p>
+                <p>Whether you're after a sharp taper, a clean beard line, or a full transformation, the goal is simple: leave looking fresh, confident, and like yourself — just sharper. Home service and in-shop appointments are both available.</p>
                 <p class="verse-quote">"I can do all things through Christ who strengthens me." — Philippians 4:13</p>
                 <div class="stats-grid">
                     <div class="stat-card"><div class="stat-number" data-target="500">0</div><div class="stat-label">Happy Clients</div></div>
                     <div class="stat-card"><div class="stat-number" data-target="50">0</div><div class="stat-label">Styles Mastered</div></div>
-                    <div class="stat-card"><div class="stat-number" data-target="98">0</div><div class="stat-label">% Satisfaction</div></div>
-                    <div class="stat-card"><div class="stat-number" data-target="12">0</div><div class="stat-label">Awards Won</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="98">0</div><div class="stat-label">Satisfaction</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="12">0</div><div class="stat-label">Years Combined</div></div>
                 </div>
             </div>
         </div>
@@ -418,39 +467,39 @@
         <div class="section-header reveal"><h2 class="section-title">SIGNATURE STYLES</h2></div>
         <div class="styles-grid" id="stylesGrid">
             <div class="style-card reveal" data-style="Afro Taper Fade" data-price="₦3,500" onclick="selectStyle(this)">
-                <img src="images/braids.jpg" alt="braids">
+                <img src="images/braids.jpg" alt="braids" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">braids</div><div class="style-price">From ₦3,500</div></div>
             </div>
             <div class="style-card reveal" data-style="Blowout Taper" data-price="₦4,000" onclick="selectStyle(this)">
-                <img src="images/burst-fade.jpg" alt="burst-fade">
+                <img src="images/burst-fade.jpg" alt="burst-fade" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">burst-fade</div><div class="style-price">From ₦4,000</div></div>
             </div>
             <div class="style-card reveal" data-style="Braids" data-price="₦5,000" onclick="selectStyle(this)">
-                <img src="images/buzzcut.jpg" alt="buzzcut">
+                <img src="images/buzzcut.jpg" alt="buzzcut" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">buzzcut</div><div class="style-price">From ₦5,000</div></div>
             </div>
             <div class="style-card reveal" data-style="Curl Sponge Fade" data-price="₦3,000" onclick="selectStyle(this)">
-                <img src="images/drop-fade.jpg" alt="drop-fade">
+                <img src="images/drop-fade.jpg" alt="drop-fade" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">drop-fade</div><div class="style-price">From ₦3,000</div></div>
             </div>
             <div class="style-card reveal" data-style="High Top Fade" data-price="₦3,500" onclick="selectStyle(this)">
-                <img src="images/high-fade.jpg" alt="high-fade">
+                <img src="images/high-fade.jpg" alt="high-fade" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">high-fade</div><div class="style-price">From ₦3,500</div></div>
             </div>
             <div class="style-card reveal" data-style="Buzz Cut" data-price="₦2,000" onclick="selectStyle(this)">
-                <img src="images/low-cut.jpg" alt="low-cut">
+                <img src="images/low-cut.jpg" alt="low-cut" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">low-cut</div><div class="style-price">From ₦2,000</div></div>
             </div>
             <div class="style-card reveal" data-style="Temp Fade" data-price="₦3,000" onclick="selectStyle(this)">
-                <img src="images/modern-mullet.jpg" alt="modern-mullet">
+                <img src="images/modern-mullet.jpg" alt="modern-mullet" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">modern-mullet</div><div class="style-price">From ₦3,000</div></div>
             </div>
-            <div class="style-card reveal" data-style="Mohawk Fade" data-price="₦4,500" onclick="selectStyle(this)">
-                <img src="images/taper-fade.jpg" alt="aper-ftade">
-                <div class="style-overlay"><div class="style-name">aper-ftade</div><div class="style-price">From ₦4,500</div></div>
+            <div class="style-card reveal" data-style="Taper Fade" data-price="₦4,500" onclick="selectStyle(this)">
+                <img src="images/taper-fade.jpg" alt="taper-fade" loading="lazy" width="300" height="300">
+                <div class="style-overlay"><div class="style-name">taper-fade</div><div class="style-price">From ₦4,500</div></div>
             </div>
         </div>
-        <button class="custom-style-btn reveal" onclick="customStyle()"><span>💭</span><span>I've got a hairstyle in mind</span></button>
+        <button class="custom-style-btn reveal" onclick="customStyle()"><span></span><span>I've got a hairstyle in mind</span></button>
     </section>
 
     <!-- Transformations -->
@@ -459,15 +508,47 @@
         <div class="transform-grid">
             <div class="ba-slider reveal" id="ba1">
                 <div class="ba-labels"><span class="ba-label">Before</span><span class="ba-label">After</span></div>
-                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop" class="ba-image before" alt="Before">
-                <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&h=400&fit=crop" class="ba-image after" alt="After">
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop" class="ba-image before" alt="Before" loading="lazy" width="600" height="400">
+                <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&h=400&fit=crop" class="ba-image after" alt="After" loading="lazy" width="600" height="400">
                 <div class="ba-handle"></div>
             </div>
             <div class="ba-slider reveal" id="ba2">
                 <div class="ba-labels"><span class="ba-label">Before</span><span class="ba-label">After</span></div>
-                <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&h=400&fit=crop" class="ba-image before" alt="Before">
-                <img src="https://images.unsplash.com/photo-1620122830785-a6e0f1b7313e?w=600&h=400&fit=crop" class="ba-image after" alt="After">
+                <img src="images/before.jpg" class="ba-image before" alt="Before" loading="lazy" width="600" height="400">
+                <img src="images/after.jpg" class="ba-image after" alt="After" loading="lazy" width="600" height="400">
                 <div class="ba-handle"></div>
+            </div>
+            <div class="ba-slider reveal" id="ba3">
+                <div class="ba-labels"><span class="ba-label">Before</span><span class="ba-label">After</span></div>
+                <img src="https://images.unsplash.com/photo-1599351751696-5a7ae3df0e64?w=600&h=400&fit=crop" class="ba-image before" alt="Before" loading="lazy" width="600" height="400">
+                <img src="https://images.unsplash.com/photo-1599351751696-5a7ae3df0e64?w=600&h=400&fit=crop&blend=https://images.unsplash.com/photo-1622286342621-4bd786c2447c&blend-mode=darken" class="ba-image after" alt="After" loading="lazy" width="600" height="400">
+                <div class="ba-handle"></div>
+            </div>
+            <div class="ba-slider reveal" id="ba4">
+                <div class="ba-labels"><span class="ba-label">Before</span><span class="ba-label">After</span></div>
+                <img src="https://images.unsplash.com/photo-1579827373167-e74ae1b437ea?w=600&h=400&fit=crop" class="ba-image before" alt="Before" loading="lazy" width="600" height="400">
+                <img src="https://images.unsplash.com/photo-1599351751696-5a7ae3df0e64?w=600&h=400&fit=crop" class="ba-image after" alt="After" loading="lazy" width="600" height="400">
+                <div class="ba-handle"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Business Info -->
+    <section style="padding: 8rem 5%; background: var(--darker-purple); transition: background 0.5s ease;" id="contact">
+        <div class="section-header reveal"><h2 class="section-title">VISIT US</h2><p class="section-subtitle">Stop by our shop or book a home appointment</p></div>
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+            <div class="reveal" style="order: 2;">
+                <h3 style="font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--neon-purple-glow);">Get In Touch</h3>
+                <div style="background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1rem;"><strong>📞 Phone:</strong></p>
+                    <a href="tel:09126337737" style="color: var(--neon-purple-glow); text-decoration: none; font-weight: 600; font-size: 1.1rem;">0912-633-7737</a>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;"><strong>⏰ Hours:</strong></p>
+                    <p style="color: var(--text-secondary);">Mon - Fri: 10:00 AM - 8:00 PM<br>Sat: 10:00 AM - 7:00 PM<br>Sun: Closed</p>
+                </div>
+                <a href="tel:09126337737" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #25D366, #128C7E); color: white; text-decoration: none; border-radius: 12px; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 10px 30px rgba(37, 211, 102, 0.3)'" onmouseout="this.style.boxShadow='none'">📞 Call Now</a>
+            </div>
+            <div class="reveal" style="order: 1; border-radius: 20px; overflow: hidden; border: 2px solid rgba(200, 143, 228, 0.4); box-shadow: 0 0 30px rgba(157, 78, 192, 0.2), inset 0 0 20px rgba(157, 78, 192, 0.1); backdrop-filter: blur(10px);">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7919253405107!2d3.3521!3d6.5356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6f4f4f4f4f4f4f%3A0x1234567890!2sAlagbado%2C%20Moshalashi%2C%20Lagos!5e0!3m2!1sen!2sng!4v1234567890" width="100%" height="400" style="border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
@@ -481,7 +562,7 @@
         </div>
         <div class="pricing-grid" id="pricingGrid">
             <div class="pricing-card reveal">
-                <div class="service-icon">✂️</div>
+                <div class="service-icon"></div>
                 <h3 class="service-name">Classic Cut</h3>
                 <p class="service-desc">Fade, taper, or any standard cut with precision lining</p>
                 <div class="price" data-shop="₦2,500" data-home="₦4,000">₦2,500</div>
@@ -493,7 +574,7 @@
                 </ul>
             </div>
             <div class="pricing-card featured reveal">
-                <div class="service-icon">🔥</div>
+                <div class="service-icon"></div>
                 <h3 class="service-name">Premium Cut</h3>
                 <p class="service-desc">Full service with beard trim and facial treatment</p>
                 <div class="price" data-shop="₦5,000" data-home="₦7,500">₦5,000</div>
@@ -506,7 +587,7 @@
                 </ul>
             </div>
             <div class="pricing-card reveal">
-                <div class="service-icon">👑</div>
+                <div class="service-icon"></div>
                 <h3 class="service-name">Royal Treatment</h3>
                 <p class="service-desc">The full VIP experience for the modern king</p>
                 <div class="price" data-shop="₦8,000" data-home="₦12,000">₦8,000</div>
@@ -583,6 +664,67 @@
         </div>
     </section>
 
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+        <div class="section-header reveal"><h2 class="section-title">QUESTIONS?</h2><p class="section-subtitle">Everything you need to know before booking</p></div>
+        <div class="faq-container">
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>How long does a haircut take?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Classic cuts take 30-45 minutes. Premium styles and detailed work take 45-60 minutes. Royal Treatment can go up to 2 hours depending on what you choose. We never rush—quality comes first.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>Do you do walk-ins or is it appointment only?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We operate by appointment to ensure you get quality time and no wait. Book in-shop or home service directly through WhatsApp or email. This keeps the experience smooth for you and allows us to give every client full attention.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>What's your cancellation policy?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Cancel or reschedule at least 24 hours before your appointment for a full refund of your deposit. Less notice and the deposit stays, but we'll happily book you another time. Life happens—just give us a heads-up.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>How does home service work?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>After you book, we'll confirm the exact address and time. I bring all tools and equipment—you just provide a comfortable space (chair, good lighting, mirror). No setup needed on your end. It's the same quality cut, just at your convenience.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>What's your aftercare advice?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Keep your fade clean by rinsing with cold water daily. If you got beard work, use beard oil 2-3 times a week. Stay out of direct sunlight right after (especially if you're new to a style). We'll give you a take-home care sheet with every cut if requested.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>Can I show you a reference photo?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely. Bring reference photos—the clearer, the better. During your consultation, we'll talk through exactly what you want, what suits your hair type, and what's realistic for your routine. We listen before we cut.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Booking -->
     <section class="booking-section" id="book">
         <div class="section-header reveal"><h2 class="section-title">BOOK YOUR CUT</h2></div>
@@ -628,7 +770,7 @@
                 </div>
                 <div class="booking-actions">
                     <button type="button" class="btn-whatsapp" onclick="bookViaWhatsApp()"><span>📱</span><span>Book via WhatsApp</span></button>
-                    <button type="button" class="btn-email" onclick="bookViaEmail()"><span>✉️</span><span>Book via Email</span></button>
+                    <button type="button" class="btn-email" onclick="bookViaEmail()"><span></span><span>Book via Email</span></button>
                 </div>
                 <p class="email-note">Or email your booking request directly to <a href="mailto:joseph207jj@gmail.com">joseph207jj@gmail.com</a></p>
             </form>
@@ -644,7 +786,7 @@
         <div class="payment-container reveal">
             <div class="payment-card">
                 <div class="payment-header">
-                    <span class="payment-icon">🔒</span>
+                    <span class="payment-icon"></span>
                     <h3>Pay Deposit</h3>
                     <p>Secure your appointment </p>
                 </div>
@@ -664,7 +806,8 @@
                 </div>
                 <div class="bank-details" id="bankDetails">
                     <div class="bank-card">
-                        <div class="bank-header"><span class="bank-logo">💳</span><span class="bank-name">OPAY</span></div>
+                        <div class="bank-header"><span class="bank-logo">
+                        </span><span class="bank-name">OPAY</span></div>
                         <div class="account-info">
                             <div class="account-row">
                                 <span class="account-label">Account Number</span>
@@ -701,32 +844,189 @@
             <a href="#" title="WhatsApp">💬</a>
             <a href="#" title="Twitter/X">🐦</a>
         </div>
+        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--glass-border);">
+            <a href="#" onclick="openPolicyModal('terms'); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; margin: 0 1rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--neon-purple-glow)'" onmouseout="this.style.color='var(--text-secondary)'">Terms of Service</a>
+            <a href="#" onclick="openPolicyModal('privacy'); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; margin: 0 1rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--neon-purple-glow)'" onmouseout="this.style.color='var(--text-secondary)'">Privacy Policy</a>
+            <a href="#" onclick="openPolicyModal('cookies'); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; margin: 0 1rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--neon-purple-glow)'" onmouseout="this.style.color='var(--text-secondary)'">Cookie Policy</a>
+        </div>
         <div class="copyright"> Semie's Cuts. All rights reserved. Crafted with precision.</div>
     </footer>
 
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
-    <script>
+    <!-- Policy Modals -->
+    <div class="policy-modal" id="termsModal">
+        <div class="policy-modal-content">
+            <button class="policy-close" onclick="closePolicyModal('terms')">&times;</button>
+            <h3>Terms of Service</h3>
+            <p><strong>Last Updated: August 2026</strong></p>
+            <p>Welcome to Semie's Cuts. By booking an appointment and using our services, you agree to these terms.</p>
+            <h4>1. Booking & Appointments</h4>
+            <ul>
+                <li>All appointments must be booked at least 24 hours in advance</li>
+                <li>Deposits are non-transferable but can be rescheduled with 24-hour notice</li>
+                <li>We reserve the right to decline service if a client is under the influence or disruptive</li>
+            </ul>
+            <h4>2. Cancellation Policy</h4>
+            <ul>
+                <li>Cancel or reschedule at least 24 hours before your appointment for a full refund</li>
+                <li>Less than 24 hours notice: deposit is forfeited</li>
+                <li>No-show: deposit is forfeited and future bookings may require full prepayment</li>
+            </ul>
+            <h4>3. Payment Terms</h4>
+            <ul>
+                <li>Deposits secure your appointment and go toward the final bill</li>
+                <li>Final payment is due on the day of service</li>
+                <li>We accept bank transfers and cash</li>
+            </ul>
+            <h4>4. Liability</h4>
+            <p>Semie's Cuts is not responsible for allergic reactions to products, hair damage from client-requested styles that may not be suitable for their hair type, or personal injuries at home service locations.</p>
+            <h4>5. Changes to Terms</h4>
+            <p>We reserve the right to update these terms at any time. Changes will be posted on our website.</p>
+            <button class="policy-accept-btn" onclick="acceptMandatoryPolicy()">I Agree & Accept Terms</button>
+        </div>
+    </div>
+
+    <div class="policy-modal" id="privacyModal">
+        <div class="policy-modal-content">
+            <button class="policy-close" onclick="closePolicyModal('privacy')">&times;</button>
+            <h3>Privacy Policy</h3>
+            <p><strong>Last Updated: August 2026</strong></p>
+            <p>Your privacy is important to us. This policy explains what personal data we collect and how we use it.</p>
+            <h4>1. Information We Collect</h4>
+            <ul>
+                <li><strong>Booking Info:</strong> Name, phone number, email, preferred date/time</li>
+                <li><strong>Service Preferences:</strong> Hairstyle, location preference, special requests</li>
+                <li><strong>Payment Info:</strong> Bank transfer details for deposits (we don't store card data)</li>
+                <li><strong>Technical Data:</strong> Browser type, IP address (via analytics)</li>
+            </ul>
+            <h4>2. How We Use Your Data</h4>
+            <ul>
+                <li>Confirming and managing your appointment</li>
+                <li>Sending booking reminders via WhatsApp or email</li>
+                <li>Improving our services and website</li>
+                <li>Legal compliance and fraud prevention</li>
+            </ul>
+            <h4>3. Data Retention</h4>
+            <p>We keep booking information for 2 years. You can request deletion anytime by emailing us.</p>
+            <h4>4. Sharing Your Data</h4>
+            <p>We do NOT sell or share your personal data with third parties. Your information is used only by Semie's Cuts.</p>
+            <h4>5. Your Rights</h4>
+            <ul>
+                <li>Right to access: Request a copy of your data anytime</li>
+                <li>Right to delete: Request deletion of your information</li>
+                <li>Right to opt-out: Unsubscribe from reminders (but booking confirmations will still be sent)</li>
+            </ul>
+            <h4>6. Contact Us</h4>
+            <p>Questions about your privacy? Email: joseph207jj@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="policy-modal" id="cookiesModal">
+        <div class="policy-modal-content">
+            <button class="policy-close" onclick="closePolicyModal('cookies')">&times;</button>
+            <h3>Cookie Policy</h3>
+            <p><strong>Last Updated: August 2026</strong></p>
+            <p>We use cookies and similar technologies to enhance your experience on our website.</p>
+            <h4>1. What Are Cookies?</h4>
+            <p>Cookies are small text files stored on your device that help us recognize you and remember your preferences.</p>
+            <h4>2. Types of Cookies We Use</h4>
+            <ul>
+                <li><strong>Essential Cookies:</strong> Required for booking forms and site functionality</li>
+                <li><strong>Preference Cookies:</strong> Remember your theme choice (dark/light mode)</li>
+                <li><strong>Analytics Cookies:</strong> Track page views to help us improve the site</li>
+            </ul>
+            <h4>3. Third-Party Cookies</h4>
+            <ul>
+                <li><strong>Google Analytics:</strong> Helps us understand visitor behavior (anonymized)</li>
+                <li><strong>No Marketing Cookies:</strong> We don't use cookies for targeted ads</li>
+            </ul>
+            <h4>4. How to Control Cookies</h4>
+            <p>You can disable cookies in your browser settings. Note: disabling essential cookies may affect booking functionality.</p>
+            <h4>5. Updates to Cookie Policy</h4>
+            <p>We may update this policy. Changes will be posted here with an updated date.</p>
+        </div>
+    </div>
+
+    <!-- GSAP Library - Deferred for non-blocking render -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script defer>
         /* ============================================
-           SEMIE'S CUTS - MAIN JAVASCRIPT
+           SEMIE'S CUTS - MAIN JAVASCRIPT (Deferred)
            ============================================ */
+
+        // ============================================
+        // POLICY MODALS
+        // ============================================
+        function openPolicyModal(policyType) {
+            const modalIds = { terms: 'termsModal', privacy: 'privacyModal', cookies: 'cookiesModal' };
+            const modal = document.getElementById(modalIds[policyType]);
+            if (modal) modal.classList.add('active');
+        }
+
+        function closePolicyModal(policyType) {
+            const modalIds = { terms: 'termsModal', privacy: 'privacyModal', cookies: 'cookiesModal' };
+            const modal = document.getElementById(modalIds[policyType]);
+            if (modal && !modal.classList.contains('mandatory')) {
+                modal.classList.remove('active');
+            }
+        }
+
+        function acceptMandatoryPolicy() {
+            localStorage.setItem('semie-policy-accepted', 'true');
+            const termsModal = document.getElementById('termsModal');
+            if (termsModal) {
+                termsModal.classList.remove('active');
+                termsModal.classList.remove('mandatory');
+            }
+            showToast('✅ Thank you! Policies accepted.');
+        }
+
+        // Show mandatory policy on page load
+        window.addEventListener('load', function() {
+            const policyAccepted = localStorage.getItem('semie-policy-accepted');
+            if (!policyAccepted) {
+                const termsModal = document.getElementById('termsModal');
+                if (termsModal) {
+                    termsModal.classList.add('active');
+                    termsModal.classList.add('mandatory');
+                }
+            }
+        });
+
+        // Close modal when clicking outside (but NOT for mandatory modals)
+        document.querySelectorAll('.policy-modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this && !this.classList.contains('mandatory')) {
+                    this.classList.remove('active');
+                }
+            });
+        });
 
         // ============================================
         // THEME TOGGLE
         // ============================================
         function toggleTheme() {
             const html = document.documentElement;
-            const icon = document.getElementById('themeIcon');
+            const sunIcon = document.getElementById('themeIcon');
+            const moonIcon = document.getElementById('themeIconMoon');
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
             html.setAttribute('data-theme', newTheme);
-            icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            if (newTheme === 'dark') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
             
             // Save preference
             localStorage.setItem('semie-theme', newTheme);
-            
             showToast(newTheme === 'dark' ? 'Dark mode activated 🌑' : 'Light mode activated ☀️');
         }
 
@@ -734,8 +1034,205 @@
         (function loadTheme() {
             const savedTheme = localStorage.getItem('semie-theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
-            document.getElementById('themeIcon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            const sunIcon = document.getElementById('themeIcon');
+            const moonIcon = document.getElementById('themeIconMoon');
+            if (savedTheme === 'dark') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
         })();
+
+        // ============================================
+        // FAQ TOGGLE
+        // ============================================
+        function toggleFaq(element) {
+            const allFaqItems = document.querySelectorAll('.faq-item');
+            allFaqItems.forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('active');
+                }
+            });
+            element.classList.toggle('active');
+        }
+
+        // ============================================
+        // GSAP SCROLL ANIMATIONS (Deferred until GSAP loads)
+        // ============================================
+        function initGSAPAnimations() {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+                requestAnimationFrame(initGSAPAnimations);
+                return;
+            }
+
+            gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.section-title').forEach(element => {
+            gsap.fromTo(element, 
+                { opacity: 0, scale: 0.8, y: 30 },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "back.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 80%",
+                        end: "top 20%",
+                        scrub: false,
+                        markers: false
+                    }
+                }
+            );
+        });
+
+        // Style Cards - Staggered animation
+        gsap.utils.toArray('.style-card').forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 60 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "top 35%",
+                        scrub: false
+                    }
+                }
+            );
+        });
+
+        // About Content - Slide in animations
+        gsap.fromTo('.about-image',
+            { opacity: 0, x: -50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: '.about-section',
+                    start: "top 60%",
+                    end: "top 10%",
+                    scrub: false
+                }
+            }
+        );
+
+        gsap.fromTo('.about-content',
+            { opacity: 0, x: 50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                delay: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: '.about-section',
+                    start: "top 60%",
+                    end: "top 10%",
+                    scrub: false
+                }
+            }
+        );
+
+        // Stat Cards - Cascade animation
+        gsap.utils.toArray('.stat-card').forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 40, scale: 0.9 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.5,
+                    delay: index * 0.1,
+                    ease: "back.out",
+                    scrollTrigger: {
+                        trigger: '.stats-grid',
+                        start: "top 75%",
+                        end: "top 25%",
+                        scrub: false
+                    }
+                }
+            );
+        });
+
+        // Transformation Sliders - Fade in
+        gsap.utils.toArray('.ba-slider').forEach((slider, index) => {
+            gsap.fromTo(slider,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7,
+                    delay: index * 0.15,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: slider,
+                        start: "top 80%",
+                        end: "top 30%",
+                        scrub: false
+                    }
+                }
+            );
+        });
+
+        // Pricing Cards - Staggered reveal with scale
+        gsap.utils.toArray('.pricing-card').forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 50, scale: 0.9 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: "back.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "top 35%",
+                        scrub: false
+                    }
+                }
+            );
+        });
+
+        // Parallax effect on About section background
+        gsap.to('.about-section::before', {
+            scrollTrigger: {
+                trigger: '.about-section',
+                start: "top 80%",
+                end: "bottom 20%",
+                scrub: 1
+            },
+            y: -100,
+            opacity: 0.5
+        });
+
+        // Hover effects on cards with GSAP
+        document.querySelectorAll('.style-card, .pricing-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, { duration: 0.3, y: -15, boxShadow: "0 20px 60px rgba(179, 71, 217, 0.5)" });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, { duration: 0.3, y: 0 });
+            });
+        });
+        }
+
+        // Initialize GSAP animations after libraries load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGSAPAnimations);
+        } else {
+            initGSAPAnimations();
+        }
 
         // ============================================
         // LOADING SCREEN
@@ -743,33 +1240,41 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 1800);
+            }, 1200);
         });
 
         // ============================================
-        // NAVBAR SCROLL EFFECT
+        // NAVBAR SCROLL EFFECT (Throttled)
         // ============================================
-        const navbar = document.getElementById('navbar');
+        let scrollTimeout;
+        let lastScrollY = 0;
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+            if (scrollTimeout) return;
+            scrollTimeout = setTimeout(() => {
+                if (window.scrollY > 50) {
+                    if (!navbar.classList.contains('scrolled')) navbar.classList.add('scrolled');
+                } else {
+                    if (navbar.classList.contains('scrolled')) navbar.classList.remove('scrolled');
+                }
+                scrollTimeout = null;
+            }, 10);
+        }, { passive: true });
 
         // ============================================
-        // PARTICLES
+        // PARTICLES (Reduced for performance: 30 → 8)
         // ============================================
         const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 8 + 's';
-            particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
-            particlesContainer.appendChild(particle);
+        if (particlesContainer) {
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                particlesContainer.appendChild(particle);
+            }
         }
+        
 
         // ============================================
         // SCROLL REVEAL
@@ -1050,4 +1555,4 @@
             track.style.animationPlayState = 'running';
         });
     </script>
-</body>
+</body>  
