@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semie's Cuts — Precision Meets Style</title>
+    <title>Semie's Cuts  Precision Meets Style</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -39,17 +39,17 @@
            ============================================ */
         [data-theme="light"] {
             --neon-purple: #8b2fa8;
-            --neon-purple-glow: #b347d9;
-            --deep-purple: #f5f0f7;
+            --neon-purple-glow: #42067a;
+            --deep-purple: #f5f0f7d5;
             --darker-purple: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.9);
-            --glass-border: rgba(139, 47, 168, 0.2);
-            --text-primary: #1a0a2e;
+            --glass-bg: rgba(143, 95, 216, 0.521);
+            --glass-border: rgba(101, 22, 150, 0.473);
+            --text-primary: #1e0936;
             --text-secondary: rgba(26, 10, 46, 0.6);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --input-bg: rgba(26, 10, 46, 0.05);
-            --shadow-color: rgba(139, 47, 168, 0.1);
-            --gradient-hero: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.9) 60%, var(--darker-purple) 100%);
+            --card-bg: rgba(44, 12, 56, 0.37);
+            --input-bg: rgba(18, 6, 34, 0.192);
+            --shadow-color: rgba(0, 0, 0, 0.568);
+            --gradient-hero: linear-gradient(180deg, rgba(255, 255, 255, 0.062), 0.623) 0%, rgba(255, 255, 255, 0.9) 0%, var(--darker-purple) 100%);
             --gradient-about: linear-gradient(180deg, #ffffff 0%, #f5f0f7 100%);
             --gradient-transform: linear-gradient(180deg, #f5f0f7 0%, #ffffff 100%);
             --gradient-testimonials: linear-gradient(180deg, #ffffff 0%, #f5f0f7 100%);
@@ -90,6 +90,7 @@
             border-color: var(--neon-purple);
             box-shadow: 0 0 20px var(--shadow-color);
             transform: rotate(20deg) scale(1.1);
+            cursor: pointer;
         }
         .theme-icon { position: absolute; width: 24px; height: 24px; }
         .theme-icon.sun { fill: var(--text-primary); }
@@ -149,7 +150,7 @@
         .btn-primary:hover::before { left: 100%; }
         .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.12); }
         .btn-primary.btn-full { width: 100%; justify-content: center; }
-        .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 2px; animation: bounce 2s infinite; }
+        .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 1px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(-10px); } 60% { transform: translateX(-50%) translateY(-5px); } }
         .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--neon-purple), transparent); }
 
@@ -195,7 +196,7 @@
         .styles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
         .style-card { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid var(--glass-border); cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; background: var(--deep-purple); aspect-ratio: 3/4; }
         .style-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .style-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,0.14); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+        .style-card:hover { transform: translateY(-6px); border-color: rgb(68, 5, 119); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
         .style-card:hover img { transform: scale(1.04); }
         .style-card.selected { border-color: rgba(255,255,255,0.2); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
         .style-card.selected::after { content: '✓ SELECTED'; position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.08); color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.12); }
@@ -348,13 +349,13 @@
            FOOTER
            ============================================ */
         .footer { padding: 4rem 5% 2rem; background: var(--deep-purple); border-top: 1px solid var(--glass-border); text-align: center; transition: background 0.5s ease, border-color 0.5s ease; }
-        .footer-tagline { font-family: 'Orbitron', monospace; font-size: 1.2rem; color: var(--neon-purple-glow); margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(179, 71, 217, 0.3); transition: color 0.5s ease; }
+        .footer-tagline { font-family: 'Orbitron', monospace; font-size: 1.2rem; color: var(--neon-purple-glow); margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(255, 253, 255, 0); transition: color 0.5s ease; }
         .footer-sub { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 2rem; transition: color 0.5s ease; }
         .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
         .social-links a { width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); text-decoration: none; font-size: 1.2rem; transition: all 0.4s ease, border-color 0.5s ease, color 0.5s ease; }
-        .social-links a:hover { border-color: var(--neon-purple); color: var(--neon-purple-glow); box-shadow: 0 0 20px rgba(179, 71, 217, 0.3); transform: translateY(-3px); }
-        .copyright { color: rgba(255, 255, 255, 0.3); font-size: 0.85rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); transition: color 0.5s ease, border-color 0.5s ease; }
-        [data-theme="light"] .copyright { color: rgba(26, 10, 46, 0.3); }
+        .social-links a:hover { border-color: var(--neon-purple); color: var(--neon-purple-glow); box-shadow: 0 0 20px rgba(178, 71, 217, 0.822); transform: translateY(-3px); }
+        .copyright { color: rgb(0, 0, 0)342); font-size: 0.85rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); transition: color 0.5s ease, border-color 0.5s ease; }
+        [data-theme="light"] .copyright { color: rgba(0, 0, 0, 0.836); }
 
         /* ============================================
            TOAST
@@ -379,6 +380,16 @@
             .deposit-amounts { grid-template-columns: 1fr; }
             .account-row { flex-direction: column; align-items: flex-start; }
         }
+            .logo-text {
+    display: flex;
+    align-items: center; /* Centers the logo vertically with the menu items */
+}
+
+.logo-text svg {
+    height: 50px; /* You can adjust this number to fit your navbar height */
+    width: auto;  /* This keeps the correct aspect ratio */
+    display: block;
+}
     </style>
 </head>
 <body>
@@ -388,18 +399,21 @@
         <div class="loader-scissors"></div>
         <div class="loader-text">SEMIE'S CUTS</div>
         <div class="loader-bar"><div class="loader-progress"></div></div>
-    </div>
+    </div> 
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
-        <div class="logo-text">SEMIECUTS</div>
+        <div class="logo-text"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1536">
+  <path fill="#fff" d="M302 546L302 661 658 912 678 933 694 966 697 999 691 1033 670 1078 647 1106 604 1143 557 1171 621 1116 642 1084 648 1055 645 1029 635 1008 623 994 303 773 302 925 452 1027 517 1075 541 1098 554 1124 555 1150 551 1164 538 1184 596 1181 656 1170 714 1149 754 1124 788 1085 798 1064 806 1031 806 997 802 977 780 934 757 910 726 887 648 848 647 774Z"/>
+  <path fill="#fff" d="M408 339L360 377 337 414 332 438 333 457 347 493 367 516 386 531 589 665 685 733 708 758 719 786 718 820 706 849 755 822 790 788 802 767 809 744 808 691 799 664 786 642 740 598 479 429 453 406 439 382 437 358 441 344 459 314Z"/>
+</svg></div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#styles">Styles</a></li>
             <li><a href="#transformations">Transformations</a></li>
             <li><a href="#faq">FAQ</a></li>
-            <li><a href="#book">Book Now</a></li>
+            <li><a href="#book">Book</a></li>
         </ul>
         <div class="nav-actions">
             <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
@@ -431,8 +445,8 @@
         <div class="particles" id="particles"></div>
         <div class="hero-content">
             <h1 class="hero-title">SEMIE'S CUTS</h1>
-            <p class="verse">Philippians 4:13</p>
-            <p class="hero-subtitle">Precision barbering for clean fades, sharp lines, and a cut that fits your style. In-shop and home appointments available.</p>
+            <p class="verse"><b>Philippians 4:13</b></p>
+            <p class="hero-subtitle"><i>Precision barbering for clean fades, sharp lines. </i></p>
             <a href="#book" class="btn-primary"><span>Book Appointment</span><span>→</span></a>
         </div>
         <div class="scroll-indicator"><span>SCROLL</span><div class="scroll-line"></div></div>
@@ -450,13 +464,12 @@
             <div class="about-content reveal">
                 <h3>Clean cuts. Real detail.</h3>
                 <p>Semie's Cuts is built around one thing: giving every client a cut that fits their face, their style, and their routine. Every session is focused on detail, precision, and a comfortable experience from start to finish.</p>
-                <p>Whether you're after a sharp taper, a clean beard line, or a full transformation, the goal is simple: leave looking fresh, confident, and like yourself — just sharper. Home service and in-shop appointments are both available.</p>
-                <p class="verse-quote">"I can do all things through Christ who strengthens me." — Philippians 4:13</p>
+                <p>Whether you're after a sharp taper, a clean beard line, or a full transformation, the goal is simple: leave looking fresh, confident, and like yourself  just sharper. Home service and in shop appointments are both available.</p>
                 <div class="stats-grid">
                     <div class="stat-card"><div class="stat-number" data-target="500">0</div><div class="stat-label">Happy Clients</div></div>
-                    <div class="stat-card"><div class="stat-number" data-target="50">0</div><div class="stat-label">Styles Mastered</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="15">0</div><div class="stat-label">Styles Mastered</div></div>
                     <div class="stat-card"><div class="stat-number" data-target="98">0</div><div class="stat-label">Satisfaction</div></div>
-                    <div class="stat-card"><div class="stat-number" data-target="12">0</div><div class="stat-label">Years Combined</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="8">0</div><div class="stat-label">Years Combined</div></div>
                 </div>
             </div>
         </div>
@@ -572,10 +585,10 @@ Call Now</a>
                 <h3 class="service-name">Classic Cut</h3>
                 <p class="service-desc">Fade, taper, or any standard cut with precision lining</p>
                 <div class="price" data-shop="₦2,500" data-home="₦4,000">₦2,500</div>
-                <p class="price-note">~45 minutes</p>
+                <p class="price-note"> 15 minutes</p>
                 <ul class="service-features">
                     <li>Consultation included</li>
-                    <li>Hot towel treatment</li>
+                    <li>Hot towel</li>
                     <li>Styling product finish</li>
                 </ul>
             </div>
@@ -584,25 +597,24 @@ Call Now</a>
                 <h3 class="service-name">Premium Cut</h3>
                 <p class="service-desc">Full service with beard trim and facial treatment</p>
                 <div class="price" data-shop="₦5,000" data-home="₦7,500">₦5,000</div>
-                <p class="price-note">~75 minutes</p>
+                <p class="price-note">25 minutes</p>
                 <ul class="service-features">
                     <li>Everything in Classic</li>
                     <li>Beard sculpting</li>
                     <li>Facial steam & cleanse</li>
-                    <li>Head massage</li>
                 </ul>
             </div>
             <div class="pricing-card reveal">
                 <div class="service-icon"></div>
-                <h3 class="service-name">Royal Treatment</h3>
-                <p class="service-desc">The full VIP experience for the modern king</p>
+                <h3 class="service-name">Royal service</h3>
+                <p class="service-desc">The full VIP experience </p>
                 <div class="price" data-shop="₦8,000" data-home="₦12,000">₦8,000</div>
-                <p class="price-note">~120 minutes</p>
+                <p class="price-note">30 minutes</p>
                 <ul class="service-features">
                     <li>Everything in Premium</li>
                     <li>Hair coloring/streaks</li>
                     <li>Deep conditioning</li>
-                    <li>Take-home product kit</li>
+                    <li>Takehome product kit</li>
                 </ul>
             </div>
         </div>
@@ -615,7 +627,7 @@ Call Now</a>
                     <div class="testimonial-avatar profile-avatar--green"><span>DO</span></div>
                     <div><div class="testimonial-name">David O.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"Semie doesn't just cut hair — he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
+                <p class="testimonial-text">"Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
@@ -636,7 +648,7 @@ Call Now</a>
                     <div class="testimonial-avatar profile-avatar--pink"><span>ER</span></div>
                     <div><div class="testimonial-name">Emmanuel R.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"The atmosphere, the skill, the conversation — Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
+                <p class="testimonial-text">"The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
             </div>
             <!-- Duplicates for infinite scroll -->
             <div class="testimonial-card">
@@ -644,7 +656,7 @@ Call Now</a>
                     <div class="testimonial-avatar profile-avatar--green"><span>DO</span></div>
                     <div><div class="testimonial-name">David O.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"Semie doesn't just cut hair — he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
+                <p class="testimonial-text">"Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
@@ -665,7 +677,7 @@ Call Now</a>
                     <div class="testimonial-avatar profile-avatar--pink"><span>ER</span></div>
                     <div><div class="testimonial-name">Emmanuel R.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"The atmosphere, the skill, the conversation — Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
+                <p class="testimonial-text">"The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
             </div>
         </div>
     </section>
@@ -849,7 +861,7 @@ Book via WhatsApp</span>
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-tagline">"AVERAGE?   NAH I'M THE ALPHA"</div>
-        <div class="footer-sub">Semie's Cuts — Home Service </div>
+        <div class="footer-sub">Semie's Cuts  Home Service </div>
         <div class="social-links">
             <a href="#" title="Instagram">📷</a>
             <a href="#" title="TikTok"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:8px;">
@@ -866,7 +878,7 @@ Book via WhatsApp</span>
             <a href="#" onclick="openPolicyModal('privacy'); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; margin: 0 1rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--neon-purple-glow)'" onmouseout="this.style.color='var(--text-secondary)'">Privacy Policy</a>
             <a href="#" onclick="openPolicyModal('cookies'); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; margin: 0 1rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--neon-purple-glow)'" onmouseout="this.style.color='var(--text-secondary)'">Cookie Policy</a>
         </div>
-        <div class="copyright"> Semie's Cuts. All rights reserved. Crafted with precision.</div>
+        <div class="copyright"> 2026 Semie's Cuts. All rights reserved. Crafted with precision.</div>
     </footer>
 
     <!-- Toast -->
@@ -999,7 +1011,7 @@ Book via WhatsApp</span>
                 termsModal.classList.remove('active');
                 termsModal.classList.remove('mandatory');
             }
-            showToast('✅ Thank you! Policies accepted.');
+            showToast('Thank you! Policies accepted.');
         }
 
         // Show mandatory policy on page load
@@ -1044,7 +1056,7 @@ Book via WhatsApp</span>
             
             // Save preference
             localStorage.setItem('semie-theme', newTheme);
-            showToast(newTheme === 'dark' ? 'Dark mode activated 🌑' : 'Light mode activated ☀️');
+            showToast(newTheme === 'dark' ? 'Dark mode activated ' : 'Light mode activated ');
         }
 
         // Load saved theme on page load
