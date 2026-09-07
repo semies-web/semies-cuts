@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semie's Cuts  Precision Meets Style</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://www.google.com">
+    <link rel="preload" as="image" href="images/sieme-profile.jpg">
+    
+    <style>
+        /* ============================================
+           CSS VARIABLES - DARK MODE (DEFAULT)
+           ============================================ */
+        :root {
+            --neon-purple: #9d4ec0;
+            --neon-purple-glow: #c88fe4;
+            --deep-purple: #1a0a2e;
+            --darker-purple: #0d0518;
+            --glass-bg: rgba(26, 10, 46, 0.82);
+            --glass-border: rgba(157, 78, 192, 0.18);
+            --whatsapp: #25D366;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.72);
+            --card-bg: rgba(26, 10, 46, 0.8);
+            --input-bg: rgba(255, 255, 255, 0.04);
+            --shadow-color: rgba(157, 78, 192, 0.08);
+            --gradient-hero: linear-gradient(180deg, rgba(13, 5, 24, 0.45) 0%, rgba(13, 5, 24, 0.8) 60%, var(--darker-purple) 100%);
+            --gradient-about: linear-gradient(180deg, var(--darker-purple) 0%, var(--deep-purple) 100%);
+            --gradient-transform: linear-gradient(180deg, var(--deep-purple) 0%, var(--darker-purple) 100%);
+            --gradient-testimonials: linear-gradient(180deg, var(--darker-purple) 0%, var(--deep-purple) 100%);
+        }
+
+        /* ============================================
+           LIGHT MODE VARIABLES
+           ============================================ */
+        [data-theme="light"] {
+            --neon-purple: #8b2fa8;
+            --neon-purple-glow: #42067a;
+            --deep-purple: #f5f0f7d5;
+            --darker-purple: #ffffff;
+            --glass-bg: rgba(143, 95, 216, 0.521);
+            --glass-border: rgba(101, 22, 150, 0.473);
+            --text-primary: #300661;
+            --text-secondary: rgba(36, 14, 63, 0.945);
+            --card-bg: rgba(44, 12, 56, 0.37);
+            --input-bg: rgba(18, 6, 34, 0.192);
+            --shadow-color: rgba(0, 0, 0, 0.568);
+            --gradient-hero: linear-gradient(180deg, rgba(255, 255, 255, 0.062), 0.623) 0%, rgba(255, 255, 255, 0.9) 0%, var(--darker-purple) 100%);
+            --gradient-about: linear-gradient(180deg, #ffffff 0%, #f5f0f7 100%);
+            --gradient-transform: linear-gradient(180deg, #f5f0f7 0%, #ffffff 100%);
+            --gradient-testimonials: linear-gradient(180deg, #ffffff 0%, #f5f0f7 100%);
+        }
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker-purple);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--deep-purple); }
+        ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 4px; }
+
+        /* ============================================
+           THEME TOGGLE                                          
+           ============================================ */
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+        .theme-toggle {
+            width: 45px; height: 45px; border-radius: 50%;
+            border: 2px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .theme-toggle:hover {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 20px var(--shadow-color);
+            transform: rotate(20deg) scale(1.1);
+            cursor: pointer;
+        }
+        .theme-icon { position: absolute; width: 24px; height: 24px; }
+        .theme-icon.sun { fill: var(--text-primary); }
+        .theme-icon.moon { fill: var(--text-primary); }
+
+        /* ============================================
+           LOADING SCREEN
+           ============================================ */
+        .loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--darker-purple);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.6s ease, visibility 0.6s ease, background 0.5s ease;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-scissors { font-size: 4rem; animation: snip 1s ease-in-out infinite; margin-bottom: 1rem; }
+        @keyframes snip { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-20deg); } }
+        .loader-text { font-family: 'Orbitron', monospace; color: var(--neon-purple-glow); letter-spacing: 4px; font-size: 1.2rem; }
+        .loader-bar { width: 200px; height: 2px; background: var(--glass-border); margin-top: 1.5rem; border-radius: 2px; overflow: hidden; }
+        .loader-progress { height: 100%; width: 0%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-purple-glow)); animation: load-progress 1.5s ease-out forwards; box-shadow: 0 0 10px var(--neon-purple-glow); }
+        @keyframes load-progress { 0% { width: 0%; } 100% { width: 100%; } }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .navbar {
+            position: fixed; top: 0; width: 100%; padding: 1.2rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; transition: all 0.4s ease; background: transparent;
+        }
+        .navbar.scrolled { background: rgba(13, 5, 24, 0.7); backdrop-filter: blur(14px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); }
+        .logo-text { font-family: 'Orbitron', monospace; font-size: 1.5rem; font-weight: 900; color: var(--text-primary); letter-spacing: 2px; transition: color 0.5s ease; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--neon-purple); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero { position: relative; height: 100vh; min-height: 700px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--gradient-hero); z-index: -1; transition: background 0.5s ease; }
+        .particles { position: absolute; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+        .particle { position: absolute; width: 4px; height: 4px; background: var(--neon-purple-glow); border-radius: 50%; opacity: 0.18; animation: float-up 8s infinite; box-shadow: 0 0 6px rgba(179, 71, 217, 0.25); }
+        @keyframes float-up { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 10% { opacity: 0.2; } 90% { opacity: 0.3; } 100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
+        .hero-content { text-align: center; z-index: 1; padding: 0 2rem; max-width: 900px; }
+        .hero-title { font-family: 'Orbitron', monospace; font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 900; letter-spacing: 4px; margin-bottom: 0.5rem; text-shadow: none; transition: text-shadow 0.5s ease; }
+        .verse { font-family: 'Inter', sans-serif; font-style: italic; color: var(--neon-purple-glow); font-size: 1rem; margin-bottom: 1rem; opacity: 0.9; letter-spacing: 2px; transition: color 0.5s ease; }
+        .hero-subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2.5rem; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto; transition: color 0.5s ease; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2.5rem; background: linear-gradient(135deg, var(--neon-purple), #7e2d9e); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 22px rgba(0,0,0,0.14); transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; }
+        .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); transition: left 0.5s ease; }
+        .btn-primary:hover::before { left: 100%; }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.12); }
+        .btn-primary.btn-full { width: 100%; justify-content: center; }
+        .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 1px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(-10px); } 60% { transform: translateX(-50%) translateY(-5px); } }
+        .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--neon-purple), transparent); }
+
+        /* ============================================
+           REVEAL ANIMATIONS
+           ============================================ */
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ============================================
+           SECTION HEADERS
+           ============================================ */
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-title { font-family: 'Orbitron', monospace; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: 3px; color: var(--text-primary); text-shadow: none; margin-bottom: 1rem; position: relative; display: inline-block; transition: color 0.5s ease, text-shadow 0.5s ease; }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: linear-gradient(90deg, transparent, var(--neon-purple), transparent); opacity: 0.9; }
+        .section-subtitle { color: var(--text-secondary); font-size: 1rem; margin-top: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        /* ============================================
+           ABOUT SECTION
+           ============================================ */
+        .about-section { padding: 8rem 5%; background: var(--gradient-about); position: relative; overflow: hidden; transition: background 0.5s ease; }
+        .about-section::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(179, 71, 217, 0.08) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; max-width: 1200px; margin: 0 auto; align-items: center; }
+        .about-image-wrapper { position: relative; }
+        .about-image { width: 100%; max-width: 400px; aspect-ratio: 1; border-radius: 20px; object-fit: cover; border: 2px solid var(--glass-border); box-shadow: 0 0 40px var(--shadow-color); position: relative; z-index: 1; transition: border-color 0.5s ease, box-shadow 0.5s ease; }
+        .about-image-glow { position: absolute; top: 20px; left: 20px; width: 100%; height: 100%; border-radius: 20px; background: linear-gradient(135deg, var(--neon-purple), transparent); opacity: 0.3; z-index: 0; }
+        .experience-badge { position: absolute; bottom: -20px; right: -20px; background: linear-gradient(135deg, var(--neon-purple), #8b2fa8); padding: 1.5rem; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(179, 71, 217, 0.4); z-index: 2; border: 1px solid rgba(255,255,255,0.1); }
+        .experience-badge .years { font-family: 'Orbitron', monospace; font-size: 2rem; font-weight: 900; display: block; }
+        .experience-badge .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.9; }
+        .about-content h3 { font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--neon-purple-glow); transition: color 0.5s ease; }
+        .about-content p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.05rem; transition: color 0.5s ease; }
+        .verse-quote { color: var(--neon-purple-glow) !important; font-style: italic; transition: color 0.5s ease; }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 1.5rem; text-align: center; transition: all 0.4s ease, background 0.5s ease, border-color 0.5s ease; backdrop-filter: blur(10px); }
+        .stat-card:hover { transform: translateY(-5px); border-color: var(--neon-purple); box-shadow: 0 10px 30px var(--shadow-color); }
+        .stat-number { font-family: 'Orbitron', monospace; font-size: 2rem; font-weight: 900; color: var(--neon-purple-glow); text-shadow: 0 0 20px rgba(179, 71, 217, 0.5); transition: color 0.5s ease; }
+        .stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.5s ease; }
+
+        /* ============================================
+           SIGNATURE STYLES
+           ============================================ */
+        .styles-section { padding: 8rem 5%; background: var(--darker-purple); position: relative; transition: background 0.5s ease; }
+        .styles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+        .style-card { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid var(--glass-border); cursor: pointer; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; background: var(--deep-purple); aspect-ratio: 3/4; }
+        .style-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .style-card:hover { transform: translateY(-6px); border-color: rgb(68, 5, 119); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+        .style-card:hover img { transform: scale(1.04); }
+        .style-card.selected { border-color: rgba(255,255,255,0.2); box-shadow: 0 10px 24px rgba(0,0,0,0.12); }
+        .style-card.selected::after { content: '✓ SELECTED'; position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.08); color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.12); }
+        .style-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.5rem 1.5rem; background: linear-gradient(to top, rgba(13, 5, 24, 0.9), transparent); }
+        .style-name { font-family: 'Orbitron', monospace; font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; }
+        .style-price { color: var(--neon-purple-glow); font-weight: 600; margin-top: 0.3rem; transition: color 0.5s ease; }
+        .custom-style-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 3rem auto 0; padding: 1rem 2rem; background: transparent; border: 1px solid var(--glass-border); color: var(--text-secondary); border-radius: 50px; font-family: 'Inter', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.25s ease; max-width: 320px; }
+        .custom-style-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--text-primary); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
+
+        /* ============================================
+           TRANSFORMATIONS 
+           ============================================ */
+        .transformations-section { padding: 8rem 5%; background: var(--gradient-transform); transition: background 0.5s ease; }
+        .transform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; max-width: 1000px; margin: 0 auto; }
+        .ba-slider { position: relative; width: 100%; height: 400px; border-radius: 20px; overflow: hidden; border: 2px solid var(--glass-border); cursor: col-resize; transition: border-color 0.5s ease; }
+        .ba-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .ba-image.after { clip-path: inset(0 0 0 50%); }
+        .ba-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: var(--neon-purple); box-shadow: 0 0 20px var(--neon-purple-glow); transform: translateX(-50%); z-index: 10; }
+        .ba-handle::before { content: '↔'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50px; height: 50px; background: var(--neon-purple); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 0 20px rgba(179, 71, 217, 0.5); border: 2px solid white; }
+        .ba-labels { position: absolute; top: 1rem; left: 1rem; right: 1rem; display: flex; justify-content: space-between; z-index: 5; }
+        .ba-label { background: rgba(13, 5, 24, 0.8); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; backdrop-filter: blur(10px); }
+
+        /* ============================================
+           PRICING
+           ============================================ */
+        .pricing-section { padding: 8rem 5%; background: var(--darker-purple); transition: background 0.5s ease; }
+        .pricing-toggle { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
+        .toggle-btn { padding: 0.8rem 2rem; background: transparent; border: 2px solid var(--glass-border); color: var(--text-secondary); border-radius: 50px; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 600; transition: all 0.4s ease, border-color 0.5s ease, color 0.5s ease; }
+        .toggle-btn.active { background: linear-gradient(135deg, var(--neon-purple), #8b2fa8); border-color: transparent; color: white; box-shadow: 0 0 30px var(--shadow-color); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+        .pricing-card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2.5rem; text-align: center; transition: all 0.5s ease, background 0.5s ease, border-color 0.5s ease; position: relative; overflow: hidden; }
+        .pricing-card.featured { border-color: var(--neon-purple); box-shadow: 0 0 40px var(--shadow-color); transform: scale(1.05); }
+        .pricing-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: 1rem; right: -2rem; background: var(--neon-purple); color: white; padding: 0.3rem 3rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; transform: rotate(45deg); }
+        .pricing-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px var(--shadow-color); }
+        .pricing-card.featured:hover { transform: scale(1.05) translateY(-10px); }
+        .service-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .service-name { font-family: 'Orbitron', monospace; font-size: 1.3rem; margin-bottom: 0.5rem; transition: color 0.5s ease; }
+        .service-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; transition: color 0.5s ease; }
+        .price { font-family: 'Orbitron', monospace; font-size: 2.5rem; font-weight: 900; color: var(--neon-purple-glow); text-shadow: 0 0 20px rgba(179, 71, 217, 0.3); margin-bottom: 0.3rem; transition: color 0.5s ease; }
+        .price-note { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; transition: color 0.5s ease; }
+        .service-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+        .service-features li { padding: 0.5rem 0; color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; transition: color 0.5s ease; }
+        .service-features li::before { content: '✓'; color: var(--neon-purple-glow); font-weight: 700; transition: color 0.5s ease; }
+
+        /* ============================================
+           TESTIMONIALS
+           ============================================ */
+        .testimonials-section { padding: 8rem 5%; background: var(--gradient-testimonials); overflow: hidden; transition: background 0.5s ease; }
+        .testimonials-track { display: flex; gap: 2rem; animation: scroll-track 30s linear infinite; width: max-content; }
+        @keyframes scroll-track { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .testimonial-card { width: 400px; flex-shrink: 0; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; backdrop-filter: blur(10px); transition: background 0.5s ease, border-color 0.5s ease; }
+        .testimonial-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+        .testimonial-avatar { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; position: relative; box-shadow: 0 10px 18px rgba(0,0,0,0.18); border: 2px solid rgba(255,255,255,0.14); }
+        .testimonial-avatar::after { content: ''; position: absolute; top: 4px; right: 4px; width: 16px; height: 16px; border-radius: 50%; background: rgba(255,255,255,0.85); box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+        .profile-avatar--blue { background: linear-gradient(135deg, #4f46e5, #9333ea); }
+        .profile-avatar--green { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .profile-avatar--orange { background: linear-gradient(135deg, #f97316, #eab308); }
+        .profile-avatar--pink { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
+        .testimonial-name { font-weight: 600; transition: color 0.5s ease; }
+        .testimonial-stars { color: #ffd700; font-size: 0.9rem; }
+        .testimonial-text { color: var(--text-secondary); line-height: 1.7; font-style: italic; transition: color 0.5s ease; }
+
+        /* ============================================
+           FAQ SECTION
+           ============================================ */
+        .faq-section { padding: 8rem 5%; background: var(--darker-purple); transition: background 0.5s ease; }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 16px; margin-bottom: 1.5rem; overflow: hidden; transition: all 0.4s ease, background 0.5s ease, border-color 0.5s ease; }
+        .faq-item.active { border-color: var(--neon-purple); box-shadow: 0 10px 30px var(--shadow-color); }
+        .faq-question { padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: var(--text-primary); transition: color 0.3s ease; user-select: none; }
+        .faq-question:hover { color: var(--neon-purple-glow); }
+        .faq-toggle { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--neon-purple-glow); font-size: 1.5rem; transition: transform 0.3s ease; }
+        .faq-item.active .faq-toggle { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; color: var(--text-secondary); }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 0 1.5rem 1.5rem; }
+        .faq-answer p { line-height: 1.7; margin-bottom: 0.8rem; font-size: 0.95rem; transition: color 0.5s ease; }
+
+        /* ============================================
+           BOOKING
+           ============================================ */
+        .booking-section { padding: 8rem 5%; background: var(--darker-purple); position: relative; transition: background 0.5s ease; }
+        .booking-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--neon-purple), transparent); }
+        .booking-container { max-width: 700px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 30px; padding: 3rem; backdrop-filter: blur(20px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); transition: background 0.5s ease, border-color 0.5s ease; }
+        .selected-style-display { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; background: rgba(179, 71, 217, 0.15); border: 1px solid var(--neon-purple); border-radius: 50px; color: var(--neon-purple-glow); font-size: 0.85rem; margin-bottom: 2rem; font-weight: 500; transition: color 0.5s ease; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .form-group { position: relative; }
+        .form-group.full-width { grid-column: 1 / -1; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.5s ease; }
+        .form-group input, .form-group select { width: 100%; padding: 1rem 1.2rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 1rem; transition: all 0.3s ease, background 0.5s ease, border-color 0.5s ease, color 0.5s ease; outline: none; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--neon-purple); box-shadow: 0 0 20px rgba(179, 71, 217, 0.2); background: var(--input-bg); }
+        .form-group input::placeholder { color: rgba(255, 255, 255, 0.3); }
+        [data-theme="light"] .form-group input::placeholder { color: rgba(26, 10, 46, 0.3); }
+        .booking-actions { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+        .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; background: linear-gradient(135deg, var(--whatsapp), #128C7E); color: white; border: none; border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.4s ease; text-decoration: none; }
+        .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); }
+        .btn-email { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; background: transparent; color: var(--text-secondary); border: 2px solid var(--glass-border); border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.4s ease, border-color 0.5s ease, color 0.5s ease; text-decoration: none; }
+        .btn-email:hover { border-color: var(--neon-purple); color: var(--text-primary); box-shadow: 0 0 20px rgba(179, 71, 217, 0.2); }
+
+        /* ============================================
+           POLICY CHECKBOX & MODALS
+           ============================================ */
+        .policy-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 5000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; backdrop-filter: blur(5px); }
+        .policy-modal.active { opacity: 1; visibility: visible; }
+        .policy-modal.mandatory { z-index: 9999; background: rgba(0, 0, 0, 0.85); }
+        .policy-modal-content { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem; max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); }
+        .policy-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; transition: color 0.3s ease; }
+        .policy-close:hover { color: var(--text-primary); }
+        .policy-modal.mandatory .policy-close { display: none; }
+        .policy-accept-btn { display: block; width: 100%; margin-top: 2rem; padding: 1rem; background: linear-gradient(135deg, var(--neon-purple), #8b2fa8); color: white; border: none; border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }\n        .policy-accept-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(179, 71, 217, 0.4); }
+        .policy-modal h3 { font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--neon-purple-glow); }
+        .policy-modal p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; font-size: 0.95rem; }
+        .policy-modal h4 { color: var(--text-primary); font-size: 1rem; margin-top: 1.5rem; margin-bottom: 0.8rem; font-weight: 600; }
+        .policy-modal ul { color: var(--text-secondary); line-height: 1.8; margin-left: 1.5rem; margin-bottom: 1rem; }
+        .policy-modal li { margin-bottom: 0.5rem; }
+
+        /* ============================================
+           PAYMENT SECTION
+           ============================================ */
+        .payment-section { padding: 8rem 5%; background: var(--gradient-about); transition: background 0.5s ease; }
+        .payment-container { max-width: 600px; margin: 0 auto; }
+        .payment-card { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 30px; padding: 3rem; backdrop-filter: blur(20px); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); transition: background 0.5s ease, border-color 0.5s ease; }
+        .payment-header { text-align: center; margin-bottom: 2rem; }
+        .payment-icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+        .payment-header h3 { font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-primary); transition: color 0.5s ease; }
+        .payment-header p { color: var(--text-secondary); font-size: 0.95rem; transition: color 0.5s ease; }
+        .deposit-amounts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .deposit-option { background: var(--input-bg); border: 2px solid var(--glass-border); border-radius: 16px; padding: 1.5rem 1rem; text-align: center; cursor: pointer; transition: all 0.4s ease, background 0.5s ease, border-color 0.5s ease; }
+        .deposit-option:hover { border-color: var(--neon-purple); transform: translateY(-3px); box-shadow: 0 10px 30px var(--shadow-color); }
+        .deposit-option.selected { border-color: var(--neon-purple); background: rgba(179, 71, 217, 0.1); box-shadow: 0 0 30px rgba(179, 71, 217, 0.2); }
+        .deposit-price { font-family: 'Orbitron', monospace; font-size: 1.5rem; font-weight: 900; color: var(--neon-purple-glow); margin-bottom: 0.3rem; transition: color 0.5s ease; }
+        .deposit-for { font-size: 0.8rem; color: var(--text-secondary); transition: color 0.5s ease; }
+        .bank-details { margin-bottom: 2rem; }
+        .bank-card { background: var(--input-bg); border: 2px solid var(--glass-border); border-radius: 20px; padding: 2rem; transition: background 0.5s ease, border-color 0.5s ease; }
+        .bank-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem; }
+        .bank-logo { font-size: 2rem; }
+        .bank-name { font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 700; color: var(--text-primary); transition: color 0.5s ease; }
+        .account-info { display: flex; flex-direction: column; gap: 1rem; }
+        .account-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; padding: 0.8rem; background: var(--card-bg); border-radius: 12px; transition: background 0.5s ease; }
+        .account-label { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; transition: color 0.5s ease; }
+        .account-value { font-family: 'Orbitron', monospace; font-weight: 700; color: var(--text-primary); font-size: 1rem; transition: color 0.5s ease; }
+        .copy-btn { padding: 0.4rem 1rem; background: var(--neon-purple); color: white; border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .copy-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(179, 71, 217, 0.4); }
+        .copy-btn.copied { background: var(--whatsapp); }
+        .payment-steps { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+        .step { display: flex; align-items: center; gap: 1rem; }
+        .step-number { width: 35px; height: 35px; border-radius: 50%; background: linear-gradient(135deg, var(--neon-purple), #8b2fa8); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+        .step-text { color: var(--text-secondary); font-size: 0.95rem; transition: color 0.5s ease; }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer { padding: 4rem 5% 2rem; background: var(--deep-purple); border-top: 1px solid var(--glass-border); text-align: center; transition: background 0.5s ease, border-color 0.5s ease; }
+        .footer-tagline { font-family: 'Orbitron', monospace; font-size: 1.2rem; color: var(--neon-purple-glow); margin-bottom: 0.5rem; text-shadow: 0 0 20px rgba(255, 253, 255, 0); transition: color 0.5s ease; }
+        .footer-sub { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 2rem; transition: color 0.5s ease; }
+        .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
+        .social-links a { width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); text-decoration: none; font-size: 1.2rem; transition: all 0.4s ease, border-color 0.5s ease, color 0.5s ease; }
+        .social-links a:hover { border-color: var(--neon-purple); color: var(--neon-purple-glow); box-shadow: 0 0 20px rgba(178, 71, 217, 0.822); transform: translateY(-3px); }
+        .copyright { color: rgb(0, 0, 0)342); font-size: 0.85rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); transition: color 0.5s ease, border-color 0.5s ease; }
+        [data-theme="light"] .copyright { color: rgba(0, 0, 0, 0.836); }
+
+        /* ============================================
+           TOAST
+           ============================================ */
+        .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--card-bg); border: 1px solid var(--neon-purple); color: var(--text-primary); padding: 1rem 2rem; border-radius: 12px; font-weight: 500; z-index: 9999; opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.5s ease, color 0.5s ease, border-color 0.5s ease; backdrop-filter: blur(20px); box-shadow: 0 10px 40px rgba(179, 71, 217, 0.3); }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .about-image-wrapper { margin: 0 auto; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .form-grid { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: scale(1); }
+            .pricing-card.featured:hover { transform: scale(1) translateY(-10px); }
+            .transform-grid { grid-template-columns: 1fr; }
+            .testimonial-card { width: 300px; }
+            .deposit-amounts { grid-template-columns: 1fr; }
+            .account-row { flex-direction: column; align-items: flex-start; }
+        }
+            .logo-text {
+    display: flex;
+    align-items: center; /* Centers the logo vertically with the menu items */
+}
+
+.logo-text svg {
+    height: 50px; /* You can adjust this number to fit your navbar height */
+    width: auto;  /* This keeps the correct aspect ratio */
+    display: block;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-scissors"></div>
+        <div class="loader-text">SEMI'S CUTS</div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+    </div> 
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="logo-text"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1536">
+  <path fill="#fff" d="M302 546L302 661 658 912 678 933 694 966 697 999 691 1033 670 1078 647 1106 604 1143 557 1171 621 1116 642 1084 648 1055 645 1029 635 1008 623 994 303 773 302 925 452 1027 517 1075 541 1098 554 1124 555 1150 551 1164 538 1184 596 1181 656 1170 714 1149 754 1124 788 1085 798 1064 806 1031 806 997 802 977 780 934 757 910 726 887 648 848 647 774Z"/>
+  <path fill="#fff" d="M408 339L360 377 337 414 332 438 333 457 347 493 367 516 386 531 589 665 685 733 708 758 719 786 718 820 706 849 755 822 790 788 802 767 809 744 808 691 799 664 786 642 740 598 479 429 453 406 439 382 437 358 441 344 459 314Z"/>
+</svg></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#styles">Styles</a></li>
+            <li><a href="#transformations">Transformations</a></li>
+            <li><a href="#book">Book</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <svg class="theme-icon sun" id="themeIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <svg class="theme-icon moon" id="themeIconMoon" style="display: none;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <video class="hero-video-bg" autoplay muted loop playsinline poster="" preload="metadata">
+            <source src="videos/hero-bg.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">SEMIE'S CUTS</h1>
+            <p class="verse"><b>Philippians 4:13</b></p>
+            <p class="hero-subtitle"><i>Precision barbering for clean fades, sharp lines. </i></p>
+            <a href="#book" class="btn-primary"><span>Book Appointment</span></a>
+        </div>
+        <div class="scroll-indicator"><span>SCROLL</span><div class="scroll-line"></div></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="section-header reveal"><h2 class="section-title">ABOUT SEMIE</h2></div>
+        <div class="about-grid">
+            <div class="about-image-wrapper reveal">
+                <div class="about-image-glow"></div>
+                <img src="images/sieme-profile.jpg" alt="Semie - Master Barber" class="about-image" loading="lazy" width="400" height="400" onerror="this.style.background='linear-gradient(135deg, #1a0a2e, #b347d9)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<span style=\'font-size:4rem\'>✂️</span>';">
+                <div class="experience-badge"><span class="years">4+</span><span class="label">Years Exp.</span></div>
+            </div>
+            <div class="about-content reveal">
+                <h3>Clean cuts. Real detail.</h3>
+                <p>Semie's Cuts is built around one thing: giving every client a cut that fits their face, their style, and their routine. Every session is focused on detail, precision, and a comfortable experience from start to finish.</p>
+                <p>Whether you're after a sharp taper, a clean beard line, or a full transformation, the goal is simple: leave looking fresh, confident, and like yourself  just sharper. Home service and in shop appointments are both available.</p>
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-number" data-target="500">0</div><div class="stat-label">Happy Clients</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="15">0</div><div class="stat-label">Styles Mastered</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="98">0</div><div class="stat-label">Satisfaction</div></div>
+                    <div class="stat-card"><div class="stat-number" data-target="8">0</div><div class="stat-label">Years Combined</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signature Styles -->
+    <section class="styles-section" id="styles">
+        <div class="section-header reveal"><h2 class="section-title">SIGNATURE STYLES</h2></div>
+        <div class="styles-grid" id="stylesGrid">
+            <div class="style-card reveal" data-style="Afro Taper Fade" data-price="₦3,500" onclick="selectStyle(this)">
+                <img src="images/braids.jpg" alt="braids" loading="lazy" width="300" height="300">
+                <div class="style-overlay"><div class="style-name">braids</div><div class="style-price">From ₦3,500</div></div>
+            </div>
+            <div class="style-card reveal" data-style="Blowout Taper" data-price="₦4,000" onclick="selectStyle(this)">
+                <img src="images/burst-fade.jpg" alt="burst-fade" loading="lazy" width="300" height="300">
+                <div class="style-overlay"><div class="style-name">burst-fade</div><div class="style-price">From ₦4,000</div></div>
+            </div>
+            <div class="style-card reveal" data-style="Braids" data-price="₦5,000" onclick="selectStyle(this)">
+                <img src="images/buzzcut.jpg" alt="buzzcut" loading="lazy" width="300" height="300">
+                <div class="style-overlay"><div class="style-name">buzzcut</div><div class="style-price">From ₦5,000</div></div>
+            </div>
+            <div class="style-card reveal" data-style="Curl Sponge Fade" data-price="₦3,000" onclick="selectStyle(this)">
+                <img src="images/drop-fade.jpg" alt="drop-fade" loading="lazy" width="300" height="300">
+                <div class="style-overlay"><div class="style-name">drop-fade</div><div class="style-price">From ₦3,000</div></div>
+            </div>
+            <div class="style-card reveal" data-style="High Top Fade" data-price="₦3,500" onclick="selectStyle(this)">
+                <img src="images/high-fade.jpg" alt="high-fade" loading="lazy" width="300" height="300">
+                <div class="style-overlay"><div class="style-name">high-fade</div><div class="style-price">From ₦3,500</div></div>
+            </div>
+            <div class="style-card reveal" data-style="Buzz Cut" data-price="₦2,000" onclick="selectStyle(this)">
+                <img src="images/low-cut.jpg" alt="low-cut" loading="lazy" width="300" height="300">
+                <div class="style-overlay"><div class="style-name">low-cut</div><div class="style-price">From ₦2,000</div></div>
+            </div>
+            <div class="style-card reveal" data-style="Temp Fade" data-price="₦3,000" onclick="selectStyle(this)">
+                <img src="images/modern-mullet.jpg" alt="modern-mullet" loading="lazy" width="300" height="300">
+                <div class="style-overlay"><div class="style-name">modern-mullet</div><div class="style-price">From ₦3,000</div></div>
+            </div>
+            <div class="style-card reveal" data-style="Taper Fade" data-price="₦4,500" onclick="selectStyle(this)">
+                <img src="images/taper-fade.jpg" alt="taper-fade" loading="lazy" width="300" height="300">
+                <div class="style-overlay"><div class="style-name">taper-fade</div><div class="style-price">From ₦4,500</div></div>
+            </div>
+        </div>
+        <button class="custom-style-btn reveal" onclick="customStyle()"><span></span><span>I've got a hairstyle in mind</span></button>
+    </section>
+
+    <!-- Transformations -->
+    <section class="transformations-section" id="transformations">
+        <div class="section-header reveal"><h2 class="section-title">TRANSFORMATIONS</h2></div>
+        <div class="transform-grid">
+            <div class="ba-slider reveal" id="ba1">
+                <div class="ba-labels"><span class="ba-label">Before</span><span class="ba-label">After</span></div>
+                <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&h=400&fit=crop" class="ba-image before" alt="Before" loading="lazy" width="600" height="400">
+                <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&h=400&fit=crop" class="ba-image after" alt="After" loading="lazy" width="600" height="400">
+                <div class="ba-handle"></div>
+            </div>
+            <div class="ba-slider reveal" id="ba2">
+                <div class="ba-labels"><span class="ba-label">Before</span><span class="ba-label">After</span></div>
+                <img src="images/before 2.jpg" class="ba-image before" alt="Before" loading="lazy" width="600" height="400">
+                <img src="images/after 2.jpg" class="ba-image after" alt="After" loading="lazy" width="600" height="400">
+                <div class="ba-handle"></div>
+            </div>
+            <div class="ba-slider reveal" id="ba3">
+                <div class="ba-labels"><span class="ba-label">Before</span><span class="ba-label">After</span></div>
+                <img src="https://images.unsplash.com/photo-1599351751696-5a7ae3df0e64?w=600&h=400&fit=crop" class="ba-image before" alt="Before" loading="lazy" width="600" height="400">
+                <img src="https://images.unsplash.com/photo-1599351751696-5a7ae3df0e64?w=600&h=400&fit=crop&blend=https://images.unsplash.com/photo-1622286342621-4bd786c2447c&blend-mode=darken" class="ba-image after" alt="After" loading="lazy" width="600" height="400">
+                <div class="ba-handle"></div>
+            </div>
+            <div class="ba-slider reveal" id="ba4">
+                <div class="ba-labels"><span class="ba-label">Before</span><span class="ba-label">After</span></div>
+                <img src="images/before 4.jpg" class="ba-image before" alt="Before" loading="lazy" width="600" height="400">
+                <img src="images/after 4.jpg" class="ba-image after" alt="After" loading="lazy" width="600" height="400">
+                <div class="ba-handle"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Business Info -->
+    <section style="padding: 8rem 5%; background: var(--darker-purple); transition: background 0.5s ease;" id="contact">
+        <div class="section-header reveal"><h2 class="section-title">VISIT US</h2><p class="section-subtitle">Stop by our shop or book a home appointment</p></div>
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+            <div class="reveal" style="order: 2;">
+                <h3 style="font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--neon-purple-glow);">Get In Touch</h3>
+                <div style="background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 16px; padding: 2rem; margin-bottom: 2rem;">
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 1rem;"><strong> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+</svg>
+ Phone:</strong></p>
+                    <a href="tel:0817238574" style="color: var(--neon-purple-glow); text-decoration: none; font-weight: 600; font-size: 1.1rem;">0817238574</a>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem;"><strong> Hours:</strong></p>
+                    <p style="color: var(--text-secondary);">Mon - Fri: 10:00 AM - 8:00 PM<br>Sat: 10:00 AM - 7:00 PM<br>Sun: Closed</p>
+                </div>
+                <a href="tel:0817328574" style="display: inline-block; padding: 1rem 2rem; background: linear-gradient(135deg, #25D366, #128C7E); color: white; text-decoration: none; border-radius: 12px; font-weight: 600; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 10px 30px rgba(37, 211, 102, 0.3)'" onmouseout="this.style.boxShadow='none'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+</svg>
+Call Now</a>
+            </div>
+            <div class="reveal" style="order: 1; border-radius: 20px; overflow: hidden; border: 2px solid rgba(200, 143, 228, 0.4); box-shadow: 0 0 30px rgba(157, 78, 192, 0.2), inset 0 0 20px rgba(157, 78, 192, 0.1); backdrop-filter: blur(10px);">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7919253405107!2d3.3521!3d6.5356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6f4f4f4f4f4f4f%3A0x1234567890!2sAlagbado%2C%20Moshalashi%2C%20Lagos!5e0!3m2!1sen!2sng!4v1234567890" width="100%" height="400" style="border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing-section" id="pricing">
+        <div class="section-header reveal"><h2 class="section-title">PRICING</h2></div>
+        <div class="pricing-toggle reveal">
+            <button class="toggle-btn active" onclick="togglePricing('shop', this)">In-Shop</button>
+            <button class="toggle-btn" onclick="togglePricing('home', this)">Home Service</button>
+        </div>
+        <div class="pricing-grid" id="pricingGrid">
+            <div class="pricing-card reveal">
+                <div class="service-icon"></div>
+                <h3 class="service-name">Classic Cut</h3>
+                <p class="service-desc">Fade, taper, or any standard cut with precision lining</p>
+                <div class="price" data-shop="₦2,500" data-home="₦4,000">₦2,500</div>
+                <p class="price-note"> 15 minutes</p>
+                <ul class="service-features">
+                    <li>Consultation included</li>
+                    <li>Hot towel</li>
+                    <li>Styling product finish</li>
+                </ul>
+            </div>
+            <div class="pricing-card featured reveal">
+                <div class="service-icon"></div>
+                <h3 class="service-name">Premium Cut</h3>
+                <p class="service-desc">Full service with beard trim and facial treatment</p>
+                <div class="price" data-shop="₦5,000" data-home="₦7,500">₦5,000</div>
+                <p class="price-note">25 minutes</p>
+                <ul class="service-features">
+                    <li>Everything in Classic</li>
+                    <li>Beard sculpting</li>
+                    <li>Facial steam & cleanse</li>
+                </ul>
+            </div>
+            <div class="pricing-card reveal">
+                <div class="service-icon"></div>
+                <h3 class="service-name">Royal service</h3>
+                <p class="service-desc">The full VIP experience </p>
+                <div class="price" data-shop="₦8,000" data-home="₦12,000">₦8,000</div>
+                <p class="price-note">30 minutes</p>
+                <ul class="service-features">
+                    <li>Everything in Premium</li>
+                    <li>Hair coloring/streaks</li>
+                    <li>Deep conditioning</li>
+                    <li>Takehome product kit</li>
+                </ul>
+            </div>
+        </div>
+    </section>    <!-- Testimonials -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="section-header reveal"><h2 class="section-title">CLIENT LOVE</h2></div>
+        <div class="testimonials-track" id="testimonialsTrack">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar profile-avatar--green"><span>DO</span></div>
+                    <div><div class="testimonial-name">David O.</div><div class="testimonial-stars">★★★★★</div></div>
+                </div>
+                <p class="testimonial-text">"Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar profile-avatar--blue"><span>MK</span></div>
+                    <div><div class="testimonial-name">Michael K.</div><div class="testimonial-stars">★★★★★</div></div>
+                </div>
+                <p class="testimonial-text">"Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar profile-avatar--orange"><span>JT</span></div>
+                    <div><div class="testimonial-name">James T.</div><div class="testimonial-stars">★★★★★</div></div>
+                </div>
+                <p class="testimonial-text">"Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar profile-avatar--pink"><span>ER</span></div>
+                    <div><div class="testimonial-name">Emmanuel R.</div><div class="testimonial-stars">★★★★★</div></div>
+                </div>
+                <p class="testimonial-text">"The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
+            </div>
+            <!-- Duplicates for infinite scroll -->
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar profile-avatar--green"><span>DO</span></div>
+                    <div><div class="testimonial-name">David O.</div><div class="testimonial-stars">★★★★★</div></div>
+                </div>
+                <p class="testimonial-text">"Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar profile-avatar--blue"><span>MK</span></div>
+                    <div><div class="testimonial-name">Michael K.</div><div class="testimonial-stars">★★★★★</div></div>
+                </div>
+                <p class="testimonial-text">"Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar profile-avatar--orange"><span>JT</span></div>
+                    <div><div class="testimonial-name">James T.</div><div class="testimonial-stars">★★★★★</div></div>
+                </div>
+                <p class="testimonial-text">"Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar profile-avatar--pink"><span>ER</span></div>
+                    <div><div class="testimonial-name">Emmanuel R.</div><div class="testimonial-stars">★★★★★</div></div>
+                </div>
+                <p class="testimonial-text">"The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+        <div class="section-header reveal"><h2 class="section-title">QUESTIONS?</h2><p class="section-subtitle">Everything you need to know before booking</p></div>
+        <div class="faq-container">
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>How long does a haircut take?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Classic cuts take 30-45 minutes. Premium styles and detailed work take 45-60 minutes. Royal Treatment can go up to 2 hours depending on what you choose. We never rush—quality comes first.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>Do you do walk-ins or is it appointment only?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We operate by appointment to ensure you get quality time and no wait. Book in-shop or home service directly through WhatsApp or email. This keeps the experience smooth for you and allows us to give every client full attention.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>What's your cancellation policy?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Cancel or reschedule at least 24 hours before your appointment for a full refund of your deposit. Less notice and the deposit stays, but we'll happily book you another time. Life happens—just give us a heads-up.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>How does home service work?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>After you book, we'll confirm the exact address and time. I bring all tools and equipment—you just provide a comfortable space (chair, good lighting, mirror). No setup needed on your end. It's the same quality cut, just at your convenience.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>What's your aftercare advice?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Keep your fade clean by rinsing with cold water daily. If you got beard work, use beard oil 2-3 times a week. Stay out of direct sunlight right after (especially if you're new to a style). We'll give you a take-home care sheet with every cut if requested.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>Can I show you a reference photo?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely. Bring reference photos—the clearer, the better. During your consultation, we'll talk through exactly what you want, what suits your hair type, and what's realistic for your routine. We listen before we cut.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking -->
+    <section class="booking-section" id="book">
+        <div class="section-header reveal"><h2 class="section-title">BOOK YOUR CUT</h2></div>
+        <div class="booking-container reveal">
+            <div class="selected-style-display" id="selectedStyleDisplay" style="display: none;"><span>✓</span><span id="selectedStyleText">Selected: None</span></div>
+            <form id="bookingForm" onsubmit="return false;">
+                <div class="form-grid">
+                    <div class="form-group"><label>Your Name</label><input type="text" id="clientName" placeholder="GOD HAS" required></div>
+                    <div class="form-group">
+                        <label>Service Type</label>
+                        <select id="serviceType" required>
+                            <option value="">Select Service</option>
+                            <option value="classic">Classic Cut</option>
+                            <option value="premium">Premium Cut</option>
+                            <option value="royal">Royal Treatment</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Preferred Date</label><input type="date" id="bookingDate" required></div>
+                    <div class="form-group">
+                        <label>Preferred Time</label>
+                        <select id="bookingTime" required>
+                            <option value="">Select Time</option>
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="1:00 PM">1:00 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="3:00 PM">3:00 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                            <option value="5:00 PM">5:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Location Preference</label>
+                        <select id="locationPref" required>
+                            <option value="">Select Location Type</option>
+                            <option value="shop">In-Shop (Address provided after booking)</option>
+                            <option value="home">Home Service (I'll come to you)</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width"><label>Special Requests</label><input type="text" id="specialRequests" placeholder="Any specific details about your cut..."></div>
+                </div>
+                <div class="booking-actions">
+                    <button type="button" class="btn-whatsapp" onclick="bookViaWhatsApp()"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:8px;">
+  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+  <line x1="12" y1="18" x2="12.01" y2="18"/>
+  <line x1="8" y1="6" x2="16" y2="6"/>
+  <line x1="8" y1="9" x2="16" y2="9"/>
+</svg>
+Book via WhatsApp</span>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment-section" id="payment">
+        <div class="section-header reveal">
+            <h2 class="section-title">SECURE YOUR SLOT</h2>
+            <p class="section-subtitle"></p>
+        </div>
+        <div class="payment-container reveal">
+            <div class="payment-card">
+                <div class="payment-header">
+                    <span class="payment-icon"></span>
+                    <h3>Pay Deposit</h3>
+                    <p>Secure your appointment </p>
+                </div>
+                <div class="deposit-amounts">
+                    <div class="deposit-option" onclick="selectDeposit(this, 1250)">
+                        <div class="deposit-price">₦1,250</div>
+                        <div class="deposit-for">Classic Cut Deposit</div>
+                    </div>
+                    <div class="deposit-option" onclick="selectDeposit(this, 2500)">
+                        <div class="deposit-price">₦2,500</div>
+                        <div class="deposit-for">Premium Cut Deposit</div>
+                    </div>
+                    <div class="deposit-option" onclick="selectDeposit(this, 4000)">
+                        <div class="deposit-price">₦4,000</div>
+                        <div class="deposit-for">Royal Treatment Deposit</div>
+                    </div>
+                </div>
+                <div class="bank-details" id="bankDetails">
+                    <div class="bank-card">
+                        <div class="bank-header"><span class="bank-logo">
+                        </span><span class="bank-name"> PALMPAY</span></div>
+                        <div class="account-info">
+                            <div class="account-row">
+                                <span class="account-label">Account Number</span>
+                                <span class="account-value" id="accountNumber">0817238574</span>
+                                <button class="copy-btn" onclick="copyToClipboard('0817238574')">Copy</button>
+                            </div>
+                            <div class="account-row">
+                                <span class="account-label">Account Name</span>
+                                <span class="account-value">OluwaSemilore Joseph John</span>
+                            </div>
+                            <div class="account-row">
+                                <span class="account-label">Bank</span>
+                                <span class="account-value">PALMPAY</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="payment-steps">
+                    <div class="step"><span class="step-number">1</span><span class="step-text"><i>Copy account details</i></span></div>
+                    <div class="step"><span class="step-number">2</span><span class="step-text"><i>Make transfer via ur bank app</i></span></div>
+                    <div class="step"><span class="step-number">3</span><span class="step-text"><i>Send proof via WhatsApp for confirmation</i></span></div>
+                </div>
+                <button class="btn-primary btn-full" onclick="confirmPayment()"><span>I've Made Payment Send Proof</span></button>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-tagline"><i>"AVERAGE?   NAH I'M THE ALPHA"</i> </div>
+        <div class="social-links">
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="TikTok"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:8px;">
+  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+  <line x1="12" y1="18" x2="12.01" y2="18"/>
+  <line x1="8" y1="6" x2="16" y2="6"/>
+  <line x1="8" y1="9" x2="16" y2="9"/>
+</svg></a>
+            <a href="#" title="WhatsApp">💬</a>
+            <a href="#" title="Twitter/X">🐦</a>
+        </div>
+        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--glass-border);">
+            <a href="#" onclick="openPolicyModal('terms'); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; margin: 0 1rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--neon-purple-glow)'" onmouseout="this.style.color='var(--text-secondary)'">Terms of Service</a>
+            <a href="#" onclick="openPolicyModal('privacy'); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; margin: 0 1rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--neon-purple-glow)'" onmouseout="this.style.color='var(--text-secondary)'">Privacy Policy</a>
+            <a href="#" onclick="openPolicyModal('cookies'); return false;" style="color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; margin: 0 1rem; transition: color 0.3s ease;" onmouseover="this.style.color='var(--neon-purple-glow)'" onmouseout="this.style.color='var(--text-secondary)'">Cookie Policy</a>
+        </div>
+        <div class="copyright"> 2026 Semie's Cuts. All rights reserved. Crafted with precision</div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Policy Modals -->
+    <div class="policy-modal" id="termsModal">
+        <div class="policy-modal-content">
+            <button class="policy-close" onclick="closePolicyModal('terms')">&times;</button>
+            <h3>Terms of Service</h3>
+            <p><strong>Last Updated: August 2026</strong></p>
+            <p>Welcome to Semie's Cuts. By booking an appointment and using our services, you agree to these terms.</p>
+            <h4>1. Booking & Appointments</h4>
+            <ul>
+                <li>All appointments must be booked at least 24 hours in advance</li>
+                <li>Deposits are non-transferable but can be rescheduled with 24-hour notice</li>
+                <li>We reserve the right to decline service if a client is under the influence or disruptive</li>
+            </ul>
+            <h4>2. Cancellation Policy</h4>
+            <ul>
+                <li>Cancel or reschedule at least 24 hours before your appointment for a full refund</li>
+                <li>Less than 24 hours notice: deposit is forfeited</li>
+                <li>No-show: deposit is forfeited and future bookings may require full prepayment</li>
+            </ul>
+            <h4>3. Payment Terms</h4>
+            <ul>
+                <li>Deposits secure your appointment and go toward the final bill</li>
+                <li>Final payment is due on the day of service</li>
+                <li>We accept bank transfers and cash</li>
+            </ul>
+            <h4>4. Liability</h4>
+            <p>Semie's Cuts is not responsible for allergic reactions to products, hair damage from client-requested styles that may not be suitable for their hair type, or personal injuries at home service locations.</p>
+            <h4>5. Changes to Terms</h4>
+            <p>We reserve the right to update these terms at any time. Changes will be posted on our website.</p>
+            <button class="policy-accept-btn" onclick="acceptMandatoryPolicy()">I Agree & Accept Terms</button>
+        </div>
+    </div>
+
+    <div class="policy-modal" id="privacyModal">
+        <div class="policy-modal-content">
+            <button class="policy-close" onclick="closePolicyModal('privacy')">&times;</button>
+            <h3>Privacy Policy</h3>
+            <p><strong>Last Updated: August 2026</strong></p>
+            <p>Your privacy is important to us. This policy explains what personal data we collect and how we use it.</p>
+            <h4>1. Information We Collect</h4>
+            <ul>
+                <li><strong>Booking Info:</strong> Name, phone number, email, preferred date/time</li>
+                <li><strong>Service Preferences:</strong> Hairstyle, location preference, special requests</li>
+                <li><strong>Payment Info:</strong> Bank transfer details for deposits (we don't store card data)</li>
+                <li><strong>Technical Data:</strong> Browser type, IP address (via analytics)</li>
+            </ul>
+            <h4>2. How We Use Your Data</h4>
+            <ul>
+                <li>Confirming and managing your appointment</li>
+                <li>Sending booking reminders via WhatsApp or email</li>
+                <li>Improving our services and website</li>
+                <li>Legal compliance and fraud prevention</li>
+            </ul>
+            <h4>3. Data Retention</h4>
+            <p>We keep booking information for 2 years. You can request deletion anytime by emailing us.</p>
+            <h4>4. Sharing Your Data</h4>
+            <p>We do NOT sell or share your personal data with third parties. Your information is used only by Semie's Cuts.</p>
+            <h4>5. Your Rights</h4>
+            <ul>
+                <li>Right to access: Request a copy of your data anytime</li>
+                <li>Right to delete: Request deletion of your information</li>
+                <li>Right to opt-out: Unsubscribe from reminders (but booking confirmations will still be sent)</li>
+            </ul>
+            <h4>6. Contact Us</h4>
+            <p>Questions about your privacy? Email: joseph207jj@gmail.com</p>
+        </div>
+    </div>
+
+    <div class="policy-modal" id="cookiesModal">
+        <div class="policy-modal-content">
+            <button class="policy-close" onclick="closePolicyModal('cookies')">&times;</button>
+            <h3>Cookie Policy</h3>
+            <p><strong>Last Updated: August 2026</strong></p>
+            <p>We use cookies and similar technologies to enhance your experience on our website.</p>
+            <h4>1. What Are Cookies?</h4>
+            <p>Cookies are small text files stored on your device that help us recognize you and remember your preferences.</p>
+            <h4>2. Types of Cookies We Use</h4>
+            <ul>
+                <li><strong>Essential Cookies:</strong> Required for booking forms and site functionality</li>
+                <li><strong>Preference Cookies:</strong> Remember your theme choice (dark/light mode)</li>
+                <li><strong>Analytics Cookies:</strong> Track page views to help us improve the site</li>
+            </ul>
+            <h4>3. Third-Party Cookies</h4>
+            <ul>
+                <li><strong>Google Analytics:</strong> Helps us understand visitor behavior (anonymized)</li>
+                <li><strong>No Marketing Cookies:</strong> We don't use cookies for targeted ads</li>
+            </ul>
+            <h4>4. How to Control Cookies</h4>
+            <p>You can disable cookies in your browser settings. Note: disabling essential cookies may affect booking functionality.</p>
+            <h4>5. Updates to Cookie Policy</h4>
+            <p>We may update this policy. Changes will be posted here with an updated date.</p>
+        </div>
+    </div>
+
+    <!-- GSAP Library - Deferred for non-blocking render -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <script defer>
+        /* ============================================
+           SEMIE'S CUTS - MAIN JAVASCRIPT (Deferred)
+           ============================================ */
+
+        // ============================================
+        // POLICY MODALS
+        // ============================================
+        function openPolicyModal(policyType) {
+            const modalIds = { terms: 'termsModal', privacy: 'privacyModal', cookies: 'cookiesModal' };
+            const modal = document.getElementById(modalIds[policyType]);
+            if (modal) modal.classList.add('active');
+        }
+
+        function closePolicyModal(policyType) {
+            const modalIds = { terms: 'termsModal', privacy: 'privacyModal', cookies: 'cookiesModal' };
+            const modal = document.getElementById(modalIds[policyType]);
+            if (modal && !modal.classList.contains('mandatory')) {
+                modal.classList.remove('active');
+            }
+        }
+
+        function acceptMandatoryPolicy() {
+            localStorage.setItem('semie-policy-accepted', 'true');
+            const termsModal = document.getElementById('termsModal');
+            if (termsModal) {
+                termsModal.classList.remove('active');
+                termsModal.classList.remove('mandatory');
+            }
+            showToast('Thank you! Policies accepted.');
+        }
+
+        // Show mandatory policy on page load
+        window.addEventListener('load', function() {
+            const policyAccepted = localStorage.getItem('semie-policy-accepted');
+            if (!policyAccepted) {
+                const termsModal = document.getElementById('termsModal');
+                if (termsModal) {
+                    termsModal.classList.add('active');
+                    termsModal.classList.add('mandatory');
+                }
+            }
+        });
+
+        // Close modal when clicking outside (but NOT for mandatory modals)
+        document.querySelectorAll('.policy-modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this && !this.classList.contains('mandatory')) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        // ============================================
+        // THEME TOGGLE
+        // ============================================
+        function toggleTheme() {
+            const html = document.documentElement;
+            const sunIcon = document.getElementById('themeIcon');
+            const moonIcon = document.getElementById('themeIconMoon');
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            if (newTheme === 'dark') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+            
+            // Save preference
+            localStorage.setItem('semie-theme', newTheme);
+            showToast(newTheme === 'dark' ? 'Dark mode activated ' : 'Light mode activated ');
+        }
+
+        // Load saved theme on page load
+        (function loadTheme() {
+            const savedTheme = localStorage.getItem('semie-theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const sunIcon = document.getElementById('themeIcon');
+            const moonIcon = document.getElementById('themeIconMoon');
+            if (savedTheme === 'dark') {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        })();
+
+        // ============================================
+        // FAQ TOGGLE
+        // ============================================
+        function toggleFaq(element) {
+            const allFaqItems = document.querySelectorAll('.faq-item');
+            allFaqItems.forEach(item => {
+                if (item !== element) {
+                    item.classList.remove('active');
+                }
+            });
+            element.classList.toggle('active');
+        }
+
+        // ============================================
+        // GSAP SCROLL ANIMATIONS (Deferred until GSAP loads)
+        // ============================================
+        function initGSAPAnimations() {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+                requestAnimationFrame(initGSAPAnimations);
+                return;
+            }
+
+            gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.section-title').forEach(element => {
+            gsap.fromTo(element, 
+                { opacity: 0, scale: 0.8, y: 30 },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "back.out",
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 80%",
+                        end: "top 20%",
+                        scrub: false,
+                        markers: false
+                    }
+                }
+            );
+        });
+
+        // Style Cards - Staggered animation
+        gsap.utils.toArray('.style-card').forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 60 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "top 35%",
+                        scrub: false
+                    }
+                }
+            );
+        });
+
+        // About Content - Slide in animations
+        gsap.fromTo('.about-image',
+            { opacity: 0, x: -50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: '.about-section',
+                    start: "top 60%",
+                    end: "top 10%",
+                    scrub: false
+                }
+            }
+        );
+
+        gsap.fromTo('.about-content',
+            { opacity: 0, x: 50 },
+            {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                delay: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: '.about-section',
+                    start: "top 60%",
+                    end: "top 10%",
+                    scrub: false
+                }
+            }
+        );
+
+        // Stat Cards - Cascade animation
+        gsap.utils.toArray('.stat-card').forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 40, scale: 0.9 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.5,
+                    delay: index * 0.1,
+                    ease: "back.out",
+                    scrollTrigger: {
+                        trigger: '.stats-grid',
+                        start: "top 75%",
+                        end: "top 25%",
+                        scrub: false
+                    }
+                }
+            );
+        });
+
+        // Transformation Sliders - Fade in
+        gsap.utils.toArray('.ba-slider').forEach((slider, index) => {
+            gsap.fromTo(slider,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7,
+                    delay: index * 0.15,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: slider,
+                        start: "top 80%",
+                        end: "top 30%",
+                        scrub: false
+                    }
+                }
+            );
+        });
+
+        // Pricing Cards - Staggered reveal with scale
+        gsap.utils.toArray('.pricing-card').forEach((card, index) => {
+            gsap.fromTo(card,
+                { opacity: 0, y: 50, scale: 0.9 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: 0.6,
+                    delay: index * 0.1,
+                    ease: "back.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "top 35%",
+                        scrub: false
+                    }
+                }
+            );
+        });
+
+        // Parallax effect on About section background
+        gsap.to('.about-section::before', {
+            scrollTrigger: {
+                trigger: '.about-section',
+                start: "top 80%",
+                end: "bottom 20%",
+                scrub: 1
+            },
+            y: -100,
+            opacity: 0.5
+        });
+
+        // Hover effects on cards with GSAP
+        document.querySelectorAll('.style-card, .pricing-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, { duration: 0.3, y: -15, boxShadow: "0 20px 60px rgba(179, 71, 217, 0.5)" });
+            });
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, { duration: 0.3, y: 0 });
+            });
+        });
+        }
+
+        // Initialize GSAP animations after libraries load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGSAPAnimations);
+        } else {
+            initGSAPAnimations();
+        }
+
+        // ============================================
+        // LOADING SCREEN
+        // ============================================
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1200);
+        });
+
+        // ============================================
+        // NAVBAR SCROLL EFFECT (Throttled)
+        // ============================================
+        let scrollTimeout;
+        let lastScrollY = 0;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) return;
+            scrollTimeout = setTimeout(() => {
+                if (window.scrollY > 50) {
+                    if (!navbar.classList.contains('scrolled')) navbar.classList.add('scrolled');
+                } else {
+                    if (navbar.classList.contains('scrolled')) navbar.classList.remove('scrolled');
+                }
+                scrollTimeout = null;
+            }, 10);
+        }, { passive: true });
+
+        // ============================================
+        // PARTICLES (Reduced for performance: 30 → 8)
+        // ============================================
+        const particlesContainer = document.getElementById('particles');
+        if (particlesContainer) {
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+
+        // ============================================
+        // SCROLL REVEAL
+        // ============================================
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ============================================
+        // COUNTER ANIMATION
+        // ============================================
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.target);
+                    animateCounter(entry.target, target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statNumbers.forEach(el => counterObserver.observe(el));
+
+        function animateCounter(el, target) {
+            let current = 0;
+            const increment = target / 60;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    el.textContent = target + (target === 98 ? '%' : '+');
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(current) + (target === 98 ? '%' : '+');
+                }
+            }, 25);
+        }
+
+        // ============================================
+        // STYLE SELECTION
+        // ============================================
+        let selectedStyle = null;
+        let selectedPrice = '';
+
+        function selectStyle(card) {
+            document.querySelectorAll('.style-card').forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            const overlayName = card.querySelector('.style-name')?.textContent?.trim();
+            selectedStyle = overlayName || card.dataset.style;
+            selectedPrice = card.dataset.price;
+            
+            const display = document.getElementById('selectedStyleDisplay');
+            const text = document.getElementById('selectedStyleText');
+            display.style.display = 'inline-flex';
+            text.textContent = `Selected: ${selectedStyle}`;
+            
+            document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+            showToast(`Selected: ${selectedStyle} — Fill in your details to book!`);
+        }
+
+        function customStyle() {
+            selectedStyle = 'Custom Style';
+            document.getElementById('selectedStyleDisplay').style.display = 'inline-flex';
+            document.getElementById('selectedStyleText').textContent = 'Selected: Custom (Describe below)';
+            const specialRequests = document.getElementById('specialRequests');
+            specialRequests.placeholder = 'Enter your hairstyle request here...';
+            specialRequests.focus();
+            document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+        }
+        // ============================================
+        // BEFORE/AFTER SLIDER
+        // ============================================
+        function initBASlider(id) {
+            const slider = document.getElementById(id);
+            const handle = slider.querySelector('.ba-handle');
+            const afterImg = slider.querySelector('.ba-image.after');
+            let isDragging = false;
+
+            function updateSlider(x) {
+                const rect = slider.getBoundingClientRect();
+                let percentage = ((x - rect.left) / rect.width) * 100;
+                percentage = Math.max(0, Math.min(100, percentage));
+                handle.style.left = percentage + '%';
+                afterImg.style.clipPath = `inset(0 0 0 ${percentage}%)`;
+            }
+
+            handle.addEventListener('mousedown', () => isDragging = true);
+            document.addEventListener('mouseup', () => isDragging = false);
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) updateSlider(e.clientX);
+            });
+
+            handle.addEventListener('touchstart', () => isDragging = true);
+            document.addEventListener('touchend', () => isDragging = false);
+            document.addEventListener('touchmove', (e) => {
+                if (isDragging) updateSlider(e.touches[0].clientX);
+            });
+
+            slider.addEventListener('click', (e) => updateSlider(e.clientX));
+        }
+
+        initBASlider('ba1');
+        initBASlider('ba2');
+
+        // ============================================
+        // PRICING TOGGLE
+        // ============================================
+        function togglePricing(type, btn) {
+            document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            document.querySelectorAll('.price').forEach(price => {
+                price.textContent = price.dataset[type];
+            });
+        }
+
+        // ============================================
+        // BOOKING FUNCTIONS
+        // ============================================
+        function bookViaWhatsApp() {
+            const name = document.getElementById('clientName').value;
+            const service = document.getElementById('serviceType').value;
+            const date = document.getElementById('bookingDate').value;
+            const time = document.getElementById('bookingTime').value;
+            const location = document.getElementById('locationPref').value;
+            const requests = document.getElementById('specialRequests').value;
+
+            if (!name || !service || !date || !time || !location) {
+                showToast('Please fill in all required details!');
+                return;
+            }
+
+            const styleText = selectedStyle ? `Style: ${selectedStyle}` : 'Style: To be discussed';
+            const message = `Hi Semie! I'd like to book an appointment:\n\n👤 Name: ${name}\n💇 Service: ${service}\n📅 Date: ${date}\n🕐 Time: ${time}\n📍 Location: ${location}\n✂️ ${styleText}\n📝 Notes: ${requests || 'None'}\n\nLooking forward to my fresh cut! 🔥`;
+
+            const whatsappNumber = '2348157238574';
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function bookViaEmail() {
+            const name = document.getElementById('clientName').value;
+            const service = document.getElementById('serviceType').value;
+            const date = document.getElementById('bookingDate').value;
+            const time = document.getElementById('bookingTime').value;
+            const location = document.getElementById('locationPref').value;
+
+            if (!name || !service || !date || !time || !location) {
+                showToast('Please fill in all required details!');
+                return;
+            }
+
+            const styleText = selectedStyle ? `Style: ${selectedStyle}` : 'Style: To be discussed';
+            const subject = `New Booking Request - ${name}`;
+            const body = `Name: ${name}\nService: ${service}\nDate: ${date}\nTime: ${time}\nLocation: ${location}\n${styleText}`;
+
+            const bookingEmail = 'joseph207jj@gmail.com';
+            const mailtoUrl = `mailto:${bookingEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            const anchor = document.createElement('a');
+            anchor.href = mailtoUrl;
+            anchor.style.display = 'none';
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+
+            showToast('Opening email client... if it does not open, use joseph207jj@gmail.com directly.');
+        }
+
+        // ============================================
+        // PAYMENT SECTION
+        // ============================================
+        let selectedDeposit = 0;
+
+        function selectDeposit(el, amount) {
+            document.querySelectorAll('.deposit-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedDeposit = amount;
+            showToast(`Selected deposit: ₦${amount.toLocaleString()}`);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                showToast('Account number copied to clipboard!');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('Account number copied!');
+            });
+        }
+
+        function confirmPayment() {
+            if (selectedDeposit === 0) {
+                showToast('Please select a deposit amount first!');
+                return;
+            }
+            
+            const name = document.getElementById('clientName').value || 'Client';
+            const message = `Hi Semie! I've made a deposit payment of ₦${selectedDeposit.toLocaleString()}.\n\n👤 Name: ${name}\n💰 Amount Paid: ₦${selectedDeposit.toLocaleString()}\n\nHere's my proof of payment attached. Please confirm my booking! 🙏`;
+            
+            // REPLACE WITH YOUR WHATSAPP NUMBER
+            const whatsappNumber = '2348157238574';
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // ============================================
+        // TOAST NOTIFICATION
+        // ============================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        function toggleMobileMenu() {
+            const nav = document.querySelector('.nav-links');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            nav.style.position = 'absolute';
+            nav.style.top = '100%';
+            nav.style.left = '0';
+            nav.style.right = '0';
+            nav.style.flexDirection = 'column';
+            nav.style.background = 'var(--glass-bg)';
+            nav.style.padding = '2rem';
+            nav.style.backdropFilter = 'blur(20px)';
+            nav.style.zIndex = '999';
+        }
+
+        // ============================================
+        // FORM DEFAULTS
+        // ============================================
+        document.getElementById('bookingDate').min = new Date().toISOString().split('T')[0];
+
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // ============================================
+        // TESTIMONIALS PAUSE ON HOVER
+        // ============================================
+        const track = document.getElementById('testimonialsTrack');
+        track.addEventListener('mouseenter', () => {
+            track.style.animationPlayState = 'paused';
+        });
+        track.addEventListener('mouseleave', () => {
+            track.style.animationPlayState = 'running';
+        });
+    </script>
+</body>  
