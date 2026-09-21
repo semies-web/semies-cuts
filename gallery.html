@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore Semie's Cuts portfolio.">
+    <title>Gallery | Semie's Cuts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --surface: #1a0a2e; --border: rgba(200, 143, 228, 0.25); --accent: #c88fe4; --text: #fff; --muted: rgba(255,255,255,.7); }
+        * { box-sizing: border-box; }
+        body { margin: 0; min-height: 100vh; background: linear-gradient(135deg, #0d0518, #1a0a2e 55%, #260d35); color: var(--text); font-family: 'Inter', sans-serif; }
+        .page-header { max-width: 1200px; margin: 0 auto; padding: 3rem 5% 2rem; }
+        .back-link { color: var(--accent); text-decoration: none; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; }
+        h1 { margin: 2rem 0 .75rem; font-family: 'Orbitron', monospace; font-size: clamp(2rem, 6vw, 4rem); letter-spacing: .08em; }
+        .intro { max-width: 560px; margin: 0; color: var(--muted); line-height: 1.7; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1.25rem; max-width: 1200px; margin: 1rem auto 5rem; padding: 0 5%; }
+        .gallery-item { position: relative; aspect-ratio: 1 / 1.15; overflow: hidden; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); cursor: zoom-in; padding: 0; }
+        .gallery-item img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .45s ease; }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .lightbox { position: fixed; inset: 0; z-index: 10; display: none; align-items: center; justify-content: center; padding: 2rem; background: rgba(0,0,0,.92); touch-action: pan-y; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: min(100%, 900px); max-height: 90vh; object-fit: contain; border: 1px solid var(--border); border-radius: 10px; user-select: none; }
+        .lightbox-close, .lightbox-nav { position: absolute; border: 0; background: rgba(26,10,46,.8); color: var(--text); cursor: pointer; }
+        .lightbox-close { top: 1rem; right: 1.5rem; font-size: 2rem; background: transparent; }
+        .lightbox-nav { top: 50%; transform: translateY(-50%); width: 3rem; height: 3rem; border: 1px solid var(--border); border-radius: 50%; font-size: 1.5rem; }
+        .lightbox-nav.previous { left: 1.5rem; }
+        .lightbox-nav.next { right: 1.5rem; }
+        @media (max-width: 600px) { .lightbox { padding: 1rem; } .lightbox-nav { width: 2.5rem; height: 2.5rem; } .lightbox-nav.previous { left: .75rem; } .lightbox-nav.next { right: .75rem; } }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <a class="back-link" href="index.html">&larr; Back to home</a>
+        <h1>THE GALLERY</h1>
+        <p class="intro">A selection of work from Semie's Cuts.</p>
+    </header>
+
+    <main class="gallery" aria-label="Semie's Cuts portfolio">
+        <button class="gallery-item" type="button" data-full-image="images/braids.jpg" aria-label="Open gallery photo"><img src="images/braids.jpg" alt="Semie's Cuts portfolio photo"></button>
+        <button class="gallery-item" type="button" data-full-image="images/burst-fade.jpg" aria-label="Open gallery photo"><img src="images/burst-fade.jpg" alt="Semie's Cuts portfolio photo"></button>
+        <button class="gallery-item" type="button" data-full-image="images/buzzcut.jpg" aria-label="Open gallery photo"><img src="images/buzzcut.jpg" alt="Semie's Cuts portfolio photo"></button>
+        <button class="gallery-item" type="button" data-full-image="images/drop-fade.jpg" aria-label="Open gallery photo"><img src="images/drop-fade.jpg" alt="Semie's Cuts portfolio photo"></button>
+        <button class="gallery-item" type="button" data-full-image="images/high-fade.jpg" aria-label="Open gallery photo"><img src="images/high-fade.jpg" alt="Semie's Cuts portfolio photo"></button>
+        <button class="gallery-item" type="button" data-full-image="images/low-cut.jpg" aria-label="Open gallery photo"><img src="images/low-cut.jpg" alt="Semie's Cuts portfolio photo"></button>
+        <button class="gallery-item" type="button" data-full-image="images/modern-mullet.jpg" aria-label="Open gallery photo"><img src="images/modern-mullet.jpg" alt="Semie's Cuts portfolio photo"></button>
+        <button class="gallery-item" type="button" data-full-image="images/taper-fade.jpg" aria-label="Open gallery photo"><img src="images/taper-fade.jpg" alt="Semie's Cuts portfolio photo"></button>
+    </main>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded gallery image">
+        <button class="lightbox-close" type="button" aria-label="Close image">&times;</button>
+        <button class="lightbox-nav previous" type="button" aria-label="Previous photo">&#8592;</button>
+        <img id="lightboxImage" src="" alt="">
+        <button class="lightbox-nav next" type="button" aria-label="Next photo">&#8594;</button>
+    </div>
+
+    <script>
+        const galleryItems = [...document.querySelectorAll('.gallery-item')];
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const closeButton = document.querySelector('.lightbox-close');
+        let currentIndex = 0;
+        let touchStartX = 0;
+
+        function showPhoto(index) {
+            currentIndex = (index + galleryItems.length) % galleryItems.length;
+            const item = galleryItems[currentIndex];
+            lightboxImage.src = item.dataset.fullImage;
+            lightboxImage.alt = item.querySelector('img').alt;
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            lightboxImage.src = '';
+        }
+
+        galleryItems.forEach((item, index) => item.addEventListener('click', () => showPhoto(index)));
+        document.querySelector('.previous').addEventListener('click', event => { event.stopPropagation(); showPhoto(currentIndex - 1); });
+        document.querySelector('.next').addEventListener('click', event => { event.stopPropagation(); showPhoto(currentIndex + 1); });
+        closeButton.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', event => { if (event.target === lightbox) closeLightbox(); });
+        lightbox.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+        lightbox.addEventListener('touchend', event => {
+            const distance = event.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(distance) < 50) return;
+            showPhoto(distance < 0 ? currentIndex + 1 : currentIndex - 1);
+        }, { passive: true });
+        document.addEventListener('keydown', event => {
+            if (!lightbox.classList.contains('active')) return;
+            if (event.key === 'Escape') closeLightbox();
+            if (event.key === 'ArrowRight') showPhoto(currentIndex + 1);
+            if (event.key === 'ArrowLeft') showPhoto(currentIndex - 1);
+        });
+    </script>
+</body>
+</html>

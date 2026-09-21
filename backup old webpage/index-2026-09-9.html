@@ -49,7 +49,7 @@
             --card-bg: rgba(44, 12, 56, 0.37);
             --input-bg: rgba(18, 6, 34, 0.192);
             --shadow-color: rgba(0, 0, 0, 0.568);
-            --gradient-hero: linear-gradient(180deg, rgba(255, 255, 255, 0.0623) 0%, rgba(255, 255, 255, 0.9) 60%, var(--darker-purple) 100%);
+            --gradient-hero: linear-gradient(180deg, rgba(255, 255, 255, 0.062), 0.623) 0%, rgba(255, 255, 255, 0.9) 0%, var(--darker-purple) 100%);
             --gradient-about: linear-gradient(180deg, #ffffff 0%, #f5f0f7 100%);
             --gradient-transform: linear-gradient(180deg, #f5f0f7 0%, #ffffff 100%);
             --gradient-testimonials: linear-gradient(180deg, #ffffff 0%, #f5f0f7 100%);
@@ -123,8 +123,8 @@
         }
         .navbar.scrolled { background: rgba(13, 5, 24, 0.7); backdrop-filter: blur(14px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); }
         .logo-text { font-family: 'Orbitron', monospace; font-size: 1.5rem; font-weight: 900; color: var(--text-primary); letter-spacing: 2px; transition: color 0.5s ease; }
-        .nav-links { display: flex; gap: clamp(1rem, 2.5vw, 2.5rem); list-style: none; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: clamp(0.72rem, 1.2vw, 0.9rem); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.3s ease; position: relative; white-space: nowrap; }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s ease; position: relative; }
         .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--neon-purple); transition: width 0.3s ease; }
         .nav-links a:hover { color: var(--text-primary); }
         .nav-links a:hover::after { width: 100%; }
@@ -209,7 +209,7 @@
            ============================================ */
         .transformations-section { padding: 8rem 5%; background: var(--gradient-transform); transition: background 0.5s ease; }
         .transform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; max-width: 1000px; margin: 0 auto; }
-        .ba-slider { position: relative; width: 100%; height: 400px; border-radius: 20px; overflow: hidden; border: 2px solid var(--glass-border); cursor: col-resize; touch-action: none; transition: border-color 0.5s ease; }
+        .ba-slider { position: relative; width: 100%; height: 400px; border-radius: 20px; overflow: hidden; border: 2px solid var(--glass-border); cursor: col-resize; transition: border-color 0.5s ease; }
         .ba-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .ba-image.after { clip-path: inset(0 0 0 50%); }
         .ba-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: var(--neon-purple); box-shadow: 0 0 20px var(--neon-purple-glow); transform: translateX(-50%); z-index: 10; }
@@ -247,9 +247,12 @@
         @keyframes scroll-track { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .testimonial-card { width: 400px; flex-shrink: 0; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; backdrop-filter: blur(10px); transition: background 0.5s ease, border-color 0.5s ease; }
         .testimonial-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-        .testimonial-avatar { width: 54px; height: 54px; border-radius: 50%; position: relative; overflow: hidden; background: #20202a; box-shadow: 0 10px 18px rgba(0,0,0,0.18); border: 2px solid rgba(255,255,255,0.14); }
-        .testimonial-avatar::before { content: ''; position: absolute; top: 9px; left: 17px; width: 18px; height: 20px; border-radius: 50%; background: #050507; }
-        .testimonial-avatar::after { content: ''; position: absolute; left: 8px; bottom: -8px; width: 38px; height: 34px; border-radius: 50% 50% 0 0; background: #050507; }
+        .testimonial-avatar { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; position: relative; box-shadow: 0 10px 18px rgba(0,0,0,0.18); border: 2px solid rgba(255,255,255,0.14); }
+        .testimonial-avatar::after { content: ''; position: absolute; top: 4px; right: 4px; width: 16px; height: 16px; border-radius: 50%; background: rgba(255,255,255,0.85); box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+        .profile-avatar--blue { background: linear-gradient(135deg, #4f46e5, #9333ea); }
+        .profile-avatar--green { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .profile-avatar--orange { background: linear-gradient(135deg, #f97316, #eab308); }
+        .profile-avatar--pink { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
         .testimonial-name { font-weight: 600; transition: color 0.5s ease; }
         .testimonial-stars { color: #ffd700; font-size: 0.9rem; }
         .testimonial-text { color: var(--text-secondary); line-height: 1.7; font-style: italic; transition: color 0.5s ease; }
@@ -296,9 +299,6 @@
         .policy-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 5000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; backdrop-filter: blur(5px); }
         .policy-modal.active { opacity: 1; visibility: visible; }
         .policy-modal.mandatory { z-index: 9999; background: rgba(0, 0, 0, 0.85); }
-        .policy-action-panel { width: min(600px, 92vw); max-height: 88vh; display: flex; flex-direction: column; }
-        .policy-action-panel .policy-modal-content { max-width: none; max-height: 72vh; border-radius: 20px 20px 0 0; }
-        .policy-action-panel .policy-accept-btn { margin: 0; border-radius: 0 0 12px 12px; flex-shrink: 0; }
         .policy-modal-content { background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem; max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4); }
         .policy-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--text-secondary); font-size: 1.5rem; cursor: pointer; transition: color 0.3s ease; }
         .policy-close:hover { color: var(--text-primary); }
@@ -352,7 +352,7 @@
         .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
         .social-links a { width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); text-decoration: none; font-size: 1.2rem; transition: all 0.4s ease, border-color 0.5s ease, color 0.5s ease; }
         .social-links a:hover { border-color: var(--neon-purple); color: var(--neon-purple-glow); box-shadow: 0 0 20px rgba(178, 71, 217, 0.822); transform: translateY(-3px); }
-        .copyright { color: rgba(0, 0, 0, 0.342); font-size: 0.85rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); transition: color 0.5s ease, border-color 0.5s ease; }
+        .copyright { color: rgb(0, 0, 0)342); font-size: 0.85rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); transition: color 0.5s ease, border-color 0.5s ease; }
         [data-theme="light"] .copyright { color: rgba(0, 0, 0, 0.836); }
 
         /* ============================================
@@ -377,10 +377,6 @@
             .testimonial-card { width: 300px; }
             .deposit-amounts { grid-template-columns: 1fr; }
             .account-row { flex-direction: column; align-items: flex-start; }
-        }
-        @media (min-width: 769px) and (max-width: 900px) {
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
         }
             .logo-text {
     display: flex;
@@ -414,7 +410,6 @@
             <li><a href="#about">About</a></li>
             <li><a href="#styles">Styles</a></li>
             <li><a href="#transformations">Transformations</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
             <li><a href="#book">Book</a></li>
         </ul>
         <div class="nav-actions">
@@ -482,35 +477,35 @@
         <div class="section-header reveal"><h2 class="section-title">SIGNATURE STYLES</h2></div>
         <div class="styles-grid" id="stylesGrid">
             <div class="style-card reveal" data-style="Afro Taper Fade" data-price="₦3,500" onclick="selectStyle(this)">
-                <img src="image styles/braids.jpg" alt="braids" loading="lazy" width="300" height="300">
+                <img src="images/braids.jpg" alt="braids" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">braids</div><div class="style-price">From ₦3,500</div></div>
             </div>
             <div class="style-card reveal" data-style="Blowout Taper" data-price="₦4,000" onclick="selectStyle(this)">
-                <img src="image styles/burst-fade.jpg" alt="burst-fade" loading="lazy" width="300" height="300">
+                <img src="images/burst-fade.jpg" alt="burst-fade" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">burst-fade</div><div class="style-price">From ₦4,000</div></div>
             </div>
             <div class="style-card reveal" data-style="Braids" data-price="₦5,000" onclick="selectStyle(this)">
-                <img src="image styles/buzzcut.jpg" alt="buzzcut" loading="lazy" width="300" height="300">
+                <img src="images/buzzcut.jpg" alt="buzzcut" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">buzzcut</div><div class="style-price">From ₦5,000</div></div>
             </div>
             <div class="style-card reveal" data-style="Curl Sponge Fade" data-price="₦3,000" onclick="selectStyle(this)">
-                <img src="image styles/drop-fade.jpg" alt="drop-fade" loading="lazy" width="300" height="300">
+                <img src="images/drop-fade.jpg" alt="drop-fade" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">drop-fade</div><div class="style-price">From ₦3,000</div></div>
             </div>
             <div class="style-card reveal" data-style="High Top Fade" data-price="₦3,500" onclick="selectStyle(this)">
-                <img src="image styles/high-fade.jpg" alt="high-fade" loading="lazy" width="300" height="300">
+                <img src="images/high-fade.jpg" alt="high-fade" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">high-fade</div><div class="style-price">From ₦3,500</div></div>
             </div>
             <div class="style-card reveal" data-style="Buzz Cut" data-price="₦2,000" onclick="selectStyle(this)">
-                <img src="image styles/low-cut.jpg" alt="low-cut" loading="lazy" width="300" height="300">
+                <img src="images/low-cut.jpg" alt="low-cut" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">low-cut</div><div class="style-price">From ₦2,000</div></div>
             </div>
             <div class="style-card reveal" data-style="Temp Fade" data-price="₦3,000" onclick="selectStyle(this)">
-                <img src="image styles/modern-mullet.jpg" alt="modern-mullet" loading="lazy" width="300" height="300">
+                <img src="images/modern-mullet.jpg" alt="modern-mullet" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">modern-mullet</div><div class="style-price">From ₦3,000</div></div>
             </div>
             <div class="style-card reveal" data-style="Taper Fade" data-price="₦4,500" onclick="selectStyle(this)">
-                <img src="image styles/taper-fade.jpg" alt="taper-fade" loading="lazy" width="300" height="300">
+                <img src="images/taper-fade.jpg" alt="taper-fade" loading="lazy" width="300" height="300">
                 <div class="style-overlay"><div class="style-name">taper-fade</div><div class="style-price">From ₦4,500</div></div>
             </div>
         </div>
@@ -569,7 +564,7 @@
 Call Now</a>
             </div>
             <div class="reveal" style="order: 1; border-radius: 20px; overflow: hidden; border: 2px solid rgba(200, 143, 228, 0.4); box-shadow: 0 0 30px rgba(157, 78, 192, 0.2), inset 0 0 20px rgba(157, 78, 192, 0.1); backdrop-filter: blur(10px);">
-                <iframe src="https://www.google.com/maps?q=13+Shaki+Street,+Ibari+Road,+Mashalashi&output=embed" width="100%" height="400" style="border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7919253405107!2d3.3521!3d6.5356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f6f4f4f4f4f4f4f%3A0x1234567890!2sAlagbado%2C%20Moshalashi%2C%20Lagos!5e0!3m2!1sen!2sng!4v1234567890" width="100%" height="400" style="border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
@@ -626,58 +621,58 @@ Call Now</a>
         <div class="testimonials-track" id="testimonialsTrack">
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">David</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar profile-avatar--green"><span>DO</span></div>
+                    <div><div class="testimonial-name">David </div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">Michael</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar profile-avatar--blue"><span>MK</span></div>
+                    <div><div class="testimonial-name">Michael K.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary."</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">James</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar profile-avatar--orange"><span>JT</span></div>
+                    <div><div class="testimonial-name">James T.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent."</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">Emmanuel</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar profile-avatar--pink"><span>ER</span></div>
+                    <div><div class="testimonial-name">Emmanuel R.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
             </div>
             <!-- Duplicates for infinite scroll -->
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">David</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar profile-avatar--green"><span>DO</span></div>
+                    <div><div class="testimonial-name">David O.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">Michael</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar profile-avatar--blue"><span>MK</span></div>
+                    <div><div class="testimonial-name">Michael K.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary."</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">James</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar profile-avatar--orange"><span>JT</span></div>
+                    <div><div class="testimonial-name">James T.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent."</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">Emmanuel</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar profile-avatar--pink"><span>ER</span></div>
+                    <div><div class="testimonial-name">Emmanuel R.</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
                 <p class="testimonial-text">"The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
             </div>
@@ -859,7 +854,7 @@ Book via WhatsApp</span>
     <footer class="footer">
         <div class="footer-tagline"><i>"AVERAGE?   NAH I'M THE ALPHA"</i> </div>
         <div class="social-links">
-            <a href="gallery.html" title="View Gallery">📷</a>
+            <a href="#" title="Instagram">📷</a>
             <a href="#" title="TikTok"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:8px;">
   <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
   <line x1="12" y1="18" x2="12.01" y2="18"/>
@@ -882,74 +877,69 @@ Book via WhatsApp</span>
 
     <!-- Policy Modals -->
     <div class="policy-modal" id="termsModal">
-        <div class="policy-action-panel">
-            <div class="policy-modal-content">
-                <button class="policy-close" onclick="closePolicyModal('terms')">&times;</button>
-                <h3>Terms of Service</h3>
-                <p><strong>Last Updated: August 2026</strong></p>
-                <p>Welcome to Semie's Cuts. By booking an appointment and using our services, you agree to these terms.</p>
-                <h4>1. Booking & Appointments</h4>
-                <ul>
-                    <li>All appointments must be booked at least 24 hours in advance</li>
-                    <li>Deposits are non-transferable but can be rescheduled with 24-hour notice</li>
-                    <li>We reserve the right to decline service if a client is under the influence or disruptive</li>
-                </ul>
-                <h4>2. Cancellation Policy</h4>
-                <ul>
-                    <li>Cancel or reschedule at least 24 hours before your appointment for a full refund</li>
-                    <li>Less than 24 hours notice: deposit is forfeited</li>
-                    <li>No-show: deposit is forfeited and future bookings may require full prepayment</li>
-                </ul>
-                <h4>3. Payment Terms</h4>
-                <ul>
-                    <li>Deposits secure your appointment and go toward the final bill</li>
-                    <li>Final payment is due on the day of service</li>
-                    <li>We accept bank transfers and cash</li>
-                </ul>
-  sssssssssssssss              <h4>4. Liability</h4>
-                <p>Semie's Cuts is not responsible for allergic reactions to products, hair damage from client-requested styles that may not be suitable for their hair type, or personal injuries at home service locations.</p>
-                <h4>5. Changes to Terms</h4>
-                <p>We reserve the right to update these terms at any time. Changes will be posted on our website.</p>
-            </div>
+        <div class="policy-modal-content">
+            <button class="policy-close" onclick="closePolicyModal('terms')">&times;</button>
+            <h3>Terms of Service</h3>
+            <p><strong>Last Updated: August 2026</strong></p>
+            <p>Welcome to Semie's Cuts. By booking an appointment and using our services, you agree to these terms.</p>
+            <h4>1. Booking & Appointments</h4>
+            <ul>
+                <li>All appointments must be booked at least 24 hours in advance</li>
+                <li>Deposits are non-transferable but can be rescheduled with 24-hour notice</li>
+                <li>We reserve the right to decline service if a client is under the influence or disruptive</li>
+            </ul>
+            <h4>2. Cancellation Policy</h4>
+            <ul>
+                <li>Cancel or reschedule at least 24 hours before your appointment for a full refund</li>
+                <li>Less than 24 hours notice: deposit is forfeited</li>
+                <li>No-show: deposit is forfeited and future bookings may require full prepayment</li>
+            </ul>
+            <h4>3. Payment Terms</h4>
+            <ul>
+                <li>Deposits secure your appointment and go toward the final bill</li>
+                <li>Final payment is due on the day of service</li>
+                <li>We accept bank transfers and cash</li>
+            </ul>
+            <h4>4. Liability</h4>
+            <p>Semie's Cuts is not responsible for allergic reactions to products, hair damage from client-requested styles that may not be suitable for their hair type, or personal injuries at home service locations.</p>
+            <h4>5. Changes to Terms</h4>
+            <p>We reserve the right to update these terms at any time. Changes will be posted on our website.</p>
             <button class="policy-accept-btn" onclick="acceptMandatoryPolicy()">I Agree & Accept Terms</button>
         </div>
     </div>
 
     <div class="policy-modal" id="privacyModal">
-        <div class="policy-action-panel">
-            <div class="policy-modal-content">
-                <button class="policy-close" onclick="closePolicyModal('privacy')">&times;</button>
-                <h3>Privacy Policy</h3>
-                <p><strong>Last Updated: August 2026</strong></p>
-                <p>Your privacy is important to us. This policy explains what personal data we collect and how we use it.</p>
-                <h4>1. Information We Collect</h4>
-                <ul>
-                    <li><strong>Booking Info:</strong> Name, phone number, email, preferred date/time</li>
-                    <li><strong>Service Preferences:</strong> Hairstyle, location preference, special requests</li>
-                    <li><strong>Payment Info:</strong> Bank transfer details for deposits (we don't store card data)</li>
-                    <li><strong>Technical Data:</strong> Browser type, IP address (via analytics)</li>
-                </ul>
-                <h4>2. How We Use Your Data</h4>
-                <ul>
-                    <li>Confirming and managing your appointment</li>
-                    <li>Sending booking reminders via WhatsApp or email</li>
-                    <li>Improving our services and website</li>
-                    <li>Legal compliance and fraud prevention</li>
-                </ul>
-                <h4>3. Data Retention</h4>
-                <p>We keep booking information for 2 years. You can request deletion anytime by emailing us.</p>
-                <h4>4. Sharing Your Data</h4>
-                <p>We do NOT sell or share your personal data with third parties. Your information is used only by Semie's Cuts.</p>
-                <h4>5. Your Rights</h4>
-                <ul>
-                    <li>Right to access: Request a copy of your data anytime</li>
-                    <li>Right to delete: Request deletion of your information</li>
-                    <li>Right to opt-out: Unsubscribe from reminders (but booking confirmations will still be sent)</li>
-                </ul>
-                <h4>6. Contact Us</h4>
-                <p>Questions about your privacy? Email: joseph207jj@gmail.com</p>
-            </div>
-            <button class="policy-accept-btn" onclick="acceptPrivacyPolicy()">I Understand & Accept Privacy Policy</button>
+        <div class="policy-modal-content">
+            <button class="policy-close" onclick="closePolicyModal('privacy')">&times;</button>
+            <h3>Privacy Policy</h3>
+            <p><strong>Last Updated: August 2026</strong></p>
+            <p>Your privacy is important to us. This policy explains what personal data we collect and how we use it.</p>
+            <h4>1. Information We Collect</h4>
+            <ul>
+                <li><strong>Booking Info:</strong> Name, phone number, email, preferred date/time</li>
+                <li><strong>Service Preferences:</strong> Hairstyle, location preference, special requests</li>
+                <li><strong>Payment Info:</strong> Bank transfer details for deposits (we don't store card data)</li>
+                <li><strong>Technical Data:</strong> Browser type, IP address (via analytics)</li>
+            </ul>
+            <h4>2. How We Use Your Data</h4>
+            <ul>
+                <li>Confirming and managing your appointment</li>
+                <li>Sending booking reminders via WhatsApp or email</li>
+                <li>Improving our services and website</li>
+                <li>Legal compliance and fraud prevention</li>
+            </ul>
+            <h4>3. Data Retention</h4>
+            <p>We keep booking information for 2 years. You can request deletion anytime by emailing us.</p>
+            <h4>4. Sharing Your Data</h4>
+            <p>We do NOT sell or share your personal data with third parties. Your information is used only by Semie's Cuts.</p>
+            <h4>5. Your Rights</h4>
+            <ul>
+                <li>Right to access: Request a copy of your data anytime</li>
+                <li>Right to delete: Request deletion of your information</li>
+                <li>Right to opt-out: Unsubscribe from reminders (but booking confirmations will still be sent)</li>
+            </ul>
+            <h4>6. Contact Us</h4>
+            <p>Questions about your privacy? Email: joseph207jj@gmail.com</p>
         </div>
     </div>
 
@@ -1013,12 +1003,6 @@ Book via WhatsApp</span>
                 termsModal.classList.remove('mandatory');
             }
             showToast('Thank you! Policies accepted.');
-        }
-
-        function acceptPrivacyPolicy() {
-            localStorage.setItem('semie-privacy-accepted', 'true');
-            closePolicyModal('privacy');
-            showToast('Privacy policy acknowledged.');
         }
 
         // Show mandatory policy on page load
@@ -1392,7 +1376,6 @@ Book via WhatsApp</span>
         // ============================================
         function initBASlider(id) {
             const slider = document.getElementById(id);
-            if (!slider) return;
             const handle = slider.querySelector('.ba-handle');
             const afterImg = slider.querySelector('.ba-image.after');
             let isDragging = false;
@@ -1405,28 +1388,23 @@ Book via WhatsApp</span>
                 afterImg.style.clipPath = `inset(0 0 0 ${percentage}%)`;
             }
 
-            slider.addEventListener('pointerdown', (event) => {
-                isDragging = true;
-                slider.setPointerCapture(event.pointerId);
-                updateSlider(event.clientX);
+            handle.addEventListener('mousedown', () => isDragging = true);
+            document.addEventListener('mouseup', () => isDragging = false);
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) updateSlider(e.clientX);
             });
 
-            slider.addEventListener('pointermove', (event) => {
-                if (isDragging) updateSlider(event.clientX);
+            handle.addEventListener('touchstart', () => isDragging = true);
+            document.addEventListener('touchend', () => isDragging = false);
+            document.addEventListener('touchmove', (e) => {
+                if (isDragging) updateSlider(e.touches[0].clientX);
             });
 
-            slider.addEventListener('pointerup', (event) => {
-                isDragging = false;
-                slider.releasePointerCapture(event.pointerId);
-            });
-
-            slider.addEventListener('pointercancel', () => isDragging = false);
+            slider.addEventListener('click', (e) => updateSlider(e.clientX));
         }
 
         initBASlider('ba1');
         initBASlider('ba2');
-        initBASlider('ba3');
-        initBASlider('ba4');
 
         // ============================================
         // PRICING TOGGLE
