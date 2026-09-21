@@ -209,7 +209,7 @@
            ============================================ */
         .transformations-section { padding: 8rem 5%; background: var(--gradient-transform); transition: background 0.5s ease; }
         .transform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; max-width: 1000px; margin: 0 auto; }
-        .ba-slider { position: relative; width: 100%; height: 400px; border-radius: 20px; overflow: hidden; border: 2px solid var(--glass-border); cursor: col-resize; touch-action: none; transition: border-color 0.5s ease; }
+        .ba-slider { position: relative; width: 100%; height: 400px; border-radius: 20px; overflow: hidden; border: 2px solid var(--glass-border); cursor: col-resize; touch-action: pan-y; transition: border-color 0.5s ease; }
         .ba-image { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .ba-image.after { clip-path: inset(0 0 0 50%); }
         .ba-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; background: var(--neon-purple); box-shadow: 0 0 20px var(--neon-purple-glow); transform: translateX(-50%); z-index: 10; }
@@ -1396,6 +1396,9 @@ Book via WhatsApp</span>
             const handle = slider.querySelector('.ba-handle');
             const afterImg = slider.querySelector('.ba-image.after');
             let isDragging = false;
+            let pointerId = null;
+            let startX = 0;
+            let startY = 0;
 
             function updateSlider(x) {
                 const rect = slider.getBoundingClientRect();
@@ -1406,21 +1409,38 @@ Book via WhatsApp</span>
             }
 
             slider.addEventListener('pointerdown', (event) => {
-                isDragging = true;
-                slider.setPointerCapture(event.pointerId);
-                updateSlider(event.clientX);
+                pointerId = event.pointerId;
+                startX = event.clientX;
+                startY = event.clientY;
             });
 
             slider.addEventListener('pointermove', (event) => {
-                if (isDragging) updateSlider(event.clientX);
+                if (event.pointerId !== pointerId) return;
+
+                if (!isDragging) {
+                    const horizontalDistance = Math.abs(event.clientX - startX);
+                    const verticalDistance = Math.abs(event.clientY - startY);
+                    if (horizontalDistance < 8 || horizontalDistance <= verticalDistance) return;
+
+                    isDragging = true;
+                    slider.setPointerCapture(event.pointerId);
+                }
+
+                updateSlider(event.clientX);
             });
 
             slider.addEventListener('pointerup', (event) => {
-                isDragging = false;
-                slider.releasePointerCapture(event.pointerId);
+                if (event.pointerId === pointerId) {
+                    if (isDragging) slider.releasePointerCapture(event.pointerId);
+                    isDragging = false;
+                    pointerId = null;
+                }
             });
 
-            slider.addEventListener('pointercancel', () => isDragging = false);
+            slider.addEventListener('pointercancel', () => {
+                isDragging = false;
+                pointerId = null;
+            });
         }
 
         initBASlider('ba1');
