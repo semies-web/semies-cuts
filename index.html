@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Semie's Cuts  Precision Meets Style</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -117,7 +117,8 @@
            NAVIGATION
            ============================================ */
         .navbar {
-            position: fixed; top: 0; width: 100%; padding: 1.2rem 5%;
+            position: fixed; top: 0; width: 100%;
+            padding: calc(0.65rem + env(safe-area-inset-top, 0px)) calc(5% + env(safe-area-inset-right, 0px)) 0.65rem calc(5% + env(safe-area-inset-left, 0px));
             display: flex; justify-content: space-between; align-items: center;
             z-index: 1000; transition: all 0.4s ease; background: transparent;
         }
@@ -248,8 +249,7 @@
         .testimonial-card { width: 400px; flex-shrink: 0; background: var(--card-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 2rem; backdrop-filter: blur(10px); transition: background 0.5s ease, border-color 0.5s ease; }
         .testimonial-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
         .testimonial-avatar { width: 54px; height: 54px; border-radius: 50%; position: relative; overflow: hidden; background: #20202a; box-shadow: 0 10px 18px rgba(0,0,0,0.18); border: 2px solid rgba(255,255,255,0.14); }
-        .testimonial-avatar::before { content: ''; position: absolute; top: 9px; left: 17px; width: 18px; height: 20px; border-radius: 50%; background: #050507; }
-        .testimonial-avatar::after { content: ''; position: absolute; left: 8px; bottom: -8px; width: 38px; height: 34px; border-radius: 50% 50% 0 0; background: #050507; }
+        .testimonial-avatar img { width: 100%; height: 100%; display: block; object-fit: cover; }
         .testimonial-name { font-weight: 600; transition: color 0.5s ease; }
         .testimonial-stars { color: #ffd700; font-size: 0.9rem; }
         .testimonial-text { color: var(--text-secondary); line-height: 1.7; font-style: italic; transition: color 0.5s ease; }
@@ -282,8 +282,7 @@
         .form-group label { display: block; margin-bottom: 0.5rem; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.5s ease; }
         .form-group input, .form-group select { width: 100%; padding: 1rem 1.2rem; background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 1rem; transition: all 0.3s ease, background 0.5s ease, border-color 0.5s ease, color 0.5s ease; outline: none; }
         .form-group input:focus, .form-group select:focus { border-color: var(--neon-purple); box-shadow: 0 0 20px rgba(179, 71, 217, 0.2); background: var(--input-bg); }
-        .form-group input::placeholder { color: rgba(255, 255, 255, 0.3); }
-        [data-theme="light"] .form-group input::placeholder { color: rgba(26, 10, 46, 0.3); }
+        .form-group input::placeholder { color: var(--text-secondary); opacity: 1; }
         .booking-actions { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
         .btn-whatsapp { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; background: linear-gradient(135deg, var(--whatsapp), #128C7E); color: white; border: none; border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.4s ease; text-decoration: none; }
         .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); }
@@ -352,8 +351,7 @@
         .social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
         .social-links a { width: 45px; height: 45px; border-radius: 50%; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); text-decoration: none; font-size: 1.2rem; transition: all 0.4s ease, border-color 0.5s ease, color 0.5s ease; }
         .social-links a:hover { border-color: var(--neon-purple); color: var(--neon-purple-glow); box-shadow: 0 0 20px rgba(178, 71, 217, 0.822); transform: translateY(-3px); }
-        .copyright { color: rgba(0, 0, 0, 0.342); font-size: 0.85rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); transition: color 0.5s ease, border-color 0.5s ease; }
-        [data-theme="light"] .copyright { color: rgba(0, 0, 0, 0.836); }
+        .copyright { color: var(--text-secondary); font-size: 0.85rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); transition: color 0.5s ease, border-color 0.5s ease; }
 
         /* ============================================
            TOAST
@@ -365,6 +363,7 @@
            RESPONSIVE
            ============================================ */
         @media (max-width: 768px) {
+            .navbar { padding-top: calc(0.45rem + env(safe-area-inset-top, 0px)); padding-bottom: 0.45rem; }
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
             .about-grid { grid-template-columns: 1fr; text-align: center; }
@@ -387,9 +386,9 @@
     align-items: center; /* Centers the logo vertically with the menu items */
 }
 
-.logo-text svg {
-    height: 50px; /* You can adjust this number to fit your navbar height */
-    width: auto;  /* This keeps the correct aspect ratio */
+.logo-text img {
+    width: clamp(120px, 14vw, 165px);
+    height: auto;
     display: block;
 }
     </style>
@@ -405,10 +404,7 @@
 
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
-        <div class="logo-text"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1536">
-  <path fill="#fff" d="M302 546L302 661 658 912 678 933 694 966 697 999 691 1033 670 1078 647 1106 604 1143 557 1171 621 1116 642 1084 648 1055 645 1029 635 1008 623 994 303 773 302 925 452 1027 517 1075 541 1098 554 1124 555 1150 551 1164 538 1184 596 1181 656 1170 714 1149 754 1124 788 1085 798 1064 806 1031 806 997 802 977 780 934 757 910 726 887 648 848 647 774Z"/>
-  <path fill="#fff" d="M408 339L360 377 337 414 332 438 333 457 347 493 367 516 386 531 589 665 685 733 708 758 719 786 718 820 706 849 755 822 790 788 802 767 809 744 808 691 799 664 786 642 740 598 479 429 453 406 439 382 437 358 441 344 459 314Z"/>
-</svg></div>
+                <div class="logo-text"><img src="images/logo-transparent.png" alt="Semie's Cuts"></div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
@@ -569,7 +565,7 @@
 Call Now</a>
             </div>
             <div class="reveal" style="order: 1; border-radius: 20px; overflow: hidden; border: 2px solid rgba(200, 143, 228, 0.4); box-shadow: 0 0 30px rgba(157, 78, 192, 0.2), inset 0 0 20px rgba(157, 78, 192, 0.1); backdrop-filter: blur(10px);">
-                <iframe src="https://www.google.com/maps?q=13+Shaki+Street,+Ibari+Road,+Mashalashi&output=embed" width="100%" height="400" style="border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps?q=13+Shaki+Street,+Ibari+Road,+Mashalashi&output=embed" title="Map showing Semie's Cuts on Shaki Street" width="100%" height="400" style="border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
@@ -626,60 +622,60 @@ Call Now</a>
         <div class="testimonials-track" id="testimonialsTrack">
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">David</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar"><img src="images/BOE.jpg" alt="BOE"></div>
+                    <div><div class="testimonial-name">BOE</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
+                <p class="testimonial-text">Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">Michael</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar"><img src="images/daniel.jpg" alt="Daniel"></div>
+                    <div><div class="testimonial-name">Daniel</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary."</p>
+                <p class="testimonial-text">Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary.</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">James</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar"><img src="images/godboy.jpeg" alt="Godboy"></div>
+                    <div><div class="testimonial-name">Godboy</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent."</p>
+                <p class="testimonial-text">Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent.</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">Emmanuel</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar"><img src="images/ken.jpg" alt="Ken"></div>
+                    <div><div class="testimonial-name">Ken</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
+                <p class="testimonial-text">The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!</p>
             </div>
             <!-- Duplicates for infinite scroll -->
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">David</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar"><img src="images/loni.jpg" alt="Loni"></div>
+                    <div><div class="testimonial-name">Loni</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!"</p>
+                <p class="testimonial-text">Semie doesn't just cut hair  he crafts art. My fade has never been this clean. The home service is a game changer!</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">Michael</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar"><img src="images/lordemmy.jog.jpeg" alt="Lordemmy"></div>
+                    <div><div class="testimonial-name">Lordemmy</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary."</p>
+                <p class="testimonial-text">Been coming to Semie for 2 years straight. Consistent quality every single time. The braids he did for my wedding? Legendary.</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">James</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar"><img src="images/theo.jpg" alt="Steeve"></div>
+                    <div><div class="testimonial-name">Steeve</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent."</p>
+                <p class="testimonial-text">Finally a barber who listens! I showed him a picture and got exactly that. Professional, punctual, and pure talent.</p>
             </div>
             <div class="testimonial-card">
                 <div class="testimonial-header">
-                    <div class="testimonial-avatar"></div>
-                    <div><div class="testimonial-name">Emmanuel</div><div class="testimonial-stars">★★★★★</div></div>
+                    <div class="testimonial-avatar"><img src="images/theo.jpg" alt="Theo"></div>
+                    <div><div class="testimonial-name">Theo</div><div class="testimonial-stars">★★★★★</div></div>
                 </div>
-                <p class="testimonial-text">"The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!"</p>
+                <p class="testimonial-text">The atmosphere, the skill, the conversation  Semie's Cuts is an experience, not just a haircut. Highly recommend!</p>
             </div>
         </div>
     </section>
@@ -752,9 +748,9 @@ Call Now</a>
             <div class="selected-style-display" id="selectedStyleDisplay" style="display: none;"><span>✓</span><span id="selectedStyleText">Selected: None</span></div>
             <form id="bookingForm" onsubmit="return false;">
                 <div class="form-grid">
-                    <div class="form-group"><label>Your Name</label><input type="text" id="clientName" placeholder="GOD HAS" required></div>
+                    <div class="form-group"><label for="clientName">Your Name</label><input type="text" id="clientName" placeholder="GOD HAS" required></div>
                     <div class="form-group">
-                        <label>Service Type</label>
+                        <label for="serviceType">Service Type</label>
                         <select id="serviceType" required>
                             <option value="">Select Service</option>
                             <option value="classic">Classic Cut</option>
@@ -762,9 +758,9 @@ Call Now</a>
                             <option value="royal">Royal Treatment</option>
                         </select>
                     </div>
-                    <div class="form-group"><label>Preferred Date</label><input type="date" id="bookingDate" required></div>
+                    <div class="form-group"><label for="bookingDate">Preferred Date</label><input type="date" id="bookingDate" required></div>
                     <div class="form-group">
-                        <label>Preferred Time</label>
+                        <label for="bookingTime">Preferred Time</label>
                         <select id="bookingTime" required>
                             <option value="">Select Time</option>
                             <option value="9:00 AM">9:00 AM</option>
@@ -779,14 +775,14 @@ Call Now</a>
                         </select>
                     </div>
                     <div class="form-group full-width">
-                        <label>Location Preference</label>
+                        <label for="locationPref">Location Preference</label>
                         <select id="locationPref" required>
                             <option value="">Select Location Type</option>
                             <option value="shop">In-Shop (Address provided after booking)</option>
                             <option value="home">Home Service (I'll come to you)</option>
                         </select>
                     </div>
-                    <div class="form-group full-width"><label>Special Requests</label><input type="text" id="specialRequests" placeholder="Any specific details about your cut..."></div>
+                    <div class="form-group full-width"><label for="specialRequests">Special Requests</label><input type="text" id="specialRequests" placeholder="Any specific details about your cut..."></div>
                 </div>
                 <div class="booking-actions">
                     <button type="button" class="btn-whatsapp" onclick="bookViaWhatsApp()"><span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:8px;">
@@ -1012,12 +1008,20 @@ Book via WhatsApp</span>
         }
 
         function acceptMandatoryPolicy() {
-            localStorage.setItem('semie-policy-accepted', 'true');
             const termsModal = document.getElementById('termsModal');
+            const scrollPosition = termsModal?.classList.contains('mandatory') ? 0 : window.scrollY;
+            localStorage.setItem('semie-policy-accepted', 'true');
             if (termsModal) {
                 termsModal.classList.remove('active');
                 termsModal.classList.remove('mandatory');
             }
+            requestAnimationFrame(() => {
+                document.documentElement.style.scrollBehavior = 'auto';
+                window.scrollTo(0, scrollPosition);
+                requestAnimationFrame(() => {
+                    document.documentElement.style.scrollBehavior = '';
+                });
+            });
             showToast('Thank you! Policies accepted.');
         }
 
